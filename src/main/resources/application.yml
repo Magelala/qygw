@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    username: root
+    password: abc
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhos:3306/problog?serverTimezone=GMT%2B8
