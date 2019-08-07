@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>首页</title>
+    <link rel="stylesheet" href="css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">公司LOGO</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href=""></a></li>
+            <li class="layui-nav-item"><a href="">数据中心</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">用户名
+                </a>
+                <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                    <dd><a href="javascript:;">基本资料</a></dd>
+                    <dd><a href="javascript:;">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed message">
+                    <a class="" href="javascript:;">文章</a>
+                    <!--<ul class="secondary-menu">
+                        <li class="layui-nav-item"><a href="">所有文章</a></li>
+                        <li class="layui-nav-item"><a href="">写文章</a></li>
+                        <li class="layui-nav-item"><a href="">分类目录</a></li>
+                        <li class="layui-nav-item"><a href="">标签</a></li>
+                    </ul>-->
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="javascript:;">页面</a>
+                </li>
+                <li class="layui-nav-item"><a href="javascript:;">外观</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">用户</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">设置</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <div class="content">
+                <p>访问人数：${visitor }人次</p>
+                <p>文章数量：${pageCount }<br>
+                    分类：</p>
+                <p>表单提交数：${submitCount }次</p>
+                <p>最近新增文章数：${newMessageCount }条</p>
+                <p>消息提醒：你有${messageCount }条信息</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer" style="background-color:black;color:white;text-align:center;">
+        <!-- 底部固定区域 -->
+        © magelala.com
+    </div>
+</div>
+<script src="js/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>
+</body>
+</html>
