@@ -17,7 +17,7 @@ import java.io.IOException;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private static String username = "static.admain";
+    private static String username = "static";
     private static String password = "123456";
 
     /**
@@ -32,7 +32,7 @@ public class AdminController {
     public String login(User user, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         if (user.getUsername().equals(username) && user.getPassword().equals(password)){
             httpServletRequest.getSession().setAttribute("user",user);
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+ "/static.admain/index.html");
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+ "/templates/index.html");
         }else{
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/toLogin");
         }
