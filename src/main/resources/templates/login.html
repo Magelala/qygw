@@ -1,13 +1,14 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>后台登录</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" charset="utf-8">
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="/static/css/style.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+	<link href="static/css/style.css" th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 	<style>
 		body{color:#fff; font-family:"微软雅黑"; font-size:14px;}
 		.wrap1{position:absolute; top:0; right:0; bottom:0; left:0; margin:auto }/*把整个屏幕真正撑开--而且能自己实现居中*/
-		.main_content{background:url(/static/img/main_bg.png) repeat; margin-left:auto; margin-right:auto; text-align:left; float:none; border-radius:8px;}
+		.main_content{background:url(img/main_bg.png) repeat; margin-left:auto; margin-right:auto; text-align:left; float:none; border-radius:8px;}
 		.form-group{position:relative;}
 		.login_btn{display:block; background:#3872f6; color:#fff; font-size:15px; width:100%; line-height:50px; border-radius:3px; border:none; }
 		.login_input{width:100%; border:1px solid #3872f6; border-radius:3px; line-height:40px; padding:2px 5px 2px 30px; background:none;}
@@ -43,7 +44,7 @@
 			<div class="form-group mg-t20">
 				<i class="icon-lock icon_font"></i>
 				<input type="password" name="password" class="login_input" id="showPassword" placeholder="6-12位数字、字母或字符" />
-				<img class="show" id="show" alt="显示密码"  onclick="hideShowPsw()" src="/static/img/visible.png">
+				<img class="show" id="show" alt="显示密码"  onclick="hideShowPsw()" src="/static/img/visible.png" th:src="@{/img/visible.png}">
 			</div>
 			<div class="checkbox mg-b25">
 				<label>

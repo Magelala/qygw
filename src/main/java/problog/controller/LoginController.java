@@ -27,7 +27,7 @@ public class LoginController {
      * @return
      * @throws IOException
      */
-    @PostMapping("user/login")
+    @PostMapping(value = "/user/login")
     public String login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
 
         String username = httpServletRequest.getParameter("username");
@@ -43,7 +43,7 @@ public class LoginController {
                 cookie.setMaxAge(7*60*60*24);
                 httpServletResponse.addCookie(cookie);
             }
-            httpServletRequest.getRequestDispatcher("/index.html").forward(httpServletRequest,httpServletResponse);
+            httpServletRequest.getRequestDispatcher("/main.html").forward(httpServletRequest,httpServletResponse);
         }else{
             httpServletResponse.sendRedirect("/login?flag=0");
         }
