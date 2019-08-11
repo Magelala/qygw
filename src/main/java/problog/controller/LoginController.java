@@ -1,16 +1,52 @@
 package problog.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import problog.domain.User;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * @Author : shengjun
+ * @Date : create in 2019-8-7
+ */
 @Controller
-
 public class LoginController {
 
-    @RequestMapping("/login")
-    public String login(){
-        return "login.html";
-    }
+    private static String username = "admin";
+    private static String password = "123456";
 
+    /**
+     *后台登录操作
+     * @param httpServletRequest
+     * @param httpServletResponse
+     * @return
+     * @throws IOException
+     */
+    @PostMapping("user/login")
+    public String login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
+
+        String username = httpServletRequest.getParameter("username");
+        String password = httpServletRequest.getParameter("password");
+
+        if (LoginController.username.equals(username) && LoginController.password.equals(password)){
+            httpServletRequest.getSession().setAttribute("user",username);
+            String remember = httpServletRequest.getParameter("remember");
+            //记住用户的功能实现，保存在Cookie中
+            if (remember.equals("true")){
+                Cookie cookie = new Cookie("username",username);
+                cookie.setPath("/");
+                cookie.setMaxAge(7*60*60*24);
+                httpServletResponse.addCookie(cookie);
+            }
+            httpServletRequest.getRequestDispatcher("/index.html").forward(httpServletRequest,httpServletResponse);
+        }else{
+            httpServletResponse.sendRedirect("/login?flag=0");
+        }
+        return null;
+    }
 }
