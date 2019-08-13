@@ -26,7 +26,8 @@ public class LoginController {
      * @return
      * @throws IOException
      */
-    @PostMapping("/user/login")
+
+    @PostMapping(value = "/user/login")
     public String login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
 
         String username = httpServletRequest.getParameter("username");
