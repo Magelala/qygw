@@ -41,8 +41,12 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry){
         //视图跳转控制器
         registry.addViewController("/").setViewName("/login");
-        registry.addViewController("/index").setViewName("login");
+        registry.addViewController("/login").setViewName("/login");
+        registry.addViewController("/login.html").setViewName("/login");
+        registry.addViewController("/index").setViewName("/login");
         registry.addViewController("/index.html").setViewName("/index");
+        registry.addViewController("/article").setViewName("/article");
+        registry.addViewController("/article.html").setViewName("/article");
     }
 
     /**
@@ -60,8 +64,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
      * excludePathPatterns("/asserts") 表示js、css、img都可以访问
      * @param registry
      */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/index","/asserts/");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry){
+//        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/main.html");
+//    }
 }

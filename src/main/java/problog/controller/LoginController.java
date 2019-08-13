@@ -2,7 +2,6 @@ package problog.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import problog.domain.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -27,7 +26,7 @@ public class LoginController {
      * @return
      * @throws IOException
      */
-    @PostMapping("user/login")
+    @PostMapping("/user/login")
     public String login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
 
         String username = httpServletRequest.getParameter("username");
@@ -43,10 +42,10 @@ public class LoginController {
                 cookie.setMaxAge(7*60*60*24);
                 httpServletResponse.addCookie(cookie);
             }
-            httpServletRequest.getRequestDispatcher("/index.html").forward(httpServletRequest,httpServletResponse);
+            return "redirect:/index.html";
         }else{
-            httpServletResponse.sendRedirect("/login?flag=0");
+           return "/login";
         }
-        return null;
     }
 }
+

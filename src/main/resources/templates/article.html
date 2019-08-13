@@ -1,0 +1,190 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" href="/static/css/layout.css" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">公司LOGO</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="/index" th:href="@{index.html}">返回主页</a></li>
+            <li class="layui-nav-item"><a href="javascript:;">数据中心</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="/static/img/user.jpg" th:src="@{/img/user.jpg}" class="layui-nav-img">用户名
+                </a>
+                <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                    <dd><a href="javascript:;">基本资料</a></dd>
+                    <dd><a href="javascript:;">修改密码</a></dd>
+                    <dd><a href="javascript:;">退出管理</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/login" th:href="@{/}">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed message">
+                    <a class="" href="javascript:;">文章</a>
+                    <!--<ul class="secondary-menu">
+                        <li class="layui-nav-item"><a href="">所有文章</a></li>
+                        <li class="layui-nav-item"><a href="">写文章</a></li>
+                        <li class="layui-nav-item"><a href="">分类目录</a></li>
+                        <li class="layui-nav-item"><a href="">标签</a></li>
+                    </ul>-->
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="javascript:;">页面</a>
+                </li>
+                <li class="layui-nav-item"><a href="javascript:;">外观</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">用户</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">设置</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <div id="content" class="no-sidebar">
+            <div class="inner-content">
+                <div class="user-iframe">
+                    <div class="user-iframe-content">
+                        <div class="nav-content">
+                            <div class="nav-db-left">
+                                <ul class="db-ul">
+                                    <li class="db-li-1 dbactive">
+                                        <span class="db-title" >文章</span>
+                                    </li>
+                                    <li class="db-li-2">
+                                        <span class="db-title">写文章</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="nav-db-right">
+                                <div class="right-search">
+                                    <i class="glyphicon glyphicon-search right-icon"></i>
+                                    <input type="text" placeholder="请输入文章名">
+                                    <span>搜索文章</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav-db-tab">
+                            <ul class="nav-tab-ul">
+                                <li class="nav-tab-1 current">
+                                    <a href="javascript:void (0);" class="nav-tab-title ">全部</a>
+                                    <span class="nav-tab-num">10</span>
+                                </li>
+                                <li class="nav-tab-2">
+                                    <a href="javascript:void (0);" class="nav-tab-title">我的</a>
+                                    <span class="nav-tab-num">10</span>
+                                </li>
+                                <li class="nav-tab-3">
+                                    <a href="javascript:void (0);" class="nav-tab-title">已发布</a>
+                                    <span class="nav-tab-num">10</span>
+                                </li>
+                                <li class="nav-tab-4">
+                                    <a href="javascript:void (0);" class="nav-tab-title">置顶</a>
+                                    <span class="nav-tab-num">10</span>
+                                </li>
+                                <li class="nav-tab-5">
+                                    <a href="javascript:void (0);" class="nav-tab-title">草稿</a>
+                                    <span class="nav-tab-num">10</span>
+                                </li>
+                                <li class="nav-tab-6">
+                                    <a href="javascript:void (0);" class="nav-tab-title">加密</a>
+                                    <span class="nav-tab-num">10</span>
+                                </li>
+                            </ul>
+                            <div id="tab-main">
+                                <div class="tab-main-db" >
+                                    <div class="tab-main-content">
+                                        <div class="div-tab-table">
+                                            <table id="table" class="table_style table table-hover table-striped" style="margin: 0 auto">
+                                                <thead>
+                                                <tr>
+                                                    <th class="bs-checkbox" style="text-align: center;vertical-align: middle;width: 36px;" data-field="check">
+                                                        <div class="th-inner">
+                                                            <input type="checkbox" name="btSelectAll">
+                                                        </div>
+                                                    </th>
+                                                    <th style="text-align: center;vertical-align: middle;" data-field="title">
+                                                        <div class="th-inner">标题</div>
+                                                    </th>
+                                                    <th style="text-align: center;vertical-align: middle;" data-field="author">
+                                                        <div class="th-inner">作者</div>
+                                                    </th>
+                                                    <th style="text-align: center;vertical-align: middle;" data-field="cIfy">
+                                                        <div class="th-inner">分类目录</div>
+                                                    </th>
+                                                    <th style="text-align: center;vertical-align: middle;" data-field="label">
+                                                        <div class="th-inner">标签</div>
+                                                    </th>
+                                                    <th style="text-align: center;vertical-align: middle;" data-field="day">
+                                                        <div class="th-inner">日期</div>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td class="bs-checkbox">
+                                                        <input type="checkbox">
+
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        携手IBM,共创未来
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        张三
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        公司资讯
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        战略合作
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        2019-6-6
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-my">我的</div>
+                                <div class="tab-fabu">发布</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer" style="background-color:black;color:white;text-align:center;">
+        <!-- 底部固定区域 -->
+        © magelala.com
+    </div>
+</div>
+<script src="/static/js/jq.js" th:src="@{/js/jq.js}"></script>
+<script src="/static/js/layout.js" th:src="@{/js/layout.js}"></script>
+<script src="/static/js/layui.js" th:src="@{/js/layui.js}"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>
+</body>
+</html>
