@@ -36,6 +36,7 @@
 	<div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
 		<p class="text-center font16">用户登录</p>
 		<form action="/user/login" th:href="@{/user/login}" method="post">
+
 			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" ></p>
 			<div class="form-group mg-t20">
 				<i class="icon-user icon_font"></i>
