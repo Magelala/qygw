@@ -8,6 +8,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @Author : shengjun
@@ -28,7 +29,7 @@ public class LoginController {
      */
 
     @PostMapping(value = "/user/login")
-    public String login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
+    public String login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Map<String,Object> map) throws IOException, ServletException {
 
         String username = httpServletRequest.getParameter("username");
         String password = httpServletRequest.getParameter("password");
@@ -45,6 +46,7 @@ public class LoginController {
             }
             return "redirect:/index.html";
         }else{
+            map.put("msg","用户名密码错误");
            return "/login";
         }
     }
