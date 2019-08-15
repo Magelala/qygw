@@ -47,7 +47,7 @@ public class LoginController {
             return "redirect:/index.html";
         }else{
             map.put("msg","用户名密码错误");
-           return "/login";
+           return "login";
         }
     }
 }
