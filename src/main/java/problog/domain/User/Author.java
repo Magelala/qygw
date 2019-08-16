@@ -7,6 +7,15 @@ public class Author {
     private String tel;
     private String email;
     private String role;
+    private String articleNum;
+
+    public String getArticleNum() {
+        return articleNum;
+    }
+
+    public void setArticleNum(String articleNum) {
+        this.articleNum = articleNum;
+    }
 
     public Integer getId() {
         return id;
@@ -56,14 +65,6 @@ public class Author {
         this.role = role;
     }
 
-    public Integer getArticleNum() {
-        return articleNum;
-    }
 
-    public void setArticleNum(Integer articleNum) {
-        this.articleNum = articleNum;
-    }
-
-    private Integer articleNum;
 
 }

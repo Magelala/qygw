@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class CategoryInfo {
     private Integer id;
-    private Integer categoryInfo;
+    private Integer categoryId;
     private  Integer articleId;
     private Timestamp createByDate;
     private Timestamp modifiedByDate;
@@ -17,12 +17,12 @@ public class CategoryInfo {
         this.id = id;
     }
 
-    public Integer getCategoryInfo() {
-        return categoryInfo;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryInfo(Integer categoryInfo) {
-        this.categoryInfo = categoryInfo;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Integer getArticleId() {
