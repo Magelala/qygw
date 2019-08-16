@@ -22,8 +22,8 @@
     <!-- 输出到控制台 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${plain}</pattern>
-            <pattern>${encoding}</pattern>
+            <pattern>${std}</pattern>
+            <!--<pattern>${encoding}</pattern>-->
         </encoder>
     </appender>
 
@@ -47,7 +47,7 @@
 
         <encoder>
             <pattern>${normal}</pattern>
-            <charset>${encoding}</charset>
+            <!--<charset>${encoding}</charset>-->
         </encoder>
     </appender>
 
@@ -65,7 +65,7 @@
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
-            <charset>${encoding}</charset>
+            <!--<charset>${encoding}</charset>-->
         </encoder>
     </appender>
 

@@ -36,7 +36,6 @@
 	<div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
 		<p class="text-center font16">用户登录</p>
 		<form action="/user/login" th:href="@{/user/login}" method="post">
-
 			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" ></p>
 			<div class="form-group mg-t20">
 				<i class="icon-user icon_font"></i>
@@ -73,7 +72,7 @@
 		}
 	}
 	//用户输入的用户名和密码是否匹配
-	function isLogin(){
+	/*function isLogin(){
 		var Request = new Object();
 		Request = GetRequest();
 		var flag = Request['flag'];
@@ -94,6 +93,7 @@
 		}
 		return theRequest;
 	}
+	 */
 
 	//读取Cookie
 	function getMyCookie(key){
@@ -114,7 +114,6 @@
 	//显示username
 	function showValue() {
 		var username = document.getElementById("showName");
-		//var remember = document.getElementById("remember");
 		username.value = getMyCookie("username");
 	}
 </script>
