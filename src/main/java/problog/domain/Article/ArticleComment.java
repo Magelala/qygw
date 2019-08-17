@@ -7,6 +7,10 @@ public class ArticleComment {
         private Integer articleId;
         private Integer commentId;
 
+    public ArticleComment(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "ArticleComment{" +

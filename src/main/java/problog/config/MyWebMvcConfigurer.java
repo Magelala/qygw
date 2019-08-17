@@ -48,6 +48,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addViewController("/article.html").setViewName("/article");
     }
 
+//    asdadasd
     /**
      * 用来配置静态资源，比如html,js,css
      * @param registry
