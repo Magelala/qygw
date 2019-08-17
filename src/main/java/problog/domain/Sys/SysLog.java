@@ -9,6 +9,17 @@ public class SysLog {
     private String operateUrl;
     private String operateBy;
 
+    @Override
+    public String toString() {
+        return "SysLog{" +
+                "id=" + id +
+                ", ip='" + ip + '\'' +
+                ", remark='" + remark + '\'' +
+                ", operateUrl='" + operateUrl + '\'' +
+                ", operateBy='" + operateBy + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

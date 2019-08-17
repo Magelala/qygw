@@ -9,6 +9,19 @@ public class Author {
     private String role;
     private String articleNum;
 
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", name='" + name + '\'' +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", articleNum='" + articleNum + '\'' +
+                '}';
+    }
+
     public String getArticleNum() {
         return articleNum;
     }

@@ -8,6 +8,16 @@ public class SysView {
     private Timestamp createByDate;
     private Integer number;
 
+    @Override
+    public String toString() {
+        return "SysView{" +
+                "id=" + id +
+                ", ip='" + ip + '\'' +
+                ", createByDate=" + createByDate +
+                ", number=" + number +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

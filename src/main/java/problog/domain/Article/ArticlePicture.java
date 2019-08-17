@@ -10,6 +10,18 @@ public class ArticlePicture {
     private Timestamp createByDate;
     private Timestamp modifiedByDate;
 
+    @Override
+    public String toString() {
+        return "ArticlePicture{" +
+                "id=" + id +
+                ", articleId=" + articleId +
+                ", authorId=" + authorId +
+                ", pictureBy='" + pictureBy + '\'' +
+                ", createByDate=" + createByDate +
+                ", modifiedByDate=" + modifiedByDate +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

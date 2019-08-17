@@ -9,6 +9,17 @@ public class CategoryInfo {
     private Timestamp createByDate;
     private Timestamp modifiedByDate;
 
+    @Override
+    public String toString() {
+        return "CategoryInfo{" +
+                "id=" + id +
+                ", categoryId=" + categoryId +
+                ", articleId=" + articleId +
+                ", createByDate=" + createByDate +
+                ", modifiedByDate=" + modifiedByDate +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

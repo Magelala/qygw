@@ -10,6 +10,18 @@ public class ArticleContent {
     private Timestamp modifiedByDate;
     private Integer isTop;
 
+    @Override
+    public String toString() {
+        return "ArticleContent{" +
+                "id=" + id +
+                ", context='" + context + '\'' +
+                ", articleId=" + articleId +
+                ", createByDate=" + createByDate +
+                ", modifiedByDate=" + modifiedByDate +
+                ", isTop=" + isTop +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

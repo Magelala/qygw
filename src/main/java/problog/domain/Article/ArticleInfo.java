@@ -10,6 +10,18 @@ public class ArticleInfo {
     private Timestamp createByDate;
     private Timestamp modifiedByDate;
 
+    @Override
+    public String toString() {
+        return "ArticleInfo{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", summary='" + summary + '\'' +
+                ", traffic=" + traffic +
+                ", createByDate=" + createByDate +
+                ", modifiedByDate=" + modifiedByDate +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
