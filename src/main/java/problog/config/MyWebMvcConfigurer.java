@@ -19,8 +19,8 @@ import java.nio.charset.Charset;
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
-//    @Autowired
-//    private LoginInterceptor loginInterceptor;
+    @Autowired
+    private LoginInterceptor loginInterceptor;
 
     @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
@@ -41,6 +41,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry){
         //视图跳转控制器
         registry.addViewController("/").setViewName("/login");
+        registry.addViewController("/loginOut").setViewName("/login");
         registry.addViewController("/index.html").setViewName("/index");
         registry.addViewController("/main").setViewName("/index");
         registry.addViewController("/article").setViewName("/article");
@@ -64,7 +65,6 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/user/login","/index.html");
-
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/css/**","/js/**","/img/**","/fonts/**","/bootstrap/**");
     }
 }
