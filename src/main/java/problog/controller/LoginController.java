@@ -3,7 +3,7 @@ package problog.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import problog.domain.User.User;
+import problog.entity.User.User;
 import problog.utils.FindUser;
 
 import javax.servlet.http.Cookie;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @Author : shengjun

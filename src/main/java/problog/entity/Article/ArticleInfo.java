@@ -1,24 +1,24 @@
-package problog.domain.Article;
+package problog.entity.Article;
 
 import java.sql.Timestamp;
 
-public class ArticleContent {
+public class ArticleInfo {
     private Integer id;
-    private String context;
-    private Integer articleId;
+    private String title;
+    private String summary;
+    private Integer traffic;
     private Timestamp createByDate;
     private Timestamp modifiedByDate;
-    private Integer isTop;
 
     @Override
     public String toString() {
-        return "ArticleContent{" +
+        return "ArticleInfo{" +
                 "id=" + id +
-                ", context='" + context + '\'' +
-                ", articleId=" + articleId +
+                ", title='" + title + '\'' +
+                ", summary='" + summary + '\'' +
+                ", traffic=" + traffic +
                 ", createByDate=" + createByDate +
                 ", modifiedByDate=" + modifiedByDate +
-                ", isTop=" + isTop +
                 '}';
     }
 
@@ -30,20 +30,28 @@ public class ArticleContent {
         this.id = id;
     }
 
-    public String getContext() {
-        return context;
+    public String getTitle() {
+        return title;
     }
 
-    public void setContext(String context) {
-        this.context = context;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Integer getTraffic() {
+        return traffic;
+    }
+
+    public void setTraffic(Integer traffic) {
+        this.traffic = traffic;
     }
 
     public Timestamp getCreateByDate() {
@@ -60,13 +68,5 @@ public class ArticleContent {
 
     public void setModifiedByDate(Timestamp modifiedByDate) {
         this.modifiedByDate = modifiedByDate;
-    }
-
-    public Integer getIsTop() {
-        return isTop;
-    }
-
-    public void setIsTop(Integer isTop) {
-        this.isTop = isTop;
     }
 }

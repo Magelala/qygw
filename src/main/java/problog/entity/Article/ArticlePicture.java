@@ -1,4 +1,4 @@
-package problog.domain.Article;
+package problog.entity.Article;
 
 import java.sql.Timestamp;
 

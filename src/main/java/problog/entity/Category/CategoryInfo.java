@@ -1,22 +1,20 @@
-package problog.domain.Article;
+package problog.entity.Category;
 
 import java.sql.Timestamp;
 
-public class ArticleInfo {
+public class CategoryInfo {
     private Integer id;
-    private String title;
-    private String summary;
-    private Integer traffic;
+    private Integer categoryId;
+    private  Integer articleId;
     private Timestamp createByDate;
     private Timestamp modifiedByDate;
 
     @Override
     public String toString() {
-        return "ArticleInfo{" +
+        return "CategoryInfo{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", summary='" + summary + '\'' +
-                ", traffic=" + traffic +
+                ", categoryId=" + categoryId +
+                ", articleId=" + articleId +
                 ", createByDate=" + createByDate +
                 ", modifiedByDate=" + modifiedByDate +
                 '}';
@@ -30,28 +28,20 @@ public class ArticleInfo {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getSummary() {
-        return summary;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public Integer getTraffic() {
-        return traffic;
-    }
-
-    public void setTraffic(Integer traffic) {
-        this.traffic = traffic;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     public Timestamp getCreateByDate() {

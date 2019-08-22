@@ -1,6 +1,4 @@
-package problog.domain.Sys;
-
-import javax.sound.midi.Track;
+package problog.entity.Sys;
 
 public class SysLog {
     private Integer id;

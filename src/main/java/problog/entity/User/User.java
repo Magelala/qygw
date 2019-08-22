@@ -1,4 +1,4 @@
-package problog.domain.User;
+package problog.entity.User;
 
 /**
  * @Author : shengjun

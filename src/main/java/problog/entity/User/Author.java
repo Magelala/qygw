@@ -1,4 +1,4 @@
-package problog.domain.User;
+package problog.entity.User;
 
 public class Author {
     private Integer id;

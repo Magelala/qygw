@@ -1,6 +1,6 @@
 package problog.utils;
 
-import problog.domain.User.User;
+import problog.entity.User.User;
 
 import java.util.Iterator;
 import java.util.Map;
