@@ -1,34 +1,20 @@
 package problog.entity.User;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+
+@Data
 public class Author {
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private String userName;
+    private String password;
     private String name;
     private String tel;
     private String email;
     private String role;
     private String articleNum;
-
-    @Override
-    public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", name='" + name + '\'' +
-                ", tel='" + tel + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                ", articleNum='" + articleNum + '\'' +
-                '}';
-    }
-
-    public String getArticleNum() {
-        return articleNum;
-    }
-
-    public void setArticleNum(String articleNum) {
-        this.articleNum = articleNum;
-    }
 
     public Integer getId() {
         return id;
@@ -44,6 +30,14 @@ public class Author {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -78,6 +72,11 @@ public class Author {
         this.role = role;
     }
 
+    public String getArticleNum() {
+        return articleNum;
+    }
 
-
+    public void setArticleNum(String articleNum) {
+        this.articleNum = articleNum;
+    }
 }

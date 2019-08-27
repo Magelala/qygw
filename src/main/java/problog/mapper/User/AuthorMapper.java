@@ -1,7 +1,10 @@
 package problog.mapper.User;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import problog.entity.User.Author;
 
-@Mapper
-public interface AuthorMapper {
+
+
+public interface AuthorMapper extends BaseMapper<Author> {
+
 }

@@ -1,6 +1,7 @@
 package problog.oa.service;
 
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import problog.entity.User.Author;
+import problog.entity.User.usersUser;
+import problog.mapper.User.AuthorMapper;
+import problog.mapper.User.UsersMapper;
 import problog.service.MailService;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -17,7 +25,38 @@ public class ServiceTest {
     private MailService mailService;
     @Autowired
     private TemplateEngine templateEngine;
+    @Resource
+    private AuthorMapper authorMapper;
 
+    @Resource
+    private UsersMapper usersMapper;
+    @Test
+    public void testSelect(){
+        System.out.println(("----- selectAll method test ------"));
+        List<usersUser> userList = usersMapper.selectList(null);
+        Assert.assertEquals(5, userList.size());
+        userList.forEach(System.out::println);
+    }
+
+    @Test
+    public void insertTest(){
+        Author author = new Author();
+
+        author.setUserName("你好");
+        author.setName("xiaowu");
+        author.setTel("1100000000");
+        author.setEmail("asdaada@qq.com");
+        author.setRole("作者");
+
+        AuthorMapper authorMapper = this.authorMapper;
+        authorMapper.insert(author);
+        System.out.println(authorMapper);
+    }
+
+    @Test
+    public void testSource(){
+
+    }
     /**
      * 发送简单纯文本邮件
      */
