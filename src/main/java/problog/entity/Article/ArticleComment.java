@@ -1,7 +1,9 @@
 package problog.entity.Article;
 
-import java.sql.Timestamp;
+import lombok.Data;
 
+import java.sql.Timestamp;
+@Data
 public class ArticleComment {
         private Integer id;
         private Integer articleId;
