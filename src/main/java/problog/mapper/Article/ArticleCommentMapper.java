@@ -1,8 +1,9 @@
 package problog.mapper.Article;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import problog.entity.Article.ArticleComment;
 
-@Mapper
-public interface ArticleCommentMapper {
+
+public interface ArticleCommentMapper extends BaseMapper<ArticleComment> {
 
 }

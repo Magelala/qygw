@@ -4,6 +4,7 @@ spring:
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?characterEncoding=utf-8
+
   mail:
     host: smtp.qq.com
     username: 969064814@qq.com
