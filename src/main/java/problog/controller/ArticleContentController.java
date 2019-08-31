@@ -15,10 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
 @Controller
-@RequestMapping("/article")
+
 public class ArticleContentController {
-    @Resource
-    ArticleContentService articleContentService;
+
 
     /**
     //进入上传文件表单页面
@@ -55,15 +54,8 @@ public class ArticleContentController {
         }
     }
 
-    @RequestMapping(value = "add",method = RequestMethod.POST)
-    public RespBean addNewArticleContent(ArticleContent articleContent){
-        int result = articleContentService.addNewArticleContent(articleContent);
-        if (result == 1){
-            return new RespBean("success",articleContent.getId()+ " ");
-        }else {
-            return new RespBean("error","文章保存失败");
-        }
-    }
+
+
 
 
 

@@ -15,23 +15,6 @@ import java.sql.Timestamp;
 @Service
 @Transactional
 public class ArticleContentService {
-    @Resource
-    ArticleContentMapper articleContentMapper;
 
-    //添加新的文章
-    public int addNewArticleContent(ArticleContent articleContent){
-        //添加操作
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        //设置创建发表日期
-        //更新
-        ArticleContent article = new ArticleContent();
-
-        article.getArticleId();
-        article.getContext();
-        article.getIsTop();
-        article.setModifiedByDate(timestamp);
-        article.setCreateByDate(timestamp);
-        int i = articleContentMapper.insert(article);
-        return i;}
 
 }
