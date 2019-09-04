@@ -48,24 +48,34 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addViewController("/article.html").setViewName("/article");
     }
 
-//    asdadasd
+
+
+
     /**
      * 用来配置静态资源，比如html,js,css
      * @param registry
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-    }
+     测试接口，注释拦截器
+     */
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//
+//    }
+
 
     /**
      * 注册拦截器，我们自己写好的拦截器需要在这里添加注册才能生效
      * addPathPatterns("/admin) 表示拦截所有的请求
      * excludePathPatterns("/asserts") 表示js、css、img都可以访问
      * @param registry
+     *
+     * 测试接口，注释拦截器
      */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/css/**","/js/**","/img/**","/fonts/**","/bootstrap/**");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry){
+//        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/css/**","/js/**","/img/**","/fonts/**","/bootstrap/**");
+//    }
+//
+
+
 }

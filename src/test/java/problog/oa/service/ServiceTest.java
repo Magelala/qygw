@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+
 import problog.entity.Article.ArticleContent;
 import problog.entity.User.Author;
 import problog.entity.User.usersUser;
@@ -18,6 +19,7 @@ import problog.mapper.User.UsersMapper;
 import problog.service.MailService;
 
 import javax.annotation.Resource;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -46,17 +48,16 @@ public class ServiceTest {
 
     @Test
     public void insertTest(){
-        Author author = new Author();
+        ArticleContent content = new ArticleContent();
+        content.setContext("sadasda");
+        content.setTitle("haha");
+        content.setSummary("sadasdas");
+        content.setKeywords("dddd");
+        content.setModifiedByDate(new Timestamp(System.currentTimeMillis()));
+        content.setCreateByDate(new Timestamp(System.currentTimeMillis()));
+        int i = articleContentMapper.insert(content);
+        System.out.println(i);
 
-        author.setUserName("你好");
-        author.setName("xiaowu");
-        author.setTel("1100000000");
-        author.setEmail("asdaada@qq.com");
-        author.setRole("作者");
-
-        AuthorMapper authorMapper = this.authorMapper;
-        authorMapper.insert(author);
-        System.out.println(authorMapper);
     }
 
     @Test
@@ -118,21 +119,23 @@ public class ServiceTest {
 
 
 
-
-    @Test
+    /**
+     @Test
     //添加新的文章
     public void addNewArticleContent(){
-        //添加操作
+      //添加操作
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         //设置创建发表日期
         //更新
         ArticleContent article = new ArticleContent();
 //        article.setId(8);
         article.setContext("hahahahahah");
-        article.setArticleId(2);
+
         article.setCreateByDate(timestamp);
-        article.setIsTop(1);
+
         int i = articleContentMapper.insert(article);
         System.out.println(i);
     }
+     */
+
 }

@@ -107,21 +107,22 @@ var writeArticle = `
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">标题</label>
+            <label class="layui-form-label" >标题</label>
             <div class="layui-input-block">
-              <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              <input type="text" name="Title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item textarea-content">
-            <label class="layui-form-label">正文</label>
+            <label class="layui-form-label"  id="Context">正文</label>
             <div class="layui-input-block">
-               <textarea id="demo" style="display: none;"></textarea>
+               <textarea id="demo" style="display: none;" placeholder="请输入内容" name="Context"></textarea>
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">摘要</label>
+        
+            <label class="layui-form-label" >摘要</label>
             <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="Summary" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
@@ -135,18 +136,18 @@ var writeArticle = `
         <div class="layui-form-item">
             <label class="layui-form-label">关键词</label>
             <div class="layui-input-block">
-              <input type="text" name="title" required  lay-verify="required" placeholder="请输入关键词" autocomplete="off" class="layui-input">
+              <input type="text" name="Keywords" required  lay-verify="required" placeholder="请输入关键词" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">作者</label>
             <div class="layui-input-block">
-              <input type="text" name="title" required  lay-verify="required" placeholder="请输入作者" autocomplete="off" class="layui-input">
+              <input type="text" name="Author" required  lay-verify="required" placeholder="请输入作者" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-              <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+              <button class="layui-btn" name="send" lay-submit lay-filter="formDemo" onclick=>立即提交</button>
               <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -209,3 +210,25 @@ var vm = new Vue({
         ]
     })
 })
+
+	function add(){
+	var Title = $("input[name='Title']").val();
+	var	Context = $("textarea[name='Context']").val();
+	var Summary = $("textarea[name='Summary']").val();
+	var Keywords = $("input[name='Keywords']").val();
+	$.ajax({
+		url: '/article/writeArticle/add',
+		type: "post",
+		dataType:JSON,
+		data:{"Title":Title,"Context":Context,"Summary":Summary,"Keywords":Keywords},
+		success:function (data) {
+			window.alert("添加成功")
+		},
+		error:function () {
+			window.alert("添加失败");
+		}
+		}
+
+	)
+
+	}
