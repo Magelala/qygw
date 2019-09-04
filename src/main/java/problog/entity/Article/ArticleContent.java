@@ -20,6 +20,7 @@ public class ArticleContent {
     private String keywords;
     private Timestamp createByDate;
     private Timestamp modifiedByDate;
+    private String author;
 
 
 

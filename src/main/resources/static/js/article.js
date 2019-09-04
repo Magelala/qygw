@@ -116,6 +116,7 @@ var writeArticle = `
             <label class="layui-form-label"  id="Context">正文</label>
             <div class="layui-input-block">
                <textarea id="demo" style="display: none;" placeholder="请输入内容" name="Context"></textarea>
+<!--                <textarea style="display: none;" placeholder="请输入内容" name="Context"></textarea>-->
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
@@ -142,17 +143,18 @@ var writeArticle = `
         <div class="layui-form-item">
             <label class="layui-form-label">作者</label>
             <div class="layui-input-block">
-              <input type="text" name="Author" required  lay-verify="required" placeholder="请输入作者" autocomplete="off" class="layui-input">
+              <input type="text" name="author" required  lay-verify="required" placeholder="请输入作者" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-              <button class="layui-btn" name="send" lay-submit lay-filter="formDemo" onclick=>立即提交</button>
+              <button class="layui-btn" name="send" lay-submit lay-filter="formDemo" onclick="add()">立即提交</button>
               <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     </form>
 </div>
+
 
 `;
 
@@ -211,16 +213,18 @@ var vm = new Vue({
     })
 })
 
-	function add(){
+		 function add(){
 	var Title = $("input[name='Title']").val();
 	var	Context = $("textarea[name='Context']").val();
 	var Summary = $("textarea[name='Summary']").val();
 	var Keywords = $("input[name='Keywords']").val();
+	var	author = $("input[name='author']").val();
+	console.log(Context);
 	$.ajax({
 		url: '/article/writeArticle/add',
 		type: "post",
 		dataType:JSON,
-		data:{"Title":Title,"Context":Context,"Summary":Summary,"Keywords":Keywords},
+		data:{"Title":Title,"Context":Context,"Summary":Summary,"Keywords":Keywords,"author":author},
 		success:function (data) {
 			window.alert("添加成功")
 		},
@@ -228,7 +232,10 @@ var vm = new Vue({
 			window.alert("添加失败");
 		}
 		}
-
 	)
 
+	}
+	
+	function aa() {
+		alert("我出现了")
 	}
