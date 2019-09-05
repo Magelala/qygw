@@ -1,0 +1,215 @@
+.dynamic-main{
+    width: 100%;
+    position: relative;
+    min-width: 966px;
+    .center{
+        width: 966px;
+        margin: 0 auto;
+        padding-top: 20px;
+        overflow: hidden;
+        >p{
+            width: 960px;
+            border-bottom: 2px solid #AAAAAA;
+            font-size: 22px;
+            color: #D9001B;
+            margin-bottom: 22px;
+            padding-left: 6px;
+        }
+        .dynamic-left{
+            width: 450px;
+            float: left;
+            padding-bottom: 7px;
+            border-bottom: 1px solid #AAAAAA;
+            .left-img{
+                width: 450px;
+                height: 255px;
+                background: url(../images/企业动态/企业动态大图.jpg) no-repeat;
+                background-size: cover;
+            }
+            .left-title{
+                width: 411px;
+                height: 23px;
+                font-size: 20px;
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                margin-top: 16px;
+            }
+            >p{
+                font-size: 13px;
+                margin-top: 14px;
+            }
+            .left-word{
+                font-size: 14px;
+                margin-top: 22px;
+                width: 448px;
+                height: 40px;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+            }
+            .left-more{
+                font-size: 13px;
+                color: #333333;
+                display: block;
+                width: 76px;
+                height: 32px;
+                line-height: 32px;
+                margin-top: 17px;
+                border-bottom: 1px solid #D9001B;
+            }
+        }
+        .dynamic-right{
+            width: 447px;
+            float: right;
+            margin-right: 10px;
+            padding-top: 11px;
+            .right-date{
+                font-size: 13px;
+                float: right;
+                margin-right: 40px;
+                line-height: 20px;
+                margin-bottom: 8px;
+                >a{
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                }
+                .date-prev{
+                    float: left;
+                    margin-right: 2px;
+                    background: url(../images/企业动态/left-on-arrow.jpg) no-repeat;
+                }
+                .date-next{
+                    float: right;
+                    margin-left: 2px;
+                    background: url(../images/企业动态/right-un-arrow.jpg) no-repeat;
+                }
+            }
+            >ul{
+                clear: both;
+                width: 100%;
+                padding: 20px 0 7px 0;
+                border-top: 1px solid #AAAAAA;
+                border-bottom: 1px solid #AAAAAA;
+                overflow: hidden;
+                >li{
+                    float: left;
+                    margin-right: 27px;
+                    .right-img{
+                        display: block;
+                        width: 210px;
+                        height: 141px;
+                    }
+                    .right-title{
+                        display: block;
+                        width: 210px;
+                        height: 34px;
+                        font-size: 15px;
+                        margin-top: 20px;
+                    }
+                    >p{
+                        font-size: 13px;
+                        margin-top: 12px;
+                    }
+                    .right-word{
+                        display: block;
+                        width: 198px;
+                        height: 60px;
+                        line-height: 15px;
+                        margin-top: 16px;
+                        font-size: 13px;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 4;
+                        overflow: hidden;
+                    }
+                    .right-more{
+                        font-size: 13px;
+                        color: #333333;
+                        display: block;
+                        width: 76px;
+                        height: 32px;
+                        line-height: 32px;
+                        margin-top: 42px;
+                        border-bottom: 1px solid #D9001B;
+                    }
+                }
+                >li:nth-of-type(even){
+                    margin-right: 0;
+                }
+            }
+        }
+        .dynamic-list{
+            width: 100%;
+            height: 300px;
+            clear: both;
+            >li{
+                width: 453px;
+                height: 87px;
+                float: left;
+                margin: 40px 60px 40px 0;
+                >img{
+                    width: 114px;
+                    height: 87px;
+                    display: block;
+                    float: left;
+                }
+                >div{
+                    width: 324px;
+                    height: 70px;
+                    float: left;
+                    margin-left: 15px;
+                    padding: 8px 0;
+                    font-size: 13px;
+                    >span{
+                        display: block;
+                        width: 276px;
+                        height: 15px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    >p{
+                        line-height: 15px;
+                        margin-top: 8.5px;
+                    }
+                    >div{
+                        width: 324px;
+                        height: 28px;
+                        line-height: 14px;
+                        font-size: 12px;
+                        margin-top: 8.5px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                    }
+                }
+            }
+            >li:nth-of-type(even){
+                margin-right: 0;
+            } 
+        }
+    }
+    .back-top{
+        position: fixed;
+        right: 4px;
+        top: 400px;
+        width: 38px;
+        height: 37px;
+        background-color: #797979;
+        cursor: pointer;
+        display: none;
+        >img{
+            display: block;
+            width: 30px;
+            height: 31px;
+            margin: 3px 4px; 
+        }
+    }
+}
