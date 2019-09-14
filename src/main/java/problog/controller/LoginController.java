@@ -73,5 +73,10 @@ public class LoginController {
         }
         return "login";
     }
+
+    @RequestMapping(value = "/article")
+    public String article(){
+        return "article";
+    }
 }
 

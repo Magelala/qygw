@@ -17,12 +17,12 @@ var articleList = `
 	<div class="list-content">
 	    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
 	        <ul class="layui-tab-title">
-	            <li class="layui-this">全部(10)</li>
-	            <li>我的(10)</li>
-	            <li>已发布(10)</li>
-	            <li>置顶(10)</li>
-	            <li>草稿(10)</li>
-	            <li>加密(10)</li>
+	            <li class="layui-this">全部</li>
+	            <li>我的</li>
+	            <li>已发布</li>
+	            <li>置顶</li>
+	            <li>草稿</li>
+	            <li>加密</li>
 	        </ul>
 	        <div class="layui-tab-content">
 	            <div class="layui-tab-item layui-show">
@@ -90,6 +90,7 @@ var articleList = `
 </div>
 `;
 
+
 var writeArticle = `
 <div class="write-article">
     <form class="layui-form" action="">
@@ -129,11 +130,12 @@ var writeArticle = `
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">封面</label>
             <div class="layui-input-block">
-               <button type="button" class="layui-btn" id="test1">
+               <button type="button" class="layui-btn"  id="test1" >
                   <i class="layui-icon">&#xe67c;</i>上传图片
-                </button>
+                </button> 
+                <textarea placeholder="请输入内容" ></textarea>
             </div>
-        </div>
+        </div>		
         <div class="layui-form-item">
             <label class="layui-form-label">关键词</label>
             <div class="layui-input-block">
@@ -171,10 +173,27 @@ var vm = new Vue({
 				    		flag:false
 				    	}
 			    	},
+                    data:{
+            		  list: [//存放所有品牌列表的数组
+                          {
+                              title:'哈哈',
+                              author: 'wind',
+                              categoryPercentage:'后端',
+                              label:'vue',
+                              time:datetime
+                          }
+                      ]
+                    },
+                    created(){
+            		  this.getAllList()
+                    },
 			    	methods:{
 			    		selectAll:function(){
 			    			this.flag = !this.flag;
-			    		}
+			    		},
+			    		getAllList(){//获取所有文章列表
+
+                        }
 			    	}
             	}
         	},
@@ -193,7 +212,7 @@ var vm = new Vue({
 							var upload = layui.upload; 
 							var uploadInst = upload.render({
 							    elem: '#test1' //绑定元素
-							    ,url: '/upload/' //上传接口
+							    ,url: '/article/writeArticle/upload' //上传接口
 							    ,done: function(res){
 							      //上传完毕回调
 							    }
@@ -219,23 +238,20 @@ var vm = new Vue({
 	var Summary = $("textarea[name='Summary']").val();
 	var Keywords = $("input[name='Keywords']").val();
 	var	author = $("input[name='author']").val();
-	console.log(Context);
+	var cover = $("button[name='cover']").val();
+
+	// console.log(Context);
 	$.ajax({
 		url: '/article/writeArticle/add',
 		type: "post",
 		dataType:JSON,
-		data:{"Title":Title,"Context":Context,"Summary":Summary,"Keywords":Keywords,"author":author},
-		success:function (data) {
+		data:{"Title":Title,"Summary":Summary,"Keywords":Keywords,"author":author},
+		success:function () {
 			window.alert("添加成功")
-		},
-		error:function () {
-			window.alert("添加失败");
 		}
 		}
 	)
 
+
 	}
 	
-	function aa() {
-		alert("我出现了")
-	}

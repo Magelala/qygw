@@ -138,4 +138,11 @@ public class ServiceTest {
     }
      */
 
+    @Test
+    public void testshow(){
+        List<ArticleContent> list = articleContentMapper.selectList(null);
+
+        list.forEach(System.out::println);
+    }
+
 }

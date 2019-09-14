@@ -2,9 +2,7 @@ package problog.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -19,7 +17,8 @@ public class FileController {
 
     private static final Logger log = LoggerFactory.getLogger(FileController.class);
 
-    @RequestMapping(value = "/upload")
+    @RequestMapping(value = "/upload" ,method = RequestMethod.POST)
+    @ResponseBody
     public String upload(@RequestParam(value = "file",required = false) MultipartFile file){
         try{
 //            用于获取项目根目录
@@ -40,7 +39,9 @@ public class FileController {
                 dest.getParentFile().mkdirs(); //新建文件夹
             }
             file.transferTo(dest); //文件写入
-            return "上传成功";
+//            System.out.println("这是文件的路径"+filePath);
+
+            return filePath;
         } catch (IOException e) {
             e.printStackTrace();
         }
