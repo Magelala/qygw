@@ -1,5 +1,7 @@
 package problog.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,18 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
 @Controller
-
+@Api(value = "文章内容接口",tags = {"上传图片接口"})
 public class ArticleContentController {
 
-
-    /**
-    //进入上传文件表单页面
-    @RequestMapping("/registerForm")
-    public String registerForm(){
-        return "registerForm";
-    }
-     */
-
+    @ApiOperation(value = "图片上传",tags = "")
     @PostMapping(value = "/upload")
     public String upload(HttpServletRequest request,
                          @RequestParam("description") String description,
@@ -53,10 +47,5 @@ public class ArticleContentController {
 
         }
     }
-
-
-
-
-
 
 }
