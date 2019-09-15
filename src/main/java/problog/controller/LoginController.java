@@ -1,6 +1,7 @@
 package problog.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import problog.entity.User.User;
@@ -74,6 +75,11 @@ public class LoginController {
             session.removeAttribute("user");
         }
         return "login";
+    }
+
+    @GetMapping("/forget")
+    public String forgetPassword(){
+        return "findPassword";
     }
 }
 

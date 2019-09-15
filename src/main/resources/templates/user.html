@@ -1,8 +1,8 @@
-<!DOCTYPE html >
+﻿<!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>广告管理</title>
+    <title>用户管理</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}">
     <link rel="stylesheet" href="/static/css/layout.css" th:href="@{/css/layout.css}">
     <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}">
@@ -57,20 +57,20 @@
                             <div class="nav-db-left">
                                 <ul class="db-ul">
                                     <li class="db-li-1 dbactive">
-                                        <span class="db-title" >顶部</span>
+                                        <span class="db-title" >用户管理</span>
                                     </li>
                                     <li class="db-li-2">
-                                        <span class="db-title">添加图片</span>
+                                        <span class="db-title">添加用户</span>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="nav-db-right">
+                            <!-- <div class="nav-db-right">
                                 <div class="right-search">
                                     <i class="glyphicon glyphicon-search right-icon"></i>
                                     <input type="text" placeholder="请输入图片标题">
                                     <span>搜索</span>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="nav-db-tab">
@@ -87,54 +87,61 @@
                                                         </div>
                                                     </th>
                                                     <th style="text-align: center;vertical-align: middle;" data-field="title">
-                                                        <div class="th-inner">编号</div>
+                                                        <div class="th-inner">用户名</div>
                                                     </th>
                                                     <th style="text-align: center;vertical-align: middle;" data-field="title">
-                                                        <div class="th-inner">图片</div>
+                                                        <div class="th-inner">姓名</div>
                                                     </th>
                                                     <th style="text-align: center;vertical-align: middle;" data-field="author">
-                                                        <div class="th-inner">标题</div>
+                                                        <div class="th-inner">联系方式</div>
                                                     </th>
                                                     <th style="text-align: center;vertical-align: middle;" data-field="cIfy">
-                                                        <div class="th-inner">链接</div>
+                                                        <div class="th-inner">角色</div>
                                                     </th>
                                                     <th style="text-align: center;vertical-align: middle;" data-field="label">
-                                                        <div class="th-inner">创建时间</div>
-                                                    </th>
-                                                    <th style="text-align: center;vertical-align: middle;" data-field="day">
-                                                        <div class="th-inner">备注</div>
-                                                    </th>
-                                                    <th style="text-align: center;vertical-align: middle;" data-field="title">
-                                                        <div class="th-inner">操作</div>
+                                                        <div class="th-inner">文章</div>
                                                     </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="list:${lists}" class="carouselList">
+                                                <tr class="carouselList">
                                                     <td class="bs-checkbox">
                                                         <input type="checkbox">
                                                     </td>
-                                                    <td th:text="${list.getId()}" class="id" style="text-align: center;vertical-align: middle;">
-
+                                                    <td class="id" style="text-align: center;vertical-align: middle;">
+                                                        李四
                                                     </td>
                                                     <td  style="text-align: center;vertical-align: middle;">
-                                                        <img th:src="@{${list.getImgUrl()}}" style="width:100px;height: 100px;">
-                                                    </td>
-                                                    <td th:text="${list.getTitle()}" style="text-align: center;vertical-align: middle;">
-
-                                                    </td>
-                                                    <td th:text="${list.getImgLink()}" style="text-align: center;vertical-align: middle;">
-
-                                                    </td>
-                                                    <td th:text="${list.getCreateDate()}" style="text-align: center;vertical-align: middle;">
-
-                                                    </td>
-                                                    <td th:text="${list.getRemark()}" style="text-align: center;vertical-align: middle;">
-
+                                                        小李子
                                                     </td>
                                                     <td style="text-align: center;vertical-align: middle;">
-                                                        <button class="up" onclick="updateSort()">上移</button>
-                                                        <button class="down" onclick="updateSort()">下移</button>
+                                                        13392403200
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        管理员
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        10
+                                                    </td>
+                                                </tr>
+                                                <tr class="carouselList">
+                                                    <td class="bs-checkbox">
+                                                        <input type="checkbox">
+                                                    </td>
+                                                    <td class="id" style="text-align: center;vertical-align: middle;">
+                                                        王五
+                                                    </td>
+                                                    <td  style="text-align: center;vertical-align: middle;">
+                                                        王老五
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        13392403200
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        新闻编辑
+                                                    </td>
+                                                    <td style="text-align: center;vertical-align: middle;">
+                                                        12
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -142,8 +149,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-my">我的</div>
-                                <div class="tab-fabu">发布</div>
                             </div>
                         </div>
                     </div>
