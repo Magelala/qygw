@@ -79,7 +79,7 @@ public class ArticleController {
 
     }
 
-    @PostMapping(value = "/articleList")
+    @PostMapping(value = "/articleList/show")
     @ResponseBody
     public List<ArticleContent> showArticle(){
         List<ArticleContent> list = articleContentService.showArticle();

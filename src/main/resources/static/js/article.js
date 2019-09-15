@@ -1,165 +1,3 @@
-var articleList = `
-<div>
-	<div class="list-header">
-		<ul>
-		    <li class="curr">
-		    	<router-link to='/articleList'>文章</router-link>
-		    </li>
-		    <li>
-		    	<router-link to='/writeArticle'>写文章</router-link>
-		    </li>
-		</ul>
-		<div class="search">
-		    <input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input"> 
-		    <button type="button" class="layui-btn">搜索文章</button>
-		</div>
-	</div>
-	<div class="list-content">
-	    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-	        <ul class="layui-tab-title">
-	            <li class="layui-this">全部</li>
-	            <li>我的</li>
-	            <li>已发布</li>
-	            <li>置顶</li>
-	            <li>草稿</li>
-	            <li>加密</li>
-	        </ul>
-	        <div class="layui-tab-content">
-	            <div class="layui-tab-item layui-show">
-	                <table class="layui-table">
-	                    <colgroup>
-	                        <col width="150">
-	                        <col width="200">
-	                        <col>
-	                    </colgroup>
-	                    <thead>
-	                        <tr>
-	                            <th>
-	                            	<input type="checkbox" :checked="flag" @change="selectAll"> 
-	                            </th>
-	                            <th>标题</th>
-	                            <th>作者</th>
-	                            <th>分类目录</th>
-	                            <th>标签</th>
-	                            <th>日期</th>
-	                        </tr> 
-	                    </thead>
-	                    <tbody> 
-	                        <tr>
-	                            <td>
-	                                <input type="checkbox" :checked="flag"/>
-	                            </td>
-	                            <td>哈哈哈哈哈哈</td>
-	                            <td>冬瓜</td>
-	                            <td>前端</td>
-	                            <td>vue</td>
-	                            <td>2019-08-27</td>
-	                        </tr>
-
-	                         <tr>
-	                            <td>
-	                               <input type="checkbox" :checked="flag"/>
-	                            </td>
-	                            <td>哈哈哈哈哈哈</td>
-	                            <td>冬瓜</td>
-	                            <td>前端</td>
-	                            <td>vue</td>
-	                            <td>2019-08-27</td>
-	                        </tr>
-
-	                         <tr>
-	                            <td>
-	                              <input type="checkbox" :checked="flag" />
-	                            </td>
-	                            <td>哈哈哈哈哈哈</td>
-	                            <td>冬瓜</td>
-	                            <td>前端</td>
-	                            <td>vue</td>
-	                            <td>2019-08-27</td>
-	                        </tr>
-	                    </tbody>
-	                </table>
-	            </div>
-	            <div class="layui-tab-item">内容2</div>
-	            <div class="layui-tab-item">内容3</div>
-	            <div class="layui-tab-item">内容4</div>
-	            <div class="layui-tab-item">内容5</div>
-	        </div>
-	    </div>
-	</div>
-</div>
-`;
-
-
-var writeArticle = `
-<div class="write-article">
-    <form class="layui-form" action="">
-        <div class="layui-form-item classify">
-            <label class="layui-form-label">分类</label>
-            <div class="layui-input-block">
-              <select name="classify" lay-verify="required">
-                <option value=""></option>
-                <option value="0">vue</option>
-                <option value="1">php</option>
-                <option value="2">java</option>
-                <option value="3">hadoop</option>
-                <option value="4">node</option>
-              </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" >标题</label>
-            <div class="layui-input-block">
-              <input type="text" name="Title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item textarea-content">
-            <label class="layui-form-label"  id="Context">正文</label>
-            <div class="layui-input-block">
-               <textarea id="demo" style="display: none;" placeholder="请输入内容" name="Context"></textarea>
-<!--                <textarea style="display: none;" placeholder="请输入内容" name="Context"></textarea>-->
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-        
-            <label class="layui-form-label" >摘要</label>
-            <div class="layui-input-block">
-                <textarea name="Summary" placeholder="请输入内容" class="layui-textarea"></textarea>
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">封面</label>
-            <div class="layui-input-block">
-               <button type="button" class="layui-btn"  id="test1" >
-                  <i class="layui-icon">&#xe67c;</i>上传图片
-                </button> 
-                <textarea placeholder="请输入内容" ></textarea>
-            </div>
-        </div>		
-        <div class="layui-form-item">
-            <label class="layui-form-label">关键词</label>
-            <div class="layui-input-block">
-              <input type="text" name="Keywords" required  lay-verify="required" placeholder="请输入关键词" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">作者</label>
-            <div class="layui-input-block">
-              <input type="text" name="author" required  lay-verify="required" placeholder="请输入作者" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-              <button class="layui-btn" name="send" lay-submit lay-filter="formDemo" onclick="add()">立即提交</button>
-              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-`;
-
 var vm = new Vue({
     el: '#content',
     router:new VueRouter({ 
@@ -167,31 +5,32 @@ var vm = new Vue({
             {path:'/',redirect:'/articleList'},
             {path:'/articleList',
             	component:{
-            		template: articleList,
+            		template: '#articleList',
             		data:function(){
 				    	return{
 				    		flag:false
 				    	}
 			    	},
-                    data:{
-            		  list: [//存放所有品牌列表的数组
-                          {
-                              title:'哈哈',
-                              author: 'wind',
-                              categoryPercentage:'后端',
-                              label:'vue',
-                              time:datetime
-                          }
-                      ]
-                    },
-                    created(){
-            		  this.getAllList()
-                    },
+                    // data:{
+            		//   list: [//存放所有品牌列表的数组
+                    //       {
+                    //           title:'哈哈',
+                    //           author: 'wind',
+                    //           categoryPercentage:'后端',
+                    //           label:'vue',
+                    //
+                    //       }
+                    //   ]
+                    // },
+                    // created(){
+            		//   this.getAllList()
+                    // },
 			    	methods:{
 			    		selectAll:function(){
 			    			this.flag = !this.flag;
 			    		},
 			    		getAllList(){//获取所有文章列表
+			    		    this.$http.get('/articleList/show').then()
 
                         }
 			    	}
@@ -199,7 +38,7 @@ var vm = new Vue({
         	},
             {path:'/writeArticle',
             	component:{
-            		template: writeArticle,
+            		template:'#writeArticle',
             		created(){
             			layui.use('form', function(){
 							var form = layui.form;
