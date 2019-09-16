@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
 	<title>后台登录</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}">
@@ -28,35 +29,61 @@
 			background: linear-gradient(#4990c1, #52a3d2, #6186a3); /* 标准的语法 */
 		}
 	</style>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body onload="isLogin();showValue()" style="background: url(/img/bg.jpg) no-repeat">
-<div class="container wrap1" style="height:450px;">
+<div id="app" class="container wrap1" style="height:450px;">
 	<h2 class="mg-b20 text-center" style="color:black;">公司LOGO</h2>
 	<h2 class="text-center" style="color:black;">后台管理中心</h2>
 	<div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
-		<p class="text-center font16">用户登录</p>
-		<form action="/user/login" th:href="@{/user/login}" method="post">
-			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" ></p>
-			<div class="form-group mg-t20">
-				<i class="icon-user icon_font"></i>
-				<input type="text" name="username" id="showName" class="login_input" value="" placeholder="请输入用户名" />
-			</div>
-			<div class="form-group mg-t20">
-				<i class="icon-lock icon_font"></i>
-				<input type="password" name="password" class="login_input" id="showPassword" placeholder="6-12位数字、字母或字符" />
-				<img class="show" id="show" alt="显示密码"  onclick="hideShowPsw()" src="/static/img/visible.png" th:src="@{/img/visible.png}">
-			</div>
-			<div class="checkbox mg-b25">
-				<label>
-					<input type="checkbox" id="remember" name="remember" value="true" checked="checked"/>记住用户名
-				</label>
-
-				<label class="forget"><a href="">忘记密码</a></label>
-			</div>
-			<button style=":submit" class="login_btn">登 录</button>
-		</form>
+		<a class="text-center font16" href="" @click.prevent="flag=true" >账号登录</a>
+		<a class="text-center font16" href="" @click.prevent="flag=false">邮箱登陆</a>
+		<login v-if="flag"></login>
+		<mail v-else="flag"></mail>
 	</div>
+
 </div>
+
+<template id="mail">
+	<form action="" method="">
+		<!--用于提示验证码有误，也可以不添加这段代码-->
+		<!--<p style="color: red" th:text="${msg}" th:if="${not #strings.isError(msg)}" ></p>-->
+		<div class="form-group mg-t20">
+			<i class="icon-user icon_font"></i>
+			<input type="text" name="emailCode" class="login_input" value="" placeholder="请输入邮箱号" />
+			<input type="button" name="submitCode" value="发送验证码" style="position: absolute;right: 0;top:50%;margin-top: -11px;margin-right: 10px;color: #fff;width: auto;background-color: #3872f6;border: none;">
+		</div>
+		<div class="form-group mg-t20">
+			<i class="icon-lock icon_font"></i>
+			<input type="text" name="code" class="login_input" placeholder="输入验证码"/>
+		</div>
+		<button style=":submit" class="login_btn">登陆</button>
+	</form>
+
+</template>
+<template id="login">
+	<form action="/user/login" th:href="@{/user/login}" method="post">
+		<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" ></p>
+		<div class="form-group mg-t20">
+			<i class="icon-user icon_font"></i>
+			<input type="text" name="username" id="showName" class="login_input" value="" placeholder="请输入用户名" />
+		</div>
+		<div class="form-group mg-t20">
+			<i class="icon-lock icon_font"></i>
+			<input type="password" name="password" class="login_input" id="showPassword" placeholder="6-12位数字、字母或字符" />
+			<img class="show" id="show" alt="显示密码"  onclick="hideShowPsw()" src="/static/img/visible.png" th:src="@{/img/visible.png}">
+		</div>
+		<div class="checkbox mg-b25">
+			<label>
+				<input type="checkbox" id="remember" name="remember" value="true" checked="checked"/>记住用户名
+			</label>
+
+			<label class="forget"><a href="">忘记密码</a></label>
+		</div>
+		<button style=":submit" class="login_btn">登 录</button>
+
+	</form>
+</template>
 
 <script type="text/javascript">
 	var showImg = document.getElementById("show");
@@ -116,6 +143,24 @@
 		var username = document.getElementById("showName");
 		username.value = getMyCookie("username");
 	}
+
+	Vue.component('login',{
+	    template: '#login'
+    })
+	//Vue组件
+	Vue.component('mail', {
+		template: "#mail"
+	})
+
+
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			flag: true
+		},
+		methods: {}
+	});
 </script>
 </body>
 </html>

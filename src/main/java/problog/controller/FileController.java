@@ -11,7 +11,6 @@ import java.io.IOException;
 /**
  * @Author : shengjun
  * @Date : create in
- */
 @RestController
 public class FileController {
 
@@ -48,3 +47,5 @@ public class FileController {
         return "上传失败";
     }
 }
+
+ */

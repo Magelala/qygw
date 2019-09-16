@@ -11,9 +11,7 @@ spring:
     password: pwojcehlfxqsbcig
     default-encoding: utf-8
 
-  freemarker:
+  thymeleaf:
     cache: false
-
-
-
+    mode: HTML
 

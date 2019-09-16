@@ -1,10 +1,12 @@
 package problog.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import problog.entity.User.User;
 import problog.utils.FindUser;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,7 @@ import java.util.Map;
  * @Date : create in 2019-8-7
  */
 @Controller
+@ApiIgnore
 public class LoginController {
 
     static Map<Integer,User> data;
@@ -74,9 +77,11 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/article")
-    public String article(){
-        return "article";
+
+
+    @GetMapping("/forget")
+    public String forgetPassword(){
+        return "findPassword";
     }
 }
 
