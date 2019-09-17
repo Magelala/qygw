@@ -1,38 +1,24 @@
 var vm = new Vue({
     el: '#content',
+    data:{
+        list:[
+            {id:1,
+            title:'halo咯',
+            category:'前端',
+            time:Date.now(),
+            operation:'删除'}
+        ]
+    },
     router:new VueRouter({ 
         routes:[ 
             {path:'/',redirect:'/articleList'},
             {path:'/articleList',
             	component:{
             		template: '#articleList',
-            		data:function(){
-				    	return{
-				    		flag:false
-				    	}
-			    	},
-                    // data:{
-            		//   list: [//存放所有品牌列表的数组
-                    //       {
-                    //           title:'哈哈',
-                    //           author: 'wind',
-                    //           categoryPercentage:'后端',
-                    //           label:'vue',
-                    //
-                    //       }
-                    //   ]
-                    // },
-                    // created(){
-            		//   this.getAllList()
-                    // },
-			    	methods:{
+                    methods:{
 			    		selectAll:function(){
 			    			this.flag = !this.flag;
-			    		},
-			    		getAllList(){//获取所有文章列表
-			    		    this.$http.get('/articleList/show').then()
-
-                        }
+			    		}
 			    	}
             	}
         	},

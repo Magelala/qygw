@@ -7,7 +7,7 @@ import problog.entity.carousel.Carousel;
 /**
  * @Author : shengjun
  * @Date : create in
- */
+
 @Mapper
 public interface CarouselMapper extends BaseMapper<Carousel> {
 
@@ -24,3 +24,4 @@ public interface CarouselMapper extends BaseMapper<Carousel> {
     //下移
     Carousel moveDown(Integer id);
 }
+ */

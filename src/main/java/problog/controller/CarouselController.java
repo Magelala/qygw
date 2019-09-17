@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import problog.entity.RespBean;
 import problog.entity.carousel.Carousel;
-import problog.service.CarouselService;
+
 
 import java.util.Date;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @Author : shengjun
  * @Date : create in
- */
+
 @RestController
 @RequestMapping(value = "/advertisement")
 @Api(value = "广告管理接口",tags = "动态修改轮播图")
@@ -118,3 +118,4 @@ public class CarouselController {
 
 
 }
+ */

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @Author : shengjun
  * @Date : create in
- */
+
 @Service
 public interface CarouselService {
 
@@ -31,3 +31,4 @@ public interface CarouselService {
     void moveDown(Integer id);
 
 }
+ */
