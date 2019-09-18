@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import problog.entity.Article.ArticleInfo;
 import problog.entity.RespBean;
+import problog.service.articleInfoService;
 
 
 import java.util.List;
 /**
  * @Author : shengjun
  * @Date : create in
+ * */
 
 @RestController
 @RequestMapping(value = "/article")
@@ -93,4 +95,3 @@ public class ArticleInfoController {
     }
 
 }
- */

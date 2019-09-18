@@ -35,4 +35,6 @@ public class PageController {
     public String setting(Model model){
         return "setting";
     }
+
+
 }

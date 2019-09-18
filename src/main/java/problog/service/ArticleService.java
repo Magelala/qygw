@@ -1,11 +1,12 @@
 package problog.service;
 
 import problog.entity.Article.ArticleContent;
+import problog.entity.Article.ArticleList;
 
 import java.util.List;
 
 
-public interface ArticleContentService {
+public interface ArticleService {
 
     //增添新文章
     ArticleContent addNewArticle(ArticleContent articleContent);

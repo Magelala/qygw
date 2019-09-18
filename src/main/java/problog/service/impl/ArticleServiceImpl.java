@@ -4,18 +4,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import problog.entity.Article.ArticleContent;
 
+import problog.entity.Article.ArticleList;
 import problog.mapper.Article.ArticleContentMapper;
-import problog.service.ArticleContentService;
+import problog.mapper.Article.ArticleListMapper;
+import problog.service.ArticleService;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Service
 @Transactional
-public class ArticleContentServiceImpl implements ArticleContentService {
+public class ArticleServiceImpl implements ArticleService {
     @Resource
     ArticleContentMapper articleContentMapper;
+
+    @Resource
+    ArticleListMapper articleListMapper;
 
 
 
@@ -28,6 +32,9 @@ public class ArticleContentServiceImpl implements ArticleContentService {
             List<ArticleContent> list = articleContentMapper.selectList(null);
             return list;
 
+
+
         }
+
     }
 

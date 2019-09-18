@@ -2,6 +2,7 @@ package problog.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -10,24 +11,22 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import problog.entity.Article.ArticleContent;
 
-import problog.service.ArticleContentService;
+import problog.entity.Article.ArticleList;
+import problog.service.ArticleService;
 
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
     @Resource
-    ArticleContentService articleContentService;
-
-
+    ArticleService articleService;
     //保存新的文章，插入一条数据
     @RequestMapping(value = "/writeArticle/add" ,method = RequestMethod.POST)
     @ResponseBody
@@ -35,11 +34,9 @@ public class ArticleController {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         articleContent.setModifiedByDate(timestamp);
         articleContent.setCreateByDate(timestamp);
-        articleContentService.addNewArticle(articleContent);
+        articleService.addNewArticle(articleContent);
         return articleContent;
     }
-
-
     private static final Logger log = LoggerFactory.getLogger(ArticleContent.class);
     @RequestMapping(value = "/writeArticle/upload" ,method = RequestMethod.POST)
     @ResponseBody
@@ -76,15 +73,18 @@ public class ArticleController {
             e.printStackTrace();
         }
         return "上传失败";
-
     }
 
-    @PostMapping(value = "/articleList/show")
-    @ResponseBody
-    public List<ArticleContent> showArticle(){
-        List<ArticleContent> list = articleContentService.showArticle();
-        return list;
-    }
 
+    @GetMapping(value = "")
+    public String showArticle(Model model){
+        List<ArticleContent> list = articleService.showArticle();
+        model.addAttribute("articleList",list);
+        return "article";
+    }
 
 }
+
+
+
+

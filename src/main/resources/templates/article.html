@@ -6,8 +6,10 @@
     <title>文章</title>
     <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}">
     <link rel="stylesheet" href="/static/css/article.css" th:href="@{/css/article.css}">
+    <script src="/static/js/vue-resource-1.3.4.js" th:src="@{static/js/vue-resource-1.3.4.js}"></script>
     <script src="/static/js/vue.js" th:src="@{/js/vue.js}"></script>
     <script src="/static/js/vue-router.min.js" th:src="@{/js/vue-router.min.js}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" th:src="@{/js/node_modules/axios/dist/axios.min.js}"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -106,15 +108,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="item in list" :key="item.id">
+                            <tr th:each="list : ${articleList}" >
                                 <td>
                                     <input type="checkbox" :checked="flag"/>
                                 </td>
-                                <td>{{item.id}}</td>
-                                <td>{{item.title}}</td>
-                                <td>{{item.category}}</td>
-                                <td>{{item.time}}</td>
-                                <td>{{item.operation}}</td>
+                                <td th:text="${list.id}"></td>
+                                <td th:text="${list.title}"></td>
+                                <td th:text="${list.summary}"></td>
+                                <td th:text="${list.createByDate}"></td>
+                                <td><button>修改</button> <button>删除</button> </td>
                             </tr>
                             </tbody>
                         </table>
@@ -205,10 +207,10 @@
 
 
 <script>
-    //JavaScript代码区域
-    // layui.use('element', function(){
-    //     var element = layui.element;
-    // });
+    // JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
 </script>
 </body>
 </html>
