@@ -38,13 +38,11 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed message">
-                    <a class="" href="article.html" th:href="@{/article}">文章</a>
-                    <!--<ul class="secondary-menu">
-                        <li class="layui-nav-item"><a href="">所有文章</a></li>
-                        <li class="layui-nav-item"><a href="">写文章</a></li>
-                        <li class="layui-nav-item"><a href="">分类目录</a></li>
-                        <li class="layui-nav-item"><a href="">标签</a></li>
-                    </ul>-->
+                    <a class="" >文章</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="article.html" th:href="@{/article}">文章列表</a></dd>
+                        <dd><a href="">写文章</a></dd>
+                    </dl>
                 </li>
                 <li class="layui-nav-item ">
                     <a href="javascript:;">页面设置</a>
@@ -207,9 +205,9 @@
 
 <script>
     // JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
-    });
+    // layui.use('element', function(){
+    //     var element = layui.element;
+    // });
 </script>
 </body>
 </html>
