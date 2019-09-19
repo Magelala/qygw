@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js" th:src="@{/js/node_modules/axios/dist/axios.min.js}"></script>
 </head>
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
+<div class="layui-layout layui-layout-admin" id="content">
     <div class="layui-header">
         <div class="layui-logo">公司LOGO</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
@@ -33,15 +33,15 @@
             <li class="layui-nav-item"><a href="/login.html">退出</a></li>
         </ul>
     </div>
-    <div class="layui-side layui-bg-black">
+    <div class="layui-side layui-bg-black" id="">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed message">
                     <a class="" >文章</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="article.html" th:href="@{/article}">文章列表</a></dd>
-                        <dd><a href="">写文章</a></dd>
+                        <dd><a><router-link to='/articleList'>文章列表</router-link></a></dd>
+                        <dd><a><router-link to='/writeArticle'>写文章</router-link></a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item ">
@@ -56,7 +56,7 @@
 
     <div class="layui-body" style="background-color:#EEEEEE;">
         <!-- 内容主体区域 -->
-        <div id="content">
+        <div >
             <router-view></router-view>
         </div>
     </div>
@@ -72,14 +72,14 @@
 <template id="articleList">
     <div >
         <div class="list-header">
-            <ul>
-                <li class="curr">
-                    <router-link to='/articleList'>文章</router-link>
-                </li>
-                <li>
-                    <router-link to='/writeArticle'>写文章</router-link>
-                </li>
-            </ul>
+<!--            <ul>-->
+<!--                <li class="curr">-->
+<!--                    <router-link to='/articleList'>文章</router-link>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <router-link to='/writeArticle'>写文章</router-link>-->
+<!--                </li>-->
+<!--            </ul>-->
             <div class="search">
                 <input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
                 <button type="button" class="layui-btn">搜索文章</button>
