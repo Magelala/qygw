@@ -77,20 +77,21 @@ var vm = new Vue({
 		}
 	)
 	}
-// function getAllList(){//获取所有文章列表
-//
-//     $.ajax({
-//         url: '/article/writeArticle',
-//         type:"post",
-//         dataType:JSON,
-//         datalist:{
-//         },
-//         success: function () {
-//         alert('获取成功')
-//
-//         }
-//         }
-//
-//     )
-// }
+
+	function find() {
+	var	Title=$("input[name='price_min']").val();
+	$.ajax({
+		url: '/article/title',
+		type: "get",
+		dataType: JSON,
+		data:{"price_min":Title},
+		success:function () {
+
+
+		}
+		}
+	)
+
+	}
+
 	

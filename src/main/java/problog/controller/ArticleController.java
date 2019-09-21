@@ -83,6 +83,13 @@ public class ArticleController {
         return "article";
     }
 
+@PostMapping(value = "")
+@ResponseBody
+    public List<ArticleContent> getArticleById(@RequestParam(value="title",required=false) String title){
+    List<ArticleContent> articleById = articleService.getArticleById(title);
+    return articleById;
+}
+
 }
 
 

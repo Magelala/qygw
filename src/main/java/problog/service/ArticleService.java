@@ -13,4 +13,6 @@ public interface ArticleService {
 
     //显示列表
      List<ArticleContent> showArticle();
+
+    List<ArticleContent> getArticleById(String title);
 }

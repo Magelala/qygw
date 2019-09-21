@@ -5,5 +5,6 @@ import problog.entity.Article.ArticleContent;
 
 
 public interface ArticleContentMapper extends BaseMapper<ArticleContent> {
-//    int addNewArticleContent(ArticleContent articleContent);
+
+
 }

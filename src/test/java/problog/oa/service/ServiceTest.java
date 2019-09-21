@@ -1,6 +1,10 @@
 package problog.oa.service;
 
 
+import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,8 +42,9 @@ public class ServiceTest {
 
     @Resource
     ArticleContentMapper articleContentMapper;
+
     @Test
-    public void testSelect(){
+    public void testSelect() {
         System.out.println(("----- selectAll method test ------"));
         List<usersUser> userList = usersMapper.selectList(null);
         Assert.assertEquals(5, userList.size());
@@ -47,7 +52,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void insertTest(){
+    public void insertTest() {
         ArticleContent content = new ArticleContent();
         content.setContext("sadasda");
         content.setTitle("haha");
@@ -61,9 +66,10 @@ public class ServiceTest {
     }
 
     @Test
-    public void testSource(){
+    public void testSource() {
 
     }
+
     /**
      * 发送简单纯文本邮件
      */
@@ -119,6 +125,7 @@ public class ServiceTest {
 
 
 
+
     /**
      @Test
     //添加新的文章
@@ -138,11 +145,20 @@ public class ServiceTest {
     }
      */
 
-    @Test
-    public void testshow(){
-        List<ArticleContent> list = articleContentMapper.selectList(null);
+//    @Test
+//    public void testshow(){
+//        List<ArticleContent> list = articleContentMapper.selectList(null);
+//
+//        list.forEach(System.out::println);
+//    }
 
-        list.forEach(System.out::println);
-    }
+//    @Test
+//    public void findlistById(ArticleContent articleContent){
+//        List<ArticleContent> list = articleContentMapper.selectList(new LambdaQueryWrapper<ArticleContent>().eq(ArticleContent::getTitle, articleContent.getTitle()));
+//        System.out.println(list);
+
+
+
+
 
 }

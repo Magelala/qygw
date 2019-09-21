@@ -40,8 +40,8 @@
                 <li class="layui-nav-item layui-nav-itemed message">
                     <a class="" >文章</a>
                     <dl class="layui-nav-child">
-                        <dd><a><router-link to='/articleList'>文章列表</router-link></a></dd>
-                        <dd><a><router-link to='/writeArticle'>写文章</router-link></a></dd>
+                        <dd><router-link to='/articleList'>文章列表</router-link></dd>
+                        <dd><router-link to='/writeArticle'>写文章</router-link></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item ">
@@ -70,22 +70,7 @@
 
 <!--页面模板articleList -->
 <template id="articleList">
-    <div >
-        <div class="list-header">
-<!--            <ul>-->
-<!--                <li class="curr">-->
-<!--                    <router-link to='/articleList'>文章</router-link>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <router-link to='/writeArticle'>写文章</router-link>-->
-<!--                </li>-->
-<!--            </ul>-->
-            <div class="search">
-                <input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
-                <button type="button" class="layui-btn">搜索文章</button>
-            </div>
-        </div>
-        <div class="list-content">
+            <div class="list-content">
             <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
@@ -113,7 +98,7 @@
                                 <td th:text="${list.title}"></td>
                                 <td th:text="${list.summary}"></td>
                                 <td th:text="${list.createByDate}"></td>
-                                <td><button>修改</button> <button>删除</button> </td>
+                                <td><button class="layui-btn">修改</button> <button class="layui-btn layui-btn-danger">删除</button> </td>
                             </tr>
                             </tbody>
                         </table>
@@ -125,8 +110,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
 </template>
 
 <!--页面模板writeArticle-->
@@ -172,7 +155,7 @@
                     <button type="button" class="layui-btn"  id="test1" >
                         <i class="layui-icon">&#xe67c;</i>上传图片
                     </button>
-                    <textarea placeholder="请输入内容" ></textarea>
+
                 </div>
             </div>
             <div class="layui-form-item">
