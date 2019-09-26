@@ -37,24 +37,24 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
      * 直接访问localhost:8080/toLogin就跳转到login.html页面了
      * @param registry
      */
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry){
-        //视图跳转控制器
-        registry.addViewController("/").setViewName("/login");
-        registry.addViewController("/loginOut").setViewName("/login");
-        registry.addViewController("/index.html").setViewName("/index");
-        registry.addViewController("/main").setViewName("/index");
-        registry.addViewController("/article").setViewName("/article");
-        registry.addViewController("/article.html").setViewName("/article");
-        registry.addViewController("/advertisement.html").setViewName("/advertise");
-        registry.addViewController("/advertise").setViewName("/advertise");
-        registry.addViewController("/forgetPassword.html").setViewName("/forget");
-        registry.addViewController("/forgetPassword").setViewName("/forget");
-        registry.addViewController("/user.html").setViewName("/user");
-        registry.addViewController("/user").setViewName("/user");
-        registry.addViewController("/setting.html").setViewName("/setting");
-        registry.addViewController("/setting").setViewName("/setting");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry){
+//        //视图跳转控制器
+//        registry.addViewController("/").setViewName("/login");
+//        registry.addViewController("/loginOut").setViewName("/login");
+//        registry.addViewController("/index.html").setViewName("/index");
+//        registry.addViewController("/main").setViewName("/index");
+//        registry.addViewController("/article").setViewName("/article");
+//        registry.addViewController("/article.html").setViewName("/article");
+//        registry.addViewController("/advertisement.html").setViewName("/advertise");
+//        registry.addViewController("/advertise").setViewName("/advertise");
+//        registry.addViewController("/forgetPassword.html").setViewName("/forget");
+//        registry.addViewController("/forgetPassword").setViewName("/forget");
+//        registry.addViewController("/user.html").setViewName("/user");
+//        registry.addViewController("/user").setViewName("/user");
+//        registry.addViewController("/setting.html").setViewName("/setting");
+//        registry.addViewController("/setting").setViewName("/setting");
+//    }
 
 //    asdadasd
     /**
@@ -72,8 +72,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
      * excludePathPatterns("/asserts") 表示js、css、img都可以访问
      * @param registry
      */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/css/**","/js/**","/img/**","/fonts/**","/bootstrap/**");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry){
+//        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/css/**","/js/**","/img/**","/fonts/**","/bootstrap/**");
+//    }
 }

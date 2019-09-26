@@ -119,20 +119,20 @@ public class ServiceTest {
 
 
 
-    @Test
-    //添加新的文章
-    public void addNewArticleContent(){
-        //添加操作
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        //设置创建发表日期
-        //更新
-        ArticleContent article = new ArticleContent();
-//        article.setId(8);
-        article.setContext("hahahahahah");
-        article.setArticleId(2);
-        article.setCreateByDate(timestamp);
-        article.setIsTop(1);
-        int i = articleContentMapper.insert(article);
-        System.out.println(i);
-    }
+//    @Test
+//    //添加新的文章
+//    public void addNewArticleContent(){
+//        //添加操作
+//        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//        //设置创建发表日期
+//        //更新
+//        ArticleContent article = new ArticleContent();
+////        article.setId(8);
+//        article.setContext("hahahahahah");
+//        article.setArticleId(2);
+//        article.setCreateByDate(timestamp);
+//        article.setIsTop(1);
+//        int i = articleContentMapper.insert(article);
+//        System.out.println(i);
+//    }
 }

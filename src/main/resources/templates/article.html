@@ -8,85 +8,190 @@
     <link rel="stylesheet" href="/static/css/article.css" th:href="@{/css/article.css}">
     <script src="/static/js/vue.js" th:src="@{/js/vue.js}"></script>
     <script src="/static/js/vue-router.min.js" th:src="@{/js/vue-router.min.js}"></script>
+    <script src="/static/js/node_modules/axios/dist/axios.min.js" th:src="@{/js/node_modules/axios/dist/axios.min.js}"></script>
 </head>
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo">公司LOGO</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="/index.html">返回主页</a></li>
-            <li class="layui-nav-item"><a href="javascript:;">数据中心</a></li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="/static/img/user.jpg" class="layui-nav-img" th:src="@{/img/user.jpg}">用户名
-                </a>
-                <dl class="layui-nav-child layui-anim layui-anim-upbit">
-                    <dd><a href="javascript:;">基本资料</a></dd>
-                    <dd><a href="javascript:;">修改密码</a></dd>
-                    <dd><a href="javascript:;">安全设置</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="/login.html">退出</a></li>
-        </ul>
-    </div>
-    <div class="layui-side layui-bg-black">
+<div class="layui-layout layui-layout-admin" id="content">
+    <!--头部-->
+    <div th:include="commons/common_header :: commonHeader" class="layui-header"></div>
+
+
+    <!--侧边导航栏-->
+    <div class="layui-side layui-bg-black" id="">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item message">
+                <li class="layui-nav-item layui-nav-itemed message">
                     <a class="" href="javascript:;">文章</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="article.html" th:href="@{/article}">所有文章</a></dd>
-                        <dd><a href="">写文章</a></dd>
-                        <dd><a href="">分类目录</a></dd>
-                        <dd><a href="">标签</a></dd>
+                        <dd><a><router-link to='/articleList'>文章列表</router-link></a></dd>
+                        <dd><a><route-link to='/writeArticle'>写文章</route-link></a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item ">
-                    <a href="javascript:">页面设置</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">顶部</a></dd>
-                        <dd><a href="">菜单</a></dd>
-                        <dd><a href="">底部</a></dd>
-                        <dd><a href="">背景</a></dd>
-                    </dl>
+                    <a href="javascript:;">页面设置</a>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">广告管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="advertisement.html" th:href="@{/advertise}">首页</a></dd>
-                        <dd><a href="">About us</a></dd>
-                        <dd><a href="">Contact us</a></dd>
-                    </dl>
-                </li>
+                <li class="layui-nav-item"><a href="advertisement.html" th:href="@{/advertise}">广告管理</a></li>
                 <li class="layui-nav-item"><a href="user.html" th:href="@{/user}">用户管理</a></li>
                 <li class="layui-nav-item"><a href="setting.html" th:href="@{/setting}">设置</a></li>
             </ul>
         </div>
     </div>
 
+
+
     <div class="layui-body" style="background-color:#EEEEEE;">
         <!-- 内容主体区域 -->
-        <div id="content">
+        <div >
             <router-view></router-view>
         </div>
     </div>
 
-    <div class="layui-footer" style="background-color:black;color:white;text-align:center;">
-        <!-- 底部固定区域 -->
-        © magelala.com
-    </div>
+    <!--页脚-->
+    <div class="layui-footer" th:include="commons/common_footer :: commonFooter" style="background-color:black;color:white;text-align:center;"></div>
 </div>
-<script src="/static/js/layui.js" th:src="@{/js/layui.js}"></script>
-<script src="/static/js/article.js" th:src="@{/js/article.js}"></script>
+
+
+<!--页面模板articleList -->
+<template id="articleList">
+    <div >
+        <div class="list-header">
+            <!--            <ul>-->
+            <!--                <li class="curr">-->
+            <!--                    <router-link to='/articleList'>文章</router-link>-->
+            <!--                </li>-->
+            <!--                <li>-->
+            <!--                    <router-link to='/writeArticle'>写文章</router-link>-->
+            <!--                </li>-->
+            <!--            </ul>-->
+            <div class="search">
+                <input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                <button type="button" class="layui-btn">搜索文章</button>
+            </div>
+        </div>
+        <div class="list-content">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>文章标题</th>
+                                <th>文章类别</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="list : ${articleList}" >
+                                <td>
+                                    <input type="checkbox" :checked="flag"/>
+                                </td>
+                                <td th:text="${list.id}"></td>
+                                <td th:text="${list.title}"></td>
+                                <td th:text="${list.summary}"></td>
+                                <td th:text="${list.createByDate}"></td>
+                                <td><button>修改</button> <button>删除</button> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--                    <div class="layui-tab-item">内容2</div>-->
+                    <!--                    <div class="layui-tab-item">内容3</div>-->
+                    <!--                    <div class="layui-tab-item">内容4</div>-->
+                    <!--                    <div class="layui-tab-item">内容5</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+<!--页面模板writeArticle-->
+<template id="writeArticle">
+    <div class="write-article">
+        <form class="layui-form" action="">
+            <div class="layui-form-item classify">
+                <label class="layui-form-label">分类</label>
+                <div class="layui-input-block">
+                    <select name="classify" lay-verify="required">
+                        <option value=""></option>
+                        <option value="0">vue</option>
+                        <option value="1">php</option>
+                        <option value="2">java</option>
+                        <option value="3">hadoop</option>
+                        <option value="4">node</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" >标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item textarea-content">
+                <label class="layui-form-label"  id="Context">正文</label>
+                <div class="layui-input-block">
+                    <textarea id="demo" style="display: none;" placeholder="请输入内容" name="Context"></textarea>
+                    <!--                <textarea style="display: none;" placeholder="请输入内容" name="Context"></textarea>-->
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+
+                <label class="layui-form-label" >摘要</label>
+                <div class="layui-input-block">
+                    <textarea name="Summary" placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">封面</label>
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn"  id="test1" >
+                        <i class="layui-icon">&#xe67c;</i>上传图片
+                    </button>
+                    <textarea placeholder="请输入内容" ></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Keywords" required  lay-verify="required" placeholder="请输入关键词" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">作者</label>
+                <div class="layui-input-block">
+                    <input type="text" name="author" required  lay-verify="required" placeholder="请输入作者" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" name="send" lay-submit lay-filter="formDemo" onclick="add()">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+<script src="js/layui.js"></script>
+<script src="js/article.js"></script>
+<script src="js/jquery.js"></script>
+
+
+
+
 <script>
-    //JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
-    });
+    // JavaScript代码区域
+    // layui.use('element', function(){
+    //     var element = layui.element;
+    // });
 </script>
 </body>
 </html>

@@ -35,4 +35,14 @@ public class PageController {
     public String setting(Model model){
         return "setting";
     }
+
+    @GetMapping("/advertiseAdd")
+    public String advertiseAdd(){
+        return "advertiseAdd";
+    }
+
+    @GetMapping("/test")
+    public String test(){
+        return "test";
+    }
 }

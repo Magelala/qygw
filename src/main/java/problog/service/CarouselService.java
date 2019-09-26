@@ -1,6 +1,8 @@
 package problog.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import problog.entity.carousel.Carousel;
 
 import java.util.List;
@@ -10,13 +12,14 @@ import java.util.List;
  * @Date : create in
  */
 @Service
+@Transactional
 public interface CarouselService {
 
     Carousel selectCarouselById(Integer id);
 
     Carousel selectCarouselByTitle(String title);
 
-    void insertCarousel(Carousel carousel);
+    int insertCarousel(Carousel carousel);
 
     int deleteCarouselById(Integer id);
 

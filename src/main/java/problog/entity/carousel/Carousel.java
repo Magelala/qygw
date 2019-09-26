@@ -1,11 +1,10 @@
 package problog.entity.carousel;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import org.apache.ibatis.type.Alias;
 
-import java.util.Date;
-
+import java.sql.Timestamp;
 /**
  * @Entity注解标识这个类和数据库做映射，当从数据库中取数据时，我们只需要读取实体类，后台会自动将
  * 数据库中的数据填充到对象中
@@ -15,10 +14,11 @@ import java.util.Date;
 @Data
 public class Carousel {
 
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     //创建时间
-    private Date createDate;
+    private Timestamp createDate;
 
     //轮播图路径
     private String imgUrl;
@@ -45,12 +45,11 @@ public class Carousel {
         this.id = id;
     }
 
-    public Date getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Timestamp createDate){
         this.createDate = createDate;
     }
 

@@ -3,6 +3,7 @@ package problog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import problog.entity.carousel.Carousel;
 import problog.mapper.carousel.CarouselMapper;
 import problog.service.CarouselService;
@@ -15,10 +16,12 @@ import java.util.List;
  * @Date : create in
  */
 @Service
+@Transactional
 public class CarouselServiceImpl implements CarouselService {
 
     @Resource
     private CarouselMapper carouselMapper;
+
 
     /**
      * 根据id来查找
@@ -41,7 +44,7 @@ public class CarouselServiceImpl implements CarouselService {
      * @return 插入的位置
      */
     @Override
-    public void insertCarousel(Carousel carousel){
+    public int insertCarousel(Carousel carousel){
 //        //获取当前最大的sort值
 //        Integer sort = carouselMapper.selectMaxSort();
 //        //如果为0，说明没有数据;否则在最大值的基础上加一
@@ -52,7 +55,7 @@ public class CarouselServiceImpl implements CarouselService {
 //        }
         int i = carouselMapper.insert(carousel);
         System.out.println("插入的位置   ======>   "+i);
-        return;
+        return i;
     }
 
     /**
@@ -83,22 +86,7 @@ public class CarouselServiceImpl implements CarouselService {
      */
     @Override
     public List<Carousel> selectAllList(){
-        List<Carousel> list = carouselMapper.selectList(new Wrapper<Carousel>() {
-            @Override
-            public Carousel getEntity() {
-                return new Carousel();
-            }
-
-            @Override
-            public MergeSegments getExpression() {
-                return null;
-            }
-
-            @Override
-            public String getSqlSegment() {
-                return null;
-            }
-        });
+        List<Carousel> list = carouselMapper.selectList(null);
         return list;
     }
 
