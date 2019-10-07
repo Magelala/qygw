@@ -59,11 +59,12 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 //    asdadasd
     /**
      * 用来配置静态资源，比如html,js,css
+     * file路径需要修改成自己的
      * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
+        registry.addResourceHandler("/upload/picture/**").addResourceLocations("file:D:/demo/qygw/src/main/resources/static/upload/picture/");
     }
 
     /**

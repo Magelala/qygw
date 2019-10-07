@@ -1,16 +1,11 @@
 package problog.entity.carousel;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.sql.Timestamp;
-/**
- * @Entity注解标识这个类和数据库做映射，当从数据库中取数据时，我们只需要读取实体类，后台会自动将
- * 数据库中的数据填充到对象中
- * @Author : shengjun
- * @Date : create in
- */
+
 @Data
 public class Carousel {
 
@@ -18,6 +13,7 @@ public class Carousel {
     private Integer id;
 
     //创建时间
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy/MM/dd",timezone = "GMT+8")
     private Timestamp createDate;
 
     //轮播图路径
@@ -34,62 +30,4 @@ public class Carousel {
 
     //排序
     private Integer sort;
-
-    public Carousel(){}
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Timestamp getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate){
-        this.createDate = createDate;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImgLink() {
-        return imgLink;
-    }
-
-    public void setImgLink(String imgLink) {
-        this.imgLink = imgLink;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
 }

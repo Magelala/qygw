@@ -2,35 +2,38 @@ package problog.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import problog.entity.carousel.Carousel;
 
 import java.util.List;
 
-/**
- * @Author : shengjun
- * @Date : create in
- */
 @Service
 @Transactional
 public interface CarouselService {
 
-    Carousel selectCarouselById(Integer id);
+    Carousel getById(Integer id);
 
-    Carousel selectCarouselByTitle(String title);
+    int save(Carousel carousel);
 
-    int insertCarousel(Carousel carousel);
+    int delete(Integer id);
 
-    int deleteCarouselById(Integer id);
+    int batchDelete(Integer[] ids);
 
-    int updateCarouselById(Carousel carousel);
+    int update(Carousel carousel);
 
-    List<Carousel> selectAllList();
+    List<Carousel> all();
 
-    //上移
-    void moveUp(Integer id);
+    List<Carousel> getCarouselByTitle(String title,int limit,int page);
 
-    //下移
-    void moveDown(Integer id);
+    Carousel up(int sort);
+
+    Carousel down(int sort);
+
+    void updateSelfSort(Integer id,int sort);
+
+    void updateOtherSort(int newSort,int sort);
+
+    int max();
+
+    Carousel maxSort();
 
 }

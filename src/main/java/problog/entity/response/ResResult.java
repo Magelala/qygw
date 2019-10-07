@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class ResResult<T> {
 
-    private String id;
     private int code;
     private String msg;
     private T data;

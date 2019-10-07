@@ -52,7 +52,8 @@ public class UploadController {
                 System.out.println("这是文件的路径"+path);
                 String substring = path.substring(path.length()-fileName.length()-16);
                 substring = substring.replace("\\","/");
-                request.getSession().setAttribute("path",substring);
+
+               request.getSession().setAttribute("path",substring);
                 System.out.println(substring);
                 uploadBean.setCode(0);
                 uploadBean.setSrc(substring);

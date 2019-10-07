@@ -1,11 +1,7 @@
 ﻿<!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
+<head th:replace="commons/common_head::commonHead(~{::title})">
     <title>用户管理</title>
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}">
-    <link rel="stylesheet" href="/static/css/layout.css" th:href="@{/css/layout.css}">
-    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}">
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -17,120 +13,13 @@
     </div>
 
     <div class="layui-body">
-        <div id="content" class="no-sidebar">
-            <div class="inner-content">
-                <div class="user-iframe">
-                    <div class="user-iframe-content">
-                        <div class="nav-content">
-                            <div class="nav-db-left">
-                                <ul class="db-ul">
-                                    <li class="db-li-1 dbactive">
-                                        <span class="db-title" >用户管理</span>
-                                    </li>
-                                    <li class="db-li-2">
-                                        <span class="db-title">添加用户</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- <div class="nav-db-right">
-                                <div class="right-search">
-                                    <i class="glyphicon glyphicon-search right-icon"></i>
-                                    <input type="text" placeholder="请输入图片标题">
-                                    <span>搜索</span>
-                                </div>
-                            </div> -->
-                        </div>
 
-                        <div class="nav-db-tab">
-                            <div id="tab-main">
-                                <div class="tab-main-db" >
-                                    <div class="tab-main-content">
-                                        <div class="div-tab-table">
-                                            <table id="table" class="table_style table table-hover table-striped" style="margin: 0 auto">
-                                                <thead>
-                                                <tr>
-                                                    <th class="bs-checkbox" style="text-align: center;vertical-align: middle;width: 36px;" data-field="check">
-                                                        <div class="th-inner">
-                                                            <input type="checkbox" name="btSelectAll">
-                                                        </div>
-                                                    </th>
-                                                    <th style="text-align: center;vertical-align: middle;" data-field="title">
-                                                        <div class="th-inner">用户名</div>
-                                                    </th>
-                                                    <th style="text-align: center;vertical-align: middle;" data-field="title">
-                                                        <div class="th-inner">姓名</div>
-                                                    </th>
-                                                    <th style="text-align: center;vertical-align: middle;" data-field="author">
-                                                        <div class="th-inner">联系方式</div>
-                                                    </th>
-                                                    <th style="text-align: center;vertical-align: middle;" data-field="cIfy">
-                                                        <div class="th-inner">角色</div>
-                                                    </th>
-                                                    <th style="text-align: center;vertical-align: middle;" data-field="label">
-                                                        <div class="th-inner">文章</div>
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr class="carouselList">
-                                                    <td class="bs-checkbox">
-                                                        <input type="checkbox">
-                                                    </td>
-                                                    <td class="id" style="text-align: center;vertical-align: middle;">
-                                                        李四
-                                                    </td>
-                                                    <td  style="text-align: center;vertical-align: middle;">
-                                                        小李子
-                                                    </td>
-                                                    <td style="text-align: center;vertical-align: middle;">
-                                                        13392403200
-                                                    </td>
-                                                    <td style="text-align: center;vertical-align: middle;">
-                                                        管理员
-                                                    </td>
-                                                    <td style="text-align: center;vertical-align: middle;">
-                                                        10
-                                                    </td>
-                                                </tr>
-                                                <tr class="carouselList">
-                                                    <td class="bs-checkbox">
-                                                        <input type="checkbox">
-                                                    </td>
-                                                    <td class="id" style="text-align: center;vertical-align: middle;">
-                                                        王五
-                                                    </td>
-                                                    <td  style="text-align: center;vertical-align: middle;">
-                                                        王老五
-                                                    </td>
-                                                    <td style="text-align: center;vertical-align: middle;">
-                                                        13392403200
-                                                    </td>
-                                                    <td style="text-align: center;vertical-align: middle;">
-                                                        新闻编辑
-                                                    </td>
-                                                    <td style="text-align: center;vertical-align: middle;">
-                                                        12
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="layui-footer" th:include="commons/common_footer :: commonFooter" style="background-color:black;color:white;text-align:center;"></div>
 </div>
-<script src="/static/js/jq.js" th:src="@{/js/jq.js}"></script>
-<script src="/static/js/layout.js" th:src="@{/js/layout.js}"></script>
-<script src="/static/js/layui.js" th:src="@{/js/layui.js}"></script>
-<script>
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
     //JavaScript代码区域
     layui.use('element', function(){
         var element = layui.element;
