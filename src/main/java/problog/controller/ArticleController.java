@@ -90,6 +90,13 @@ public class ArticleController {
     return articleById;
 }
 
+@GetMapping(value = "/show")
+@ResponseBody
+    public List<ArticleContent> texts(){
+    List<ArticleContent> list = articleService.showArticle();
+    return list;
+}
+
 }
 
 

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/css/article.css" th:href="@{/css/article.css}">
     <script src="/static/js/vue.js" th:src="@{/js/vue.js}"></script>
     <script src="/static/js/vue-router.min.js" th:src="@{/js/vue-router.min.js}"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js" th:src="@{/js/node_modules/axios/dist/axios.min.js}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" th:src="@{/js/node_modules/axios/dist/axios.js}"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin" id="content">
@@ -89,17 +89,30 @@
                                 <th>操作</th>
                             </tr>
                             </thead>
+
                             <tbody>
-                            <tr th:each="list : ${articleList}" >
+                            <tr v-for="item in articles">
                                 <td>
-                                    <input type="checkbox" :checked="flag"/>
+                                    <input type="checkbox" :checked="flag" />
                                 </td>
-                                <td th:text="${list.id}"></td>
-                                <td th:text="${list.title}"></td>
-                                <td th:text="${list.summary}"></td>
-                                <td th:text="${list.createByDate}"></td>
+                                <td>{{item.id}}</td>
+                                <td>{{item.title}}</td>
+                                <td>{{item.summary}}</td>
+                                <td>{{item.createByDate}}</td>
                                 <td><button class="layui-btn">修改</button> <button class="layui-btn layui-btn-danger">删除</button> </td>
+
+
                             </tr>
+<!--                            <tr th:each="list : ${articleList}" >-->
+<!--                                <td>-->
+<!--                                    <input type="checkbox" :checked="flag" />-->
+<!--                                </td>-->
+<!--                                <td th:text="${list.id}"></td>-->
+<!--                                <td th:text="${list.title}"></td>-->
+<!--                                <td th:text="${list.summary}"></td>-->
+<!--                                <td th:text="${list.createByDate}"></td>-->
+<!--                                <td><button class="layui-btn">修改</button> <button class="layui-btn layui-btn-danger">删除</button> </td>-->
+<!--                            </tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -187,10 +200,10 @@
 
 
 <script>
-    // JavaScript代码区域
-    // layui.use('element', function(){
-    //     var element = layui.element;
-    // });
+
+
+
+
 </script>
 </body>
 </html>
