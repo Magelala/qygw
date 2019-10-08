@@ -1,0 +1,51 @@
+.list-header {
+  margin: 20px;
+}
+.list-header:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.list-header ul {
+  float: left;
+}
+.list-header ul li {
+  margin-right: 10px;
+  float: left;
+  height: 40px;
+  line-height: 40px;
+}
+.list-header ul li a {
+  display: block;
+  padding: 0 20px;
+}
+.list-header ul .curr {
+  background: #009688;
+}
+.list-header ul .curr a {
+  color: #fff;
+}
+.list-header .search {
+  float: right;
+  width: 300px;
+}
+.list-header .search input {
+  display: inline-block;
+  width: 60%;
+}
+.list-content {
+  margin: 20px;
+}
+.write-article {
+  margin: 20px;
+}
+.write-article form {
+  width: 90%;
+  margin: 0 auto;
+}
+.write-article form .classify {
+  width: 300px;
+}
+.write-article .textarea-content .layui-input-block {
+  background: #fff;
+}

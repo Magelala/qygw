@@ -6,8 +6,8 @@
         <li class="layui-nav-item message">
             <a class="" href="javascript:;">文章</a>
             <dl class="layui-nav-child">
-                <dd><a th:href="@{/article}">所有文章</a></dd>
-                <dd><a href="">写文章</a></dd>
+                <dd><a><router-link to='/articleList'>文章列表</router-link></a></dd>
+                <dd><a><router-link to='/writeArticle'>写文章</router-link></a></dd>
                 <dd><a href="">分类目录</a></dd>
                 <dd><a href="">标签</a></dd>
             </dl>

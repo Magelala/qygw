@@ -12,29 +12,6 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin" id="content">
-    <div class="layui-header">
-        <div class="layui-logo">公司LOGO</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="/index.html">返回主页</a></li>
-            <li class="layui-nav-item"><a href="javascript:;">数据中心</a></li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="/static/img/user.jpg" class="layui-nav-img" th:src="@{/img/user.jpg}">用户名
-                </a>
-                <dl class="layui-nav-child layui-anim layui-anim-upbit">
-                    <dd><a href="javascript:;">基本资料</a></dd>
-                    <dd><a href="javascript:;">修改密码</a></dd>
-                    <dd><a href="javascript:;">安全设置</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="/login.html">退出</a></li>
-        </ul>
-    </div>
-    <div class="layui-side layui-bg-black" id="">
-<div class="layui-layout layui-layout-admin" id="content">
     <!--头部-->
     <div th:include="commons/common_header :: commonHeader" class="layui-header"></div>
 
@@ -45,34 +22,35 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed message">
-                    <a class="" >文章</a>
+                    <a class="" href="javascript:;">文章</a>
                     <dl class="layui-nav-child">
-                        <dd><router-link to='/articleList'>文章列表</router-link></dd>
-                        <dd><router-link to='/writeArticle'>写文章</router-link></dd>
+<!--                        <dd><a><router-link to='/articleList'>文章列表</router-link></a></dd>-->
+<!--                        <dd><a><router-link to='/writeArticle'>写文章</router-link></a></dd>-->
                     </dl>
                 </li>
                 <li class="layui-nav-item ">
                     <a href="javascript:;">页面设置</a>
                 </li>
-                <li class="layui-nav-item"><a href="advertisement.html" th:href="@{/advertise}">广告管理</a></li>
+                <li class="layui-nav-item"><a href="advertisement.html" th:href="@{/templates/carousel}">广告管理</a></li>
                 <li class="layui-nav-item"><a href="user.html" th:href="@{/user}">用户管理</a></li>
                 <li class="layui-nav-item"><a href="setting.html" th:href="@{/setting}">设置</a></li>
             </ul>
         </div>
     </div>
 
+
+
     <div class="layui-body" style="background-color:#EEEEEE;">
         <!-- 内容主体区域 -->
-        <div id="content">
+        <div >
             <router-view></router-view>
         </div>
     </div>
 
-    <div class="layui-footer" style="background-color:black;color:white;text-align:center;">
-        <!-- 底部固定区域 -->
-        © magelala.com
-    </div>
+    <!--页脚-->
+    <div class="layui-footer" th:include="commons/common_footer :: commonFooter" style="background-color:black;color:white;text-align:center;"></div>
 </div>
+
 
 
 <!--页面模板articleList -->
@@ -110,23 +88,11 @@
 
 
                             </tr>
-<!--                            <tr th:each="list : ${articleList}" >-->
-<!--                                <td>-->
-<!--                                    <input type="checkbox" :checked="flag" />-->
-<!--                                </td>-->
-<!--                                <td th:text="${list.id}"></td>-->
-<!--                                <td th:text="${list.title}"></td>-->
-<!--                                <td th:text="${list.summary}"></td>-->
-<!--                                <td th:text="${list.createByDate}"></td>-->
-<!--                                <td><button class="layui-btn">修改</button> <button class="layui-btn layui-btn-danger">删除</button> </td>-->
-<!--                            </tr>-->
+
                             </tbody>
                         </table>
                     </div>
-<!--                    <div class="layui-tab-item">内容2</div>-->
-<!--                    <div class="layui-tab-item">内容3</div>-->
-<!--                    <div class="layui-tab-item">内容4</div>-->
-<!--                    <div class="layui-tab-item">内容5</div>-->
+
                 </div>
             </div>
         </div>
@@ -206,11 +172,6 @@
 
 
 
-<script>
 
-
-
-
-</script>
 </body>
 </html>

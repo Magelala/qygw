@@ -4,7 +4,8 @@ package problog.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import problog.entity.carousel.Carousel;
-
+import problog.mapper.carousel.CarouselMapper;
+import problog.service.CarouselService;
 
 
 import javax.annotation.Resource;

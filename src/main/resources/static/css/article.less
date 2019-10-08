@@ -1,0 +1,54 @@
+.list-header{
+	margin:20px;
+	&:after{
+		content:"";
+		display: block;
+		clear: both;
+	}
+	ul{
+		float: left;
+		li{
+			margin-right: 10px;
+			float: left;
+			height: 40px;
+			line-height: 40px;
+			a{
+				display: block;
+				padding:0 20px;
+			}
+		}
+		.curr{
+			background: #009688;
+			a{
+				color:#fff;
+			}
+		}
+	}
+	.search{
+		float: right;
+		width: 300px;
+		input{
+			display: inline-block;
+			width: 60%;
+		}
+	}
+}
+.list-content{
+	margin:20px;
+}
+
+.write-article{
+	margin:20px;
+	form{
+		width: 90%;
+		margin:0 auto;
+		.classify{
+			width: 300px;
+		}
+	}
+	.textarea-content{
+		.layui-input-block{
+			background: #fff;
+		}
+	}		
+}
