@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="commonSide">
+    <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+    <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item message">
+            <a class="" href="javascript:;">文章</a>
+            <dl class="layui-nav-child">
+                <dd><a th:href="@{/article}">所有文章</a></dd>
+                <dd><a href="">写文章</a></dd>
+                <dd><a href="">分类目录</a></dd>
+                <dd><a href="">标签</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item ">
+            <a href="javascript:">页面设置</a>
+            <dl class="layui-nav-child">
+                <dd><a href="">顶部</a></dd>
+                <dd><a href="">菜单</a></dd>
+                <dd><a href="">底部</a></dd>
+                <dd><a href="">背景</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">广告管理</a>
+            <dl class="layui-nav-child">
+                <dd><a th:href="@{/advertise/index}">首页</a></dd>
+                <dd><a href="">About us</a></dd>
+                <dd><a href="">Contact us</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item"><a href="user.html" th:href="@{/user}">用户管理</a></li>
+        <li class="layui-nav-item"><a href="setting.html" th:href="@{/setting}">设置</a></li>
+    </ul>
+</div>

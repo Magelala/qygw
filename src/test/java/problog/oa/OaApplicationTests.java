@@ -5,8 +5,10 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import problog.entity.User.User;
+import problog.mapper.carousel.CarouselMapper;
 import problog.utils.FindUser;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +17,9 @@ import java.util.Map;
 public class OaApplicationTests {
 
     static Map<Integer, User> data;
+
+    @Resource
+    private CarouselMapper carouselMapper;
 
     static {
         data = new HashMap<Integer, User>();
@@ -25,6 +30,13 @@ public class OaApplicationTests {
 
     @Test
     public void contextLoads() {
+    }
+
+    @Test
+    public void testDelete(){
+        Integer[] arr = {52,53};
+        int i = carouselMapper.deleteList(arr);
+        System.out.println(i);
     }
 
     @Test

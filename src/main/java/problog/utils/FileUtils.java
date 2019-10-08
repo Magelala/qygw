@@ -36,7 +36,22 @@ public class FileUtils {
             e.printStackTrace();
             return false;
         }
+    }
 
+    /**
+     * 判断上传的文件后缀是否为图片类型
+     * @param fileName 上传的文件名称,例如1.jpg
+     * @return
+     */
+    public static boolean isImageSuffix(String fileName){
+        int begin = fileName.indexOf(".");
+        int last = fileName.length();
+        //截取文件的后缀名
+        String suffix = fileName.substring(begin,last);
+        if (suffix.endsWith(".jpg") || suffix.endsWith(".jpeg") || suffix.endsWith(".gif") || suffix.endsWith(".svg") || suffix.endsWith(".BMP") || suffix.endsWith(".png")){
+            return true;
+        }
+        return false;
     }
 
 }

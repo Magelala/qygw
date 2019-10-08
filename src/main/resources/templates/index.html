@@ -8,50 +8,13 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo">公司LOGO</div>
-        <a href="">ss</a>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="/index.html" th:href="@{/main}">返回主页</a></li>
-            <li class="layui-nav-item"><a href="javascript:;">数据中心</a></li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="/static/img/user.jpg" th:src="@{/img/user.jpg}" class="layui-nav-img">用户名
-                </a>
-                <dl class="layui-nav-child layui-anim layui-anim-upbit">
-                    <dd><a href="javascript:;">基本资料</a></dd>
-                    <dd><a href="javascript:;">修改密码</a></dd>
-                    <dd><a href="javascript:;">安全设置</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="/login.html" th:href="@{/loginOut}">退出</a></li>
-        </ul>
-    </div>
 
+    <!--头部-->
+    <div th:include="commons/common_header :: commonHeader" class="layui-header"></div>
+
+    <!--侧边导航栏-->
     <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed message">
-                    <a class="" href="/article.html" th:href="@{/article}">文章</a>
-                    <!--<ul class="secondary-menu">
-                        <li class="layui-nav-item"><a href="">所有文章</a></li>
-                        <li class="layui-nav-item"><a href="">写文章</a></li>
-                        <li class="layui-nav-item"><a href="">分类目录</a></li>
-                        <li class="layui-nav-item"><a href="">标签</a></li>
-                    </ul>-->
-                </li>
-                <li class="layui-nav-item ">
-                    <a href="javascript:;">页面设置</a>
-                </li>
-                <li class="layui-nav-item"><a href="advertisement.html" th:href="@{/advertise}">广告管理</a></li>
-                <li class="layui-nav-item"><a href="user.html" th:href="@{/user}">用户管理</a></li>
-                <li class="layui-nav-item"><a href="setting.html" th:href="@{/setting}">设置</a></li>
-            </ul>
-        </div>
+        <div th:include="commons/common_side::commonSide" class="layui-side-scroll"></div>
     </div>
 
     <div class="layui-body" style="background-color:#EEEEEE;">
@@ -68,10 +31,9 @@
         </div>
     </div>
 
-    <div class="layui-footer" style="background-color:black;color:white;text-align:center;">
-        <!-- 底部固定区域 -->
-        © magelala.com
-    </div>
+    <!--页脚-->
+    <div class="layui-footer" th:include="commons/common_footer :: commonFooter" style="background-color:black;color:white;text-align:center;"></div>
+
 </div>
 <script src="/static/js/layui.js" th:src="@{/js/layui.js}"></script>
 <script>

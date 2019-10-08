@@ -1,10 +1,6 @@
 package problog.oa.service;
 
 
-import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-
 import problog.entity.Article.ArticleContent;
 import problog.entity.User.Author;
 import problog.entity.User.usersUser;
@@ -23,7 +18,6 @@ import problog.mapper.User.UsersMapper;
 import problog.service.MailService;
 
 import javax.annotation.Resource;
-
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -42,9 +36,8 @@ public class ServiceTest {
 
     @Resource
     ArticleContentMapper articleContentMapper;
-
     @Test
-    public void testSelect() {
+    public void testSelect(){
         System.out.println(("----- selectAll method test ------"));
         List<usersUser> userList = usersMapper.selectList(null);
         Assert.assertEquals(5, userList.size());
@@ -160,5 +153,22 @@ public class ServiceTest {
 
 
 
+//    @Test
+//    //添加新的文章
+//    public void addNewArticleContent(){
+//        //添加操作
+//        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//        //设置创建发表日期
+//        //更新
+//        ArticleContent article = new ArticleContent();
+////        article.setId(8);
+//        article.setContext("hahahahahah");
+//        article.setArticleId(2);
+//        article.setCreateByDate(timestamp);
+//        article.setIsTop(1);
+//        int i = articleContentMapper.insert(article);
+//        System.out.println(i);
+//    }
+}
 
 }

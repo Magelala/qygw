@@ -1,7 +1,6 @@
 package problog.service;
 
 import problog.entity.Article.ArticleContent;
-import problog.entity.Article.ArticleList;
 
 import java.util.List;
 

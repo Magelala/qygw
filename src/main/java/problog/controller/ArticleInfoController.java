@@ -4,7 +4,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import problog.entity.Article.ArticleInfo;
-import problog.entity.RespBean;
+import problog.entity.response.RespBean;
 import problog.service.articleInfoService;
 
 

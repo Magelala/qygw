@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import problog.entity.carousel.Carousel;
 
+import problog.service.CarouselService;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
@@ -35,6 +36,4 @@ public class PageController {
     public String setting(Model model){
         return "setting";
     }
-
-
 }
