@@ -24,9 +24,10 @@
 
     <div class="layui-body" style="background-color:#EEEEEE;">
         <!-- 内容主体区域 -->
-        <div th:include="commons/article_articleList :: articleList">
-<!--            <router-view></router-view>-->
-        </div>
+        <table id="articleShow" lay-filter="test" ></table>
+
+        <script src="/layui/layui.js" th:src="@{/layui.js}"></script>
+
     </div>
 
     <!--页脚-->
@@ -154,6 +155,30 @@
     layui.use('element', function(){
         var element = layui.element;
     });
+
+
+
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+                elem: '#articleShow'
+                ,height: 312
+                ,url: '/article/show' //数据接口
+                ,page: true //开启分页
+                ,cols: [[ //表头
+                    {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                    ,{field: 'title', title: '文章标题', width:80}
+                    ,{field: 'summary', title: '摘要', width:80, sort: true}
+                    ,{field: 'createByTime', title: '创建时间', width:80}
+
+
+                ]]
+            });
+
+        });
+
 </script>
 </body>
 </html>
