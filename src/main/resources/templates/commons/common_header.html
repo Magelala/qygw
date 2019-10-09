@@ -3,7 +3,7 @@
     <div class="layui-logo">公司LOGO</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item"><a href="/index.html" th:href="@{/main}">返回主页</a></li>
+        <li class="layui-nav-item"><a th:href="@{/main}">返回主页</a></li>
         <li class="layui-nav-item"><a href="javascript:;">数据中心</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
@@ -12,11 +12,10 @@
                 <img src="/static/img/user.jpg" th:src="@{/img/user.jpg}" class="layui-nav-img">用户名
             </a>
             <dl class="layui-nav-child layui-anim layui-anim-upbit">
-                <dd><a href="javascript:;">基本资料</a></dd>
-                <dd><a href="javascript:;">修改密码</a></dd>
-                <dd><a href="javascript:;">安全设置</a></dd>
+                <dd><a th:href="@{/setting/myProfile}">基本资料</a></dd>
+                <dd><a th:href="@{/setting/updatePwd}">修改密码</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item"><a href="/login.html" th:href="@{/loginOut}">退出</a></li>
+        <li class="layui-nav-item"><a th:href="@{/loginOut}">退出</a></li>
     </ul>
 </div>

@@ -17,12 +17,22 @@ public class PageController {
 
     @GetMapping("/user")
     public String user(Model model){
-        return "user";
+        return "/user/user";
     }
 
     @GetMapping("/setting")
     public String setting(Model model){
         return "setting";
+    }
+
+    @GetMapping("/setting/myProfile")
+    public String profile(){
+        return "setting/myProfile";
+    }
+
+    @GetMapping("/setting/updatePwd")
+    public String password(){
+        return "setting/updatePwd";
     }
 
 }
