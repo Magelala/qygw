@@ -15,35 +15,17 @@
     <!--头部-->
     <div th:include="commons/common_header :: commonHeader" class="layui-header"></div>
 
-
-    <!--侧边导航栏-->
-    <div class="layui-side layui-bg-black" id="">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed message">
-                    <a class="" href="javascript:;">文章</a>
-                    <dl class="layui-nav-child">
-<!--                        <dd><a><router-link to='/articleList'>文章列表</router-link></a></dd>-->
-<!--                        <dd><a><router-link to='/writeArticle'>写文章</router-link></a></dd>-->
-                    </dl>
-                </li>
-                <li class="layui-nav-item ">
-                    <a href="javascript:;">页面设置</a>
-                </li>
-                <li class="layui-nav-item"><a href="advertisement.html" th:href="@{/templates/carousel}">广告管理</a></li>
-                <li class="layui-nav-item"><a href="user.html" th:href="@{/user}">用户管理</a></li>
-                <li class="layui-nav-item"><a href="setting.html" th:href="@{/setting}">设置</a></li>
-            </ul>
-        </div>
+    <div class="layui-side layui-bg-black">
+        <div th:include="commons/common_side::commonSide" class="layui-side-scroll"></div>
     </div>
+
 
 
 
     <div class="layui-body" style="background-color:#EEEEEE;">
         <!-- 内容主体区域 -->
-        <div >
-            <router-view></router-view>
+        <div th:include="commons/article_articleList :: articleList">
+<!--            <router-view></router-view>-->
         </div>
     </div>
 
@@ -165,13 +147,13 @@
         </form>
     </div>
 </template>
-<script src="js/layui.js"></script>
-<script src="js/article.js"></script>
+<script th:src="@{/layui.js}"></script>
 <script src="js/jquery.js"></script>
-
-
-
-
-
+<script th:inline="none">
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>
 </body>
 </html>
