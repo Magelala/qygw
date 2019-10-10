@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import problog.entity.Article.ArticleContent;
 
 import problog.entity.Article.ArticleList;
+import problog.entity.response.ResResult;
 import problog.entity.response.RespBean;
 import problog.service.ArticleService;
 import problog.utils.FileUtils;
@@ -94,9 +95,7 @@ public class ArticleController {
 
 
     @GetMapping(value = "")
-    public String showArticle(Model model){
-        List<ArticleContent> list = articleService.showArticle();
-        model.addAttribute("articleList",list);
+    public String showArticle(){
         return "article";
     }
 
@@ -107,11 +106,19 @@ public class ArticleController {
     return articleById;
 }
 
+@GetMapping(value = "/write")
+public String WriteArticle(){
+        return "writeArticle";
+}
+
 @GetMapping(value = "/show")
 @ResponseBody
-    public List<ArticleContent> texts(){
+    public ResResult texts(){
     List<ArticleContent> list = articleService.showArticle();
-    return list;
+    ResResult<Object> result = new ResResult<>();
+    result.setCode(0);
+    result.setData(list);
+    return result;
 }
 
 
