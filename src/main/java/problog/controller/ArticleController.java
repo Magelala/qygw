@@ -54,45 +54,6 @@ public class ArticleController {
         return new RespBean<>(true,articleContent,200);
     }
 
-
-    @RequestMapping(value = "/writeArticle/upload" ,method = RequestMethod.POST)
-    @ResponseBody
-    public String upload(@RequestParam(value = "file",required = false) MultipartFile file){
-        try{
-//            用于获取项目根目录
-            File f = new File("");
-            String filePath = f.getCanonicalPath()+"\\src\\main\\resources\\static\\upload\\picture\\";
-            System.out.println(filePath);
-            if (file.isEmpty()){
-                return "文件夹为空";
-            }
-            //获取文件名
-            String fileName = file.getOriginalFilename();
-            //上传的必须是图片
-            if (FileUtils.isImageSuffix(fileName)){
-                log.info("上传的文件名为："+fileName);
-                //设置文件存储路径
-                String path = filePath + fileName;
-                File dest = new File(path);
-                //检测是否存在目录
-                if (!dest.getParentFile().exists()){
-                    dest.getParentFile().mkdirs(); //新建文件夹
-                }
-                file.transferTo(dest); //文件写入
-                System.out.println("这是文件的路径"+path);
-                String substring = path.substring(path.length()-fileName.length()-16);
-                ModelMap map = new ModelMap();
-                map.put("substring",substring);
-                System.out.println(substring);
-                return substring;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "上传失败";
-    }
-
-
     @GetMapping(value = "")
     public String showArticle(Model model){
         List<ArticleContent> list = articleService.showArticle();
@@ -100,19 +61,19 @@ public class ArticleController {
         return "article";
     }
 
-@PostMapping(value = "")
-@ResponseBody
+    @PostMapping(value = "")
+    @ResponseBody
     public List<ArticleContent> getArticleById(@RequestParam(value="title",required=false) String title){
-    List<ArticleContent> articleById = articleService.getArticleById(title);
-    return articleById;
-}
+        List<ArticleContent> articleById = articleService.getArticleById(title);
+        return articleById;
+    }
 
-@GetMapping(value = "/show")
-@ResponseBody
+    @GetMapping(value = "/show")
+    @ResponseBody
     public List<ArticleContent> texts(){
-    List<ArticleContent> list = articleService.showArticle();
-    return list;
-}
+        List<ArticleContent> list = articleService.showArticle();
+        return list;
+    }
 
 
 

@@ -15,29 +15,30 @@ import java.nio.charset.Charset;
 /**
  * @Author : shengjun
  * @Date : create in
+ * addResourceHandlers方法添加了修改上传图片，内部服务器找不到图片资源的一个文件映射，必须加上
  */
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
-    @Autowired
-    private LoginInterceptor loginInterceptor;
+/*    @Autowired
+    private LoginInterceptor loginInterceptor;*/
 
-    @Bean
+/*    @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
         StringHttpMessageConverter converter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
         return converter;
-    }
+    }*/
 
-    @Bean
+/*    @Bean
     public HandlerInterceptor getBackInterceptor() {
         return new LoginInterceptor();
-    }
+    }*/
 
     /**
      * 直接访问localhost:8080/toLogin就跳转到login.html页面了
      * @param registry
      */
-    @Override
+ /*   @Override
     public void addViewControllers(ViewControllerRegistry registry){
         //视图跳转控制器
         registry.addViewController("/").setViewName("/login");
@@ -54,7 +55,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addViewController("/user").setViewName("/user");
         registry.addViewController("/setting.html").setViewName("/setting");
         registry.addViewController("/setting").setViewName("/setting");
-    }
+    }*/
 
 
 
@@ -62,13 +63,11 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
     /**
      * 用来配置静态资源，比如html,js,css
      * @param registry
-
-     测试接口，注释拦截器
      */
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//
-//    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/upload/picture/**").addResourceLocations("file:D:/demo/qygw/src/main/resources/static/upload/picture/");
+    }
 
 
     /**
@@ -76,14 +75,13 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
      * addPathPatterns("/admin) 表示拦截所有的请求
      * excludePathPatterns("/asserts") 表示js、css、img都可以访问
      * @param registry
-     *
      * 测试接口，注释拦截器
      */
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry){
-//        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/css/**","/js/**","/img/**","/fonts/**","/bootstrap/**");
-//    }
-//
-
+/*
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/css/**","/js/**","/img/**","/fonts/**","/bootstrap/**");
+    }
+*/
 
 }

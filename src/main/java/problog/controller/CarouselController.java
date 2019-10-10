@@ -56,6 +56,7 @@ public class CarouselController {
         carousel.setCreateDate(timestamp);
         String path = (String)request.getSession().getAttribute("path");
         carousel.setImgUrl(path);
+        request.getSession().setAttribute("path",null);
         int max = carouselService.max();
         carousel.setSort(max+1);
         int count = carouselService.save(carousel);
@@ -73,12 +74,14 @@ public class CarouselController {
         ResResult<Carousel> resResult = new ResResult<>();
         if (null != carousel){
             carouselService.delete(id);
-            resResult.setCount(200);
+            resResult.setCode(200);
+            resResult.setCount(1);
             resResult.setData(carousel);
             resResult.setMsg("删除成功");
         }else{
             resResult.setCode(-1);
             resResult.setData(null);
+            resResult.setCount(0);
             resResult.setMsg("删除失败");
         }
         return resResult;
@@ -131,7 +134,8 @@ public class CarouselController {
             resResult.setCode(0);
             resResult.setMsg("修改成功");
             carousel.setImgUrl(path);
-            carouselService.update(carousel);
+            int i = carouselService.update(carousel);
+            resResult.setCount(i);
             resResult.setData(carousel);
             request.getSession().setAttribute("path",null);
         }else{
@@ -171,8 +175,6 @@ public class CarouselController {
         return resResult;
     }
 
-    //----------------------------------------批量删除需求未完善--------------------------------------------
-
     @RequestMapping(value = "deletes",method = RequestMethod.DELETE)
     @ResponseBody
     public ResResult<List<Carousel>> batchDelete(@RequestParam("ids") Integer[] ids){
@@ -191,8 +193,6 @@ public class CarouselController {
         return resResult;
     }
 
-    //-------------------------------------------------------------------------------------------------
-
     @ApiIgnore
     @RequestMapping(value = "/add",method = RequestMethod.GET)
     public String add(){
@@ -210,7 +210,7 @@ public class CarouselController {
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     @ApiIgnore
     public String carousel(){
-        return "carousel";
+        return "carousel/carousel";
     }
 
 }

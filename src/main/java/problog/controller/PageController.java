@@ -17,23 +17,24 @@ import java.util.List;
 @ApiIgnore
 public class PageController {
 
-//    @Autowired
-//    private CarouselService carouselService;
-//
-//    @RequestMapping("/advertise")
-//    public String advertise(Model model){
-//        List<Carousel> list = carouselService.selectAllList();
-//        model.addAttribute("lists",list);
-//        return "advertisement";
-//    }
-
     @GetMapping("/user")
     public String user(Model model){
-        return "user";
+        return "user/user";
     }
 
     @GetMapping("/setting")
     public String setting(Model model){
-        return "setting";
+        return "setting/setting";
     }
+
+    @GetMapping("/setting/myProfile")
+    public String profile(){
+        return "setting/myProfile";
+    }
+
+    @GetMapping("/setting/updatePwd")
+    public String password(){
+        return "setting/updatePwd";
+    }
+
 }

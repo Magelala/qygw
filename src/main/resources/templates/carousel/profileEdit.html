@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>添加公司简介</title>
+    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}"  media="all" />
+</head>
+
+<body>
+
+<form class="layui-form" id="addForm">
+    <div class="layui-form" style="padding: 20px 0 0 0">
+
+        <input type="text" name="id" th:value="${companyProfile.getId()}" id="id" hidden>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">公司名称</label>
+            <div class="layui-input-inline">
+                <input type="text" id="name" name="name" th:value="${companyProfile.getName()}" lay-verify="required"  autocomplete="off" class="layui-input" placeholder="请输入公司名称">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+                <input type="text" id="title" name="title" th:value="${companyProfile.getTitle()}"  lay-verify="required|title"  autocomplete="off" class="layui-input" placeholder="请输入简介标题">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">广告图片</label>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn" id="upload">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+                <img id="show" th:src="@{${companyProfile.getImgUrl()}}" style="height: 50px;width: 50px;">
+                <input th:value="${companyProfile.getImgUrl()}" name="imgUrl">
+                <p id="demoText"></p>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">正文</label>
+            <div class="layui-input-inline">
+                <input type="text" id="message" name="message" th:value="${companyProfile.getMessage()}" autocomplete="off" class="layui-input" placeholder="请输入广告备注">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" id="sort" th:value="${companyProfile.getSort()}" name="sort" autocomplete="off" class="layui-input" placeholder="请输入广告排序">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn addSubmit" lay-submit id="update" lay-filter="update">保存</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.use(['form','upload','layer','table'], function() {
+        var $ = layui.jquery
+            ,upload = layui.upload
+            ,form = layui.form
+            ,layer = layui.layer
+            ,table = layui.table;
+
+        //添加验证规则
+        form.verify({
+            title: function (value,item) {
+                value =  value.trim();
+                if (value.length<0){
+                    return "请输入简介标题";
+                }
+            }
+        });
+        form.on('submit(update)',function (data) {
+            js = {id:$("#id").val(),title:$("#title").val(),imgUrl:$("#show")[0].src,name:$("#name").val(),message:$("#message").val(),sort:$("#sort").val()};
+            $.ajax({
+                url: '/companyProfile/edit',
+                type: 'PUT',
+                dataType: 'JSON',
+                contentType: 'application/JSON',
+                data: JSON.stringify(js),
+                success: function (data) {
+                    layer.alert(data.msg);
+                    parent.window.location.reload();
+                },error:function () {
+                    layer.alert("更新失败");
+                    parent.window.location.reload();
+                }
+            });
+            return false;
+        });
+
+        //执行上传
+        var uploadInst = upload.render({
+            elem: '#upload' //绑定元素,上传按钮的id
+            , url: '/upload/native' //上传接口
+            , method: 'POST'
+            , accept: 'images'
+            , size: 150
+            , before: function (obj) {
+                obj.preview(function (index, file, result) {
+                    $('#show').attr('src', result); //图片链接
+                });
+            }
+            , done: function (res) {//上传完毕回调
+                layer.close(layer.msg('上传成功！'));
+            }
+            , error: function () {//请求异常回调
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

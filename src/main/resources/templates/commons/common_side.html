@@ -24,12 +24,18 @@
         <li class="layui-nav-item">
             <a href="javascript:;">广告管理</a>
             <dl class="layui-nav-child">
-                <dd><a th:href="@{/advertise/index}">首页</a></dd>
-                <dd><a href="">About us</a></dd>
-                <dd><a href="">Contact us</a></dd>
+                <dd><a th:href="@{/advertise/index}">首页轮播图</a></dd>
+                <dd><a th:href="@{/companyProfile/index}">企业简介</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item"><a href="user.html" th:href="@{/user}">用户管理</a></li>
-        <li class="layui-nav-item"><a href="setting.html" th:href="@{/setting}">设置</a></li>
+        <li class="layui-nav-item"><a th:href="@{/user}">用户管理</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">设置</a>
+            <dl class="layui-nav-child">
+                <dd><a th:href="@{/setting/myProfile}">基本资料</a></dd>
+                <dd><a th:href="@{/setting/updatePwd}">修改密码</a></dd>
+                <dd><a th:href="@{/setting}">系统设置</a></dd>
+            </dl>
+        </li>
     </ul>
 </div>

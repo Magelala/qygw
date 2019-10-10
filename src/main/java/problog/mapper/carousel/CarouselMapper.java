@@ -51,7 +51,6 @@ public interface CarouselMapper extends BaseMapper<Carousel> {
     @Select("select * from carousel where sort = (select max(sort) from carousel)")
     Carousel maxEntity();
 
-    //--------------------------------------mybatis报错----------------------------------------------------------------
     //批量删除
     int deleteList(@Param("ids") Integer[] ids);
 
