@@ -1,0 +1,177 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>写文章</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+    <!--顶部-->
+    <div th:include="commons/common_header :: commonHeader" class="layui-header"></div>
+
+    <!--侧边栏-->
+    <div class="layui-side layui-bg-black">
+        <div th:include="commons/common_side::commonSide" class="layui-side-scroll"></div>
+    </div>
+
+
+        <div class="layui-body">
+            <form class="layui-form" action="">
+                <div class="layui-form-item classify">
+                    <label class="layui-form-label">分类</label>
+                    <div class="layui-input-block">
+                        <select name="classify" lay-verify="required" >
+                            <option value=""></option>
+                            <option value="0">vue</option>
+                            <option value="1">php</option>
+                            <option value="2">java</option>
+                            <option value="3">hadoop</option>
+                            <option value="4">node</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" >标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="required|title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item textarea-content">
+                    <label class="layui-form-label"  id="context">正文</label>
+                    <div class="layui-input-block">
+                        <textarea id="demo" style="display: none;" placeholder="请输入内容" name="context"></textarea>
+
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+
+                    <label class="layui-form-label" >摘要</label>
+                    <div class="layui-input-block">
+                        <textarea name="summary" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">封面</label>
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn"  id="test1" >
+                            <i class="layui-icon">&#xe67c;</i>上传图片
+                        </button>
+                        <img id="show" style="height: 50px;width: 50px;">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">关键词</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="keywords" lay-verify="required|keywords" placeholder="请输入关键词" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">作者</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="author" lay-verify="required|author" placeholder="请输入作者" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" name="send" lay-submit lay-filter="formDemo">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+    <div class="layui-footer" th:include="commons/common_footer::commonFooter" style="background-color:black;color:white;text-align:center;"></div>
+</div>
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        layedit.build('demo'); //建立编辑器
+    });
+    layui.use(['form','upload','layer','table'], function() {
+        var $ = layui.jquery
+            , upload = layui.upload
+            , form = layui.form
+            , layer = layui.layer;
+
+        //添加验证规则
+        form.verify({
+            title: function (value, item) {
+                value = value.trim();
+                if (value.length < 0) {
+                    return "请输入广告标题";
+                }
+            }
+        });
+        form.verify({
+            //书写自己的验证规则
+            author: function (value, item) {
+                value = value.trim();
+                if (value.length < 0) {
+                    return "请输入作者";
+                }
+            }
+        });
+        form.verify({
+            //书写自己的验证规则
+            keywords: function (value, item) {
+                value = value.trim();
+                if (value.length < 0) {
+                    return "请输入作者";
+                }
+            }
+        });
+
+        form.on('submit(formDemo)',function (data) {
+           $.ajax({
+               url: '/article/add',
+               type: 'post',
+               dataType: 'JSON',
+               contentType: 'application/JSON',
+               data: JSON.stringify(data.field),
+               success: function (data) {
+                   layer.msg(data.msg,{icon:1,time:2000},function () {
+                       window.location.reload();
+                   });
+               },error: function () {
+                   layer.alert("添加失败");
+               }
+           });
+            return false;
+        });
+
+        //执行上传
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素,上传按钮的id
+            , url: '/upload/native' //上传接口
+            , method: 'POST'
+            , accept: 'images'
+            , size: 150
+            , before: function (obj) {
+                obj.preview(function (index, file, result) {
+                    $('#show').attr('src', result); //图片链接
+                });
+            }
+            , done: function (res) {//上传完毕回调
+                layer.close(layer.msg('上传成功！'));
+            }
+            , error: function () {//请求异常回调
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -2,27 +2,21 @@ package problog.controller;
 
 
 import io.swagger.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.multipart.MultipartFile;
 import problog.entity.Article.ArticleContent;
 
-import problog.entity.Article.ArticleList;
 import problog.entity.response.ResResult;
 import problog.entity.response.RespBean;
+import problog.mapper.Article.ArticleContentMapper;
 import problog.service.ArticleService;
-import problog.utils.FileUtils;
 
 
 import javax.annotation.Resource;
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -32,9 +26,13 @@ import java.util.List;
 public class ArticleController {
 
     @Resource
-    ArticleService articleService;
+    private ArticleService articleService;
 
-    private static final Logger log = LoggerFactory.getLogger(ArticleContent.class);
+    @Autowired
+    private HttpServletRequest request;
+
+    @Resource
+    private ArticleContentMapper articleContentMapper;
 
     @ApiOperation(value = "添加文章",notes = "添加一篇文章")
     @ApiResponses({
@@ -45,83 +43,55 @@ public class ArticleController {
             @ApiResponse(code = 403,message = "出错了！")
     })
     //保存新的文章，插入一条数据
-    @RequestMapping(value = "/writeArticle/add" ,method = RequestMethod.POST)
+    @RequestMapping(value = "/add" ,method = RequestMethod.POST)
     @ResponseBody
-    public RespBean<ArticleContent> addNewArticle(@RequestBody @ApiParam(name = "文章信息对象",value = "文章信息的JSON对象",required = true) ArticleContent articleContent) {
+    public ResResult<ArticleContent> addNewArticle(@RequestBody @ApiParam(name = "文章信息对象",value = "文章信息的JSON对象",required = true) ArticleContent articleContent) {
+        ResResult<ArticleContent> resResult = new ResResult<>();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         articleContent.setModifiedByDate(timestamp);
         articleContent.setCreateByDate(timestamp);
-        articleService.addNewArticle(articleContent);
-        return new RespBean<>(true,articleContent,200);
+        String path = (String) request.getSession().getAttribute("path");
+        articleContent.setPicture(path);
+        request.getSession().setAttribute("path",null);
+        articleContent.setIsTop("0");
+        int i = articleService.addNewArticle(articleContent);
+        resResult.setData(articleContent);
+        resResult.setCode(200);
+        resResult.setMsg("添加成功");
+        resResult.setCount(i);
+        return resResult;
     }
 
-
-    @RequestMapping(value = "/writeArticle/upload" ,method = RequestMethod.POST)
+    @RequestMapping(value = "/show",method = RequestMethod.GET)
     @ResponseBody
-    public String upload(@RequestParam(value = "file",required = false) MultipartFile file){
-        try{
-//            用于获取项目根目录
-            File f = new File("");
-            String filePath = f.getCanonicalPath()+"\\src\\main\\resources\\static\\upload\\picture\\";
-            System.out.println(filePath);
-            if (file.isEmpty()){
-                return "文件夹为空";
-            }
-            //获取文件名
-            String fileName = file.getOriginalFilename();
-            //上传的必须是图片
-            if (FileUtils.isImageSuffix(fileName)){
-                log.info("上传的文件名为："+fileName);
-                //设置文件存储路径
-                String path = filePath + fileName;
-                File dest = new File(path);
-                //检测是否存在目录
-                if (!dest.getParentFile().exists()){
-                    dest.getParentFile().mkdirs(); //新建文件夹
-                }
-                file.transferTo(dest); //文件写入
-                System.out.println("这是文件的路径"+path);
-                String substring = path.substring(path.length()-fileName.length()-16);
-                ModelMap map = new ModelMap();
-                map.put("substring",substring);
-                System.out.println(substring);
-                return substring;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "上传失败";
+    public ResResult<List<ArticleContent>> texts(@RequestParam(value = "limit",required = false) Integer limit,
+                                                 @RequestParam(value = "page",required = false) Integer page){
+        //分页查询文章
+        List<ArticleContent> list = articleContentMapper.showPage(limit*(page-1),limit);
+        //查询文章总数
+        List<ArticleContent> all = articleService.showArticle();
+        ResResult<List<ArticleContent>> result = new ResResult<>();
+        result.setCode(0);
+        result.setLimit(limit);
+        result.setPage(page);
+        result.setCount(all.size()); //设置总数
+        result.setData(list);
+        return result;
     }
 
+    //------------------------文章页面的请求,返回一个页面--------------------------------
 
-    @GetMapping(value = "")
+
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String showArticle(){
-        return "article";
+        return "article/article";
     }
 
-@PostMapping(value = "")
-@ResponseBody
-    public List<ArticleContent> getArticleById(@RequestParam(value="title",required=false) String title){
-    List<ArticleContent> articleById = articleService.getArticleById(title);
-    return articleById;
-}
 
-@GetMapping(value = "/write")
-public String WriteArticle(){
-        return "writeArticle";
-}
-
-@GetMapping(value = "/show")
-@ResponseBody
-    public ResResult texts(){
-    List<ArticleContent> list = articleService.showArticle();
-    ResResult<Object> result = new ResResult<>();
-    result.setCode(0);
-    result.setData(list);
-    return result;
-}
-
-
+    @RequestMapping(value = "/write",method = RequestMethod.GET)
+    public String WriteArticle(){
+        return "article/writeArticle";
+    }
 
 }
 
