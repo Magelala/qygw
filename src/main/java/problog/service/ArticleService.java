@@ -23,4 +23,5 @@ public interface ArticleService {
     int updateArticle(ArticleContent articleContent);
 
     List<ArticleContent> all(int limit,int page);
+
 }
