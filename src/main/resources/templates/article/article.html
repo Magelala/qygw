@@ -6,10 +6,10 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <!--头部-->
-    <div th:include="commons/common_header :: commonHeader" class="layui-header"></div>
+    <div th:replace="commons/common_header :: commonHeader"></div>
 
     <div class="layui-side layui-bg-black">
-        <div th:include="commons/common_side::commonSide" class="layui-side-scroll"></div>
+        <div th:include="commons/common_side::commonSide"></div>
     </div>
 
     <div class="layui-body">
@@ -19,7 +19,7 @@
                     <span class="layui-breadcrumb">
                         <a th:href="@{/main}">首页</a>
                         <a><cite>文章</cite></a>
-                        <a th:href="@{/article/show}">文章列表</a>
+                        <a th:href="@{/article/index}">文章列表</a>
                     </span>
                 </div>
                 <div class="search-carousel" style="float: right;">
@@ -37,9 +37,22 @@
     </div>
 
     <!--页脚-->
-    <div class="layui-footer" th:include="commons/common_footer :: commonFooter" style="background-color:black;color:white;text-align:center;"></div>
+    <div th:replace="commons/common_footer :: commonFooter"></div>
 </div>
 
+<script th:src="@{/layui.js}"></script>
+<script th:inline="none" >
+    layui.config({
+        base: '/myJs/'
+    }).use('article');
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="top">置顶</a>
+</script>
+</body>
+</html>
 
 
 <!--页面模板articleList -->
@@ -153,52 +166,3 @@
         </form>
     </div>
 </template>-->
-
-<script th:src="@{/layui.js}"></script>
-<script th:inline="none" >
-    //JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
-    });
-
-    layui.use('table', function(){
-        var table = layui.table;
-
-        //第一个实例
-        table.render({
-            elem: '#articleShow'
-            ,url: '/article/show' //数据接口
-            ,method: 'GET'
-            ,cellMinWidth: '80'
-            ,cols: [[ //表头
-                {field: 'id', title: 'ID', align:'center',width:80}
-                ,{field: 'title', title: '文章标题'}
-                ,{field: 'author',title: '作者',width:80}
-                ,{field: 'summary', title: '摘要'}
-                ,{field: 'classify',title: '分类',width:80}
-                ,{field: 'status',title:'状态',width:80}
-                ,{field: 'createByDate', title: '创建时间',align:'center',width:120}
-                ,{field: 'views',title: '访问量',width:100}
-                ,{field: 'sort',title:'排序',width: 80}
-                ,{title:'操作',fixed: 'right', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
-            ]]
-            ,page:{
-                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-                ,curr: 1 //设定初始在第 1 页
-                ,limit: 5 //一页显示多少条
-                ,limits: [5,6,7,8,9,10,15,20]
-                ,groups: 1 //只显示 1 个连续页码
-                ,first: false //不显示首页
-                ,last: '尾页' //不显示尾页
-            }
-        });
-     });
-
-</script>
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    <a class="layui-btn layui-btn-xs" lay-event="top">置顶</a>
-</script>
-</body>
-</html>

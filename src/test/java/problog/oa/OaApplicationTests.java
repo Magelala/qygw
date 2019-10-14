@@ -38,6 +38,7 @@ public class OaApplicationTests {
 
     @Test
     public void contextLoads() {
+        List<ArticleContent> list = articleService.getArticleByTitle("安利进驻国际");
     }
 
     @Test

@@ -39,6 +39,7 @@ public class ArticleServiceImpl implements ArticleService {
         List<ArticleContent> list = articleContentMapper.selectList(new LambdaQueryWrapper<ArticleContent>().eq(ArticleContent::getTitle, title));
         System.out.println(list);
         return list;
+
     }
 
     @Override

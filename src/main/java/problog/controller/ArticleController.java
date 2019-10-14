@@ -2,7 +2,6 @@ package problog.controller;
 
 
 import io.swagger.annotations.*;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import problog.entity.Article.ArticleContent;
 
 import problog.entity.response.ResResult;
-import problog.entity.response.RespBean;
 import problog.mapper.Article.ArticleContentMapper;
 import problog.service.ArticleService;
 
@@ -91,6 +89,11 @@ public class ArticleController {
     @RequestMapping(value = "/write",method = RequestMethod.GET)
     public String WriteArticle(){
         return "article/writeArticle";
+    }
+
+    @RequestMapping(value = "/category",method = RequestMethod.GET)
+    public String category(){
+        return "article/category";
     }
 
 }
