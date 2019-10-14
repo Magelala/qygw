@@ -6,10 +6,10 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <!--头部-->
-    <div th:include="commons/common_header :: commonHeader" class="layui-header"></div>
+    <div th:replace="commons/common_header :: commonHeader"></div>
 
     <div class="layui-side layui-bg-black">
-        <div th:include="commons/common_side::commonSide" class="layui-side-scroll"></div>
+        <div th:replace="commons/common_side::commonSide"></div>
     </div>
     <div class="layui-body">
         <div class="layui-fluid" style="margin-top: 20px;">
@@ -24,29 +24,45 @@
             </div>
 
             <!-- 内容主体区域 -->
-            <table id="articleShow" lay-filter="test" class="layui-table"></table>
+            <table id="categoryShow" lay-filter="test" class="layui-table"></table>
         </div>
     </div>
 
+    <!--页脚-->
+    <div th:replace="commons/common_footer :: commonFooter"></div>
+
+</div>
+
 <script th:src="@{/layui.js}"></script>
 <script th:inline="none" >
-    //JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
-    });
-
+    layui.config({
+        base: '/myJs/'
+    }).use('article');
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script th:inline="none">
+    /*自定义表格数据*/
     layui.use('table', function(){
-        var table = layui.table;
-
         //第一个实例
+        var table = layui.table;
         table.render({
-            elem: '#articleShow'
-            ,url: '/article/show' //数据接口
+            elem: '#categoryShow'
+            ,url: '/category/show' //数据接口
             ,method: 'GET'
             ,cellMinWidth: '80'
             ,cols: [[ //表头
-                {field: 'id', title: '序号', align:'center'}
-                ,{field: 'classify',title: '分类'}
+                {field: 'id', title: 'ID', align:'center',width:80}
+                ,{field: 'title', title: '文章标题'}
+                ,{field: 'author',title: '作者',width:80}
+                ,{field: 'summary', title: '摘要'}
+                ,{field: 'classify',title: '分类',width:80}
+                ,{field: 'status',title:'状态',width:80}
+                ,{field: 'createByDate', title: '创建时间',align:'center',width:120}
+                ,{field: 'views',title: '访问量',width:100}
+                ,{field: 'sort',title:'排序',width: 80}
                 ,{title:'操作',fixed: 'right', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             ,page:{
@@ -60,34 +76,6 @@
             }
         });
     });
-
-
-
-</script>
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
-<div class="layui-layout layui-layout-admin">
-
-    <!--头部-->
-    <div th:replace="commons/common_header :: commonHeader"></div>
-
-    <div class="layui-side layui-bg-black">
-        <div th:include="commons/common_side::commonSide"></div>
-    </div>
-
-    <div class="layui-body">
-    </div>
-
-    <!--页脚-->
-    <div th:replace="commons/common_footer :: commonFooter"></div>
-</div>
-<script th:src="@{/layui.js}"></script>
-<script th:inline="none" >
-    layui.config({
-        base: '/myJs/'
-    }).use('article');
 </script>
 </body>
 </html>
