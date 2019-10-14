@@ -4,7 +4,70 @@
     <title>分类管理</title>
 </head>
 <body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--头部-->
+    <div th:include="commons/common_header :: commonHeader" class="layui-header"></div>
 
+    <div class="layui-side layui-bg-black">
+        <div th:include="commons/common_side::commonSide" class="layui-side-scroll"></div>
+    </div>
+    <div class="layui-body">
+        <div class="layui-fluid" style="margin-top: 20px;">
+            <div class="layui-form-item" style="margin: 5px 0">
+                <div style="float: left;">
+                    <span class="layui-breadcrumb">
+                        <a th:href="@{/main}">首页</a>
+                        <a><cite>写文章</cite></a>
+                        <a th:href="@{/article/category}">分类管理</a>
+                    </span>
+                </div>
+            </div>
+
+            <!-- 内容主体区域 -->
+            <table id="articleShow" lay-filter="test" class="layui-table"></table>
+        </div>
+    </div>
+
+<script th:src="@{/layui.js}"></script>
+<script th:inline="none" >
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#articleShow'
+            ,url: '/article/show' //数据接口
+            ,method: 'GET'
+            ,cellMinWidth: '80'
+            ,cols: [[ //表头
+                {field: 'id', title: '序号', align:'center'}
+                ,{field: 'classify',title: '分类'}
+                ,{title:'操作',fixed: 'right', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+            ]]
+            ,page:{
+                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                ,curr: 1 //设定初始在第 1 页
+                ,limit: 5 //一页显示多少条
+                ,limits: [5,6,7,8,9,10,15,20]
+                ,groups: 1 //只显示 1 个连续页码
+                ,first: false //不显示首页
+                ,last: '尾页' //不显示尾页
+            }
+        });
+    });
+
+
+
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 <div class="layui-layout layui-layout-admin">
 
     <!--头部-->
@@ -15,7 +78,6 @@
     </div>
 
     <div class="layui-body">
-
     </div>
 
     <!--页脚-->

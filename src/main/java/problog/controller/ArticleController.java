@@ -5,14 +5,10 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import problog.entity.Article.ArticleContent;
-
 import problog.entity.response.ResResult;
 import problog.mapper.Article.ArticleContentMapper;
 import problog.service.ArticleService;
-
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
@@ -92,10 +88,14 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/category",method = RequestMethod.GET)
-    public String category(){
+    public String showCategory(){
         return "article/category";
     }
 
+    @RequestMapping(value = "/delect/{id}")
+    public void delectArticle(@PathVariable Integer id){
+        articleService.deleteArticle(id);
+    }
 }
 
 
