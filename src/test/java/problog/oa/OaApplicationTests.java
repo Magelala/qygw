@@ -7,9 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import problog.entity.Article.ArticleContent;
 import problog.entity.User.User;
+import problog.entity.nav.Nav;
 import problog.mapper.Article.ArticleContentMapper;
 import problog.mapper.carousel.CarouselMapper;
 import problog.service.ArticleService;
+import problog.service.NavService;
 import problog.utils.FindUser;
 
 import javax.annotation.Resource;
@@ -28,6 +30,9 @@ public class OaApplicationTests {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private NavService navService;
 
     static {
         data = new HashMap<Integer, User>();
@@ -58,6 +63,14 @@ public class OaApplicationTests {
         List<ArticleContent> list = articleService.showArticle();
         for (ArticleContent articleContent:list){
             System.out.println(articleContent);
+        }
+    }
+
+    @Test
+    public void testNav(){
+        List<Nav> list = navService.allSubNav(2);
+        for (Nav nav:list){
+            System.out.println(nav);
         }
     }
 
