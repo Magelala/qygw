@@ -171,7 +171,7 @@ public class ServiceTest {
 //    }
     @Test
     public void delectTest(){
-        int article = articleService.deleteArticle(7);
+        int article = articleService.deleteArticle(2);
         System.out.println(article);
     }
 }

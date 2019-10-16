@@ -92,6 +92,7 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
         var checkStatus = table.checkStatus(obj.config.id)
             ,data = checkStatus.data[0]
             ,event = obj.event;
+        console.log(data);
         if (event === 'add'){
             layer.open({
                 type: 2

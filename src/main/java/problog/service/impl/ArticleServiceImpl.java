@@ -35,6 +35,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public ArticleContent getById(Integer id) {
+        return articleContentMapper.selectById(id);
+    }
+
+    @Override
+    public int update(ArticleContent articleContent) {
+        return articleContentMapper.updateById(articleContent);
+    }
+
+    @Override
     public List<ArticleContent> getArticleByTitle(String title){
         List<ArticleContent> list = articleContentMapper.selectList(new LambdaQueryWrapper<ArticleContent>().eq(ArticleContent::getTitle, title));
         System.out.println(list);

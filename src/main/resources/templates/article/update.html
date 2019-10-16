@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>修改文章</title>
+    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}"  media="all" />
+</head>
+
+<body>
+
+<form class="layui-form" id="addForm">
+    <div class="layui-form" style="padding: 20px 0 0 0">
+
+        <input type="text" name="id" th:value="${edit.getId()}" id="id" hidden>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+                <input type="text" id="title" name="title" th:value="${edit.getTitle()}"  lay-verify="required|title"  autocomplete="off" class="layui-input" placeholder="请输入广告标题">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">封面</label>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn" id="upload">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+                <img id="show" th:src="@{${edit.getPicture()}}" style="height: 50px;width: 50px;">
+                <input th:value="${edit.getPicture()}" >
+                <p id="demoText"></p>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">作者</label>
+            <div class="layui-input-inline">
+                <input type="text" id="link" th:value="${edit.getAuthor()}" name="imgLink" lay-verify="required"  autocomplete="off" class="layui-input" placeholder="请输入作者">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">摘要</label>
+            <div class="layui-input-inline">
+                <input type="text" id="remark" th:value="${edit.getSummary()}" name="remark" autocomplete="off" class="layui-input" placeholder="请输入摘要">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">正文</label>
+            <div class="layui-input-inline">
+                <input type="text" id="sort" th:value="${edit.getContext()}" name="sort" autocomplete="off" class="layui-input" placeholder="请输入广告排序">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit id="update" lay-filter="update">保存修改</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('advertise');
+</script>
+</body>
+</html>

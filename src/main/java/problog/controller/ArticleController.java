@@ -4,15 +4,19 @@ package problog.controller;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import problog.entity.Article.ArticleContent;
+import problog.entity.carousel.Carousel;
 import problog.entity.response.ResResult;
 import problog.mapper.Article.ArticleContentMapper;
 import problog.service.ArticleService;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/article")
@@ -92,12 +96,38 @@ public class ArticleController {
         return "article/category";
     }
 
-    @RequestMapping(value = "/delect/{id}")
-    public void delectArticle(@PathVariable Integer id){
-        articleService.deleteArticle(id);
+    @ResponseBody
+    @RequestMapping(value = "/delete/{id}",method = RequestMethod.POST)
+    public void deleteArticle(@PathVariable Integer id) {
+        int i = articleService.deleteArticle(id);
+    }
+
+    @RequestMapping(value = "/edit",method = RequestMethod.GET)
+    public String update(@RequestParam("id") Integer id, Model model){
+        ArticleContent byId = articleService.getById(id);
+        model.addAttribute("edit",byId);
+        return "article/update";
+    }
+
+    @RequestMapping(value = "/update",method = RequestMethod.PUT)
+    @ResponseBody
+    public ResResult<ArticleContent> update(@RequestBody ArticleContent articleContent){
+        ResResult<ArticleContent> resResult = new ResResult<>();
+        ArticleContent articleContent11 = articleService.getById(articleContent.getId());
+        if (null != articleContent11){
+            String paths = (String)request.getSession().getAttribute("path");
+            resResult.setCode(0);
+            resResult.setMsg("修改成功");
+            articleContent.setPicture(paths);
+            int i = articleService.update(articleContent);
+            resResult.setCount(i);
+            resResult.setData(articleContent);
+            request.getSession().setAttribute("path",null);
+        }else{
+            resResult.setCode(-1);
+            resResult.setMsg("修改失败");
+            resResult.setData(null);
+        }
+        return resResult;
     }
 }
-
-
-
-

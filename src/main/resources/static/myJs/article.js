@@ -41,6 +41,63 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
     });
 
 
+//监听工具条
+    table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        json=JSON.stringify(data);
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+         if(layEvent === 'del'){ //删除
+          var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
+              $.ajax({
+                  url: '/article/delete/'+data.id,
+                  type: "post",
+
+                  success: function () {
+                      {
+                          obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                          layer.close(delIndex);
+                          console.log(delIndex);
+                          layer.msg("删除成功")
+                      }
+                  }
+              })
+              layer.close(delIndex); //向服务端发送删除指令
+
+            });
+        } else if(layEvent==='edit'){//编辑
+                layer.open({
+                    type:2  //类型2位弹出内置框
+                    , title: '修改文章'
+                    , shade: [0.3]
+                    , content: '/article/edit?id='+data.id
+                    , area: ['400px', '400px']
+                    , offset: 'auto'
+                })
+         }
+    });
+
+    //更新
+    form.on('submit(update)',function (data) {
+        //JSON数据
+        js = {id:$("#id").val(),title:$("#title").val(),author:$("#author"),summary:$("#summary"),content: $("#context")};
+        $.ajax({
+            url: '/article/update',
+            type: 'PUT',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(js),
+            success: function (data) {
+                layer.alert(data.msg);
+                parent.window.location.reload();
+            },error:function () {
+                layer.alert("更新失败");
+                parent.window.location.reload();
+            }
+        });
+        console.log(data);
+        return false;
+    });
+
     //为写文章中添加验证规则
     form.verify({
         title: function (value, item) {

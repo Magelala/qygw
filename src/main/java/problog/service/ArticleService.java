@@ -24,4 +24,8 @@ public interface ArticleService {
 
     List<ArticleContent> all(int limit,int page);
 
+    ArticleContent getById(Integer id);
+
+    int update(ArticleContent articleContent);
+
 }
