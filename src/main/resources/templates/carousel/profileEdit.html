@@ -65,66 +65,9 @@
 
 <script src="/static/layui.js" th:src="@{/layui.js}"></script>
 <script th:inline="none">
-    layui.use(['form','upload','layer','table'], function() {
-        var $ = layui.jquery
-            ,upload = layui.upload
-            ,form = layui.form
-            ,layer = layui.layer
-            ,table = layui.table;
-
-        //添加验证规则
-        form.verify({
-            title: function (value,item) {
-                value =  value.trim();
-                if (value.length<0){
-                    return "请输入简介标题";
-                }
-            }
-        });
-        form.on('submit(update)',function (data) {
-            js = {id:$("#id").val(),title:$("#title").val(),imgUrl:$("#show")[0].src,name:$("#name").val(),message:$("#message").val(),sort:$("#sort").val()};
-            $.ajax({
-                url: '/companyProfile/edit',
-                type: 'PUT',
-                dataType: 'JSON',
-                contentType: 'application/JSON',
-                data: JSON.stringify(js),
-                success: function (data) {
-                    layer.alert(data.msg);
-                    parent.window.location.reload();
-                },error:function () {
-                    layer.alert("更新失败");
-                    parent.window.location.reload();
-                }
-            });
-            return false;
-        });
-
-        //执行上传
-        var uploadInst = upload.render({
-            elem: '#upload' //绑定元素,上传按钮的id
-            , url: '/upload/native' //上传接口
-            , method: 'POST'
-            , accept: 'images'
-            , size: 150
-            , before: function (obj) {
-                obj.preview(function (index, file, result) {
-                    $('#show').attr('src', result); //图片链接
-                });
-            }
-            , done: function (res) {//上传完毕回调
-                layer.close(layer.msg('上传成功！'));
-            }
-            , error: function () {//请求异常回调
-                //演示失败状态，并实现重传
-                var demoText = $('#demoText');
-                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function () {
-                    uploadInst.upload();
-                });
-            }
-        });
-    });
+    layui.config({
+        base: '/myJs/'
+    }).use('companyProfile');
 </script>
 </body>
 </html>

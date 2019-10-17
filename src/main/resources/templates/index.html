@@ -10,11 +10,11 @@
 <div class="layui-layout layui-layout-admin">
 
     <!--头部-->
-    <div th:include="commons/common_header :: commonHeader" class="layui-header"></div>
+    <div th:replace="commons/common_header :: commonHeader"></div>
 
     <!--侧边导航栏-->
     <div class="layui-side layui-bg-black">
-        <div th:include="commons/common_side::commonSide" class="layui-side-scroll"></div>
+        <div th:replace="commons/common_side::commonSide"></div>
     </div>
 
     <div class="layui-body" style="background-color:#EEEEEE;">
@@ -32,15 +32,14 @@
     </div>
 
     <!--页脚-->
-    <div class="layui-footer" th:include="commons/common_footer :: commonFooter" style="background-color:black;color:white;text-align:center;"></div>
+    <div th:replace="commons/common_footer :: commonFooter"></div>
 
 </div>
-<script src="/static/js/layui.js" th:src="@{/js/layui.js}"></script>
+<script th:src="@{/layui.js}"></script>
 <script>
-    //JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
-    });
+    layui.config({
+        base: '/myJs/'
+    }).use('common');
 </script>
 </body>
 </html>

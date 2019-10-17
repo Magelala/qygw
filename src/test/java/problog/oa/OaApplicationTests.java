@@ -2,14 +2,21 @@ package problog.oa;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import problog.entity.Article.ArticleContent;
 import problog.entity.User.User;
+import problog.entity.nav.Nav;
+import problog.mapper.Article.ArticleContentMapper;
 import problog.mapper.carousel.CarouselMapper;
+import problog.service.ArticleService;
+import problog.service.NavService;
 import problog.utils.FindUser;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -21,6 +28,12 @@ public class OaApplicationTests {
     @Resource
     private CarouselMapper carouselMapper;
 
+    @Autowired
+    private ArticleService articleService;
+
+    @Autowired
+    private NavService navService;
+
     static {
         data = new HashMap<Integer, User>();
         data.put(1,new User("admin","88888888"));
@@ -30,6 +43,7 @@ public class OaApplicationTests {
 
     @Test
     public void contextLoads() {
+        List<ArticleContent> list = articleService.getArticleByTitle("安利进驻国际");
     }
 
     @Test
@@ -42,6 +56,22 @@ public class OaApplicationTests {
     @Test
     public void test(){
         System.out.println(FindUser.findUserByName(data,"admin"));
+    }
+
+    @Test
+    public void showArticle(){
+        List<ArticleContent> list = articleService.showArticle();
+        for (ArticleContent articleContent:list){
+            System.out.println(articleContent);
+        }
+    }
+
+    @Test
+    public void testNav(){
+        List<Nav> list = navService.allSubNav(2);
+        for (Nav nav:list){
+            System.out.println(nav);
+        }
     }
 
 }

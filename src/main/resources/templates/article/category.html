@@ -1,0 +1,76 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>分类管理</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+    <!--头部-->
+    <div th:replace="commons/common_header :: commonHeader"></div>
+
+
+    <div class="layui-side layui-bg-black">
+        <div th:replace="commons/common_side::commonSide" class="layui-side-scroll"></div>
+    </div>
+
+
+    <div class="layui-body">
+        <div class="layui-fluid" style="margin-top: 20px;">
+            <div class="layui-form-item" style="margin: 5px 0">
+                <div style="float: left;">
+                    <span class="layui-breadcrumb">
+                        <a th:href="@{/main}">首页</a>
+                        <a><cite>文章</cite></a>
+                        <a th:href="@{/article/category}">文章列表</a>
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- 内容主体区域 -->
+            <table id="categoryShow" lay-filter="test" class="layui-table"></table>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/layui.js}"></script>
+<script th:inline="none" >
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#categoryShow'
+            ,url: '/article/show' //数据接口
+            ,method: 'GET'
+            ,cellMinWidth: '80'
+            ,cols: [[ //表头
+                 {field: 'id', title: '序号', align:'center',height:'100'}
+                ,{field: 'classify',title: '文章类别名称',height:'100'}
+                ,{title:'操作',fixed: 'right', toolbar: '#barDemo',height:'100'} //这里的toolbar值是模板元素的选择器
+            ]]
+            ,page : false
+        });
+
+    });
+
+
+
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script th:inline="none" >
+    layui.config({
+        base: '/myJs/'
+    }).use('article');
+</script>
+</body>
+</html>

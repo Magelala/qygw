@@ -15,6 +15,7 @@ import problog.entity.User.usersUser;
 import problog.mapper.Article.ArticleContentMapper;
 import problog.mapper.User.AuthorMapper;
 import problog.mapper.User.UsersMapper;
+import problog.service.ArticleService;
 import problog.service.MailService;
 
 import javax.annotation.Resource;
@@ -29,8 +30,7 @@ public class ServiceTest {
     @Autowired
     private TemplateEngine templateEngine;
     @Resource
-    private AuthorMapper authorMapper;
-
+    ArticleService articleService;
     @Resource
     private UsersMapper usersMapper;
 
@@ -169,5 +169,10 @@ public class ServiceTest {
 //        int i = articleContentMapper.insert(article);
 //        System.out.println(i);
 //    }
+    @Test
+    public void delectTest(){
+        int article = articleService.deleteArticle(2);
+        System.out.println(article);
+    }
 }
 

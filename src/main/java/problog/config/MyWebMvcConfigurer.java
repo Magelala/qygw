@@ -34,11 +34,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         return new LoginInterceptor();
     }*/
 
-    /**
-     * 直接访问localhost:8080/toLogin就跳转到login.html页面了
-     * @param registry
-     */
- /*   @Override
+
+   @Override
     public void addViewControllers(ViewControllerRegistry registry){
         //视图跳转控制器
         registry.addViewController("/").setViewName("/login");
@@ -55,7 +52,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addViewController("/user").setViewName("/user");
         registry.addViewController("/setting.html").setViewName("/setting");
         registry.addViewController("/setting").setViewName("/setting");
-    }*/
+    }
 
 
 

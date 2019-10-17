@@ -9,7 +9,4 @@ public class ArticleComment {
         private Integer articleId;
         private Integer commentId;
         private Timestamp createByDate;
-
-
-
 }
