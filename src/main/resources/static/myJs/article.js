@@ -8,6 +8,22 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         layer = layui.layer;
 
     layedit.build("demo"); //建立编辑器
+    form.verify({
+        context: function(value){
+            layedit.sync(index);
+        }
+    });
+
+     var index = layedit.build("demo"); //建立编辑器
+
+    form.verify({
+       context: function(value){
+            layedit.sync(index);
+        }
+    });
+
+
+
 
     layui.use('table', function(){
         //第一个实例
