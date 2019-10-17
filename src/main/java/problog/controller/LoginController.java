@@ -62,6 +62,7 @@ public class LoginController {
         User user = FindUser.findUserByName(LoginController.data,username);
         if (null != user && user.getUsername().equals(username) && user.getPassword().equals(password)){
             httpServletRequest.getSession().setAttribute("user",user);
+            httpServletRequest.getSession().setAttribute("authorId",1);
             String remember = httpServletRequest.getParameter("remember");
             //记住用户名的功能实现，保存在Cookie中
             if (remember.equals("true")){

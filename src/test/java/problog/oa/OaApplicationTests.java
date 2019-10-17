@@ -8,13 +8,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import problog.entity.Article.ArticleContent;
 import problog.entity.User.User;
 import problog.entity.nav.Nav;
-import problog.mapper.Article.ArticleContentMapper;
 import problog.mapper.carousel.CarouselMapper;
 import problog.service.ArticleService;
 import problog.service.NavService;
 import problog.utils.FindUser;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +32,9 @@ public class OaApplicationTests {
     private ArticleService articleService;
 
     @Autowired
+    private ServletRequest request;
+
+    @Autowired
     private NavService navService;
 
     static {
@@ -43,7 +46,8 @@ public class OaApplicationTests {
 
     @Test
     public void contextLoads() {
-        List<ArticleContent> list = articleService.getArticleByTitle("安利进驻国际");
+        String show = request.getParameter("isShow");
+        System.out.println(show);
     }
 
     @Test

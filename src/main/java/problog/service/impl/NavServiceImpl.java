@@ -22,17 +22,22 @@ public class NavServiceImpl implements NavService {
 
     @Override
     public int addParentNav(Nav nav) {
-        return navMapper.addParentNav(nav);
+        return navMapper.insert(nav);
     }
 
     @Override
-    public int addSubNav(Nav nav) {
-        return navMapper.addSubNav(nav);
+    public int addSubNav(Nav nav,int id) {
+        return navMapper.addSubNav(nav,id);
     }
 
     @Override
     public int deleteById(int id) {
         return navMapper.deleteById(id);
+    }
+
+    @Override
+    public int deletes(Integer[] ids) {
+        return navMapper.deletes(ids);
     }
 
     @Override
@@ -46,12 +51,34 @@ public class NavServiceImpl implements NavService {
     }
 
     @Override
-    public List<Nav> allSubNav(int pid) {
+    public List<Nav> allSubNav(Integer pid) {
         return navMapper.allSubNav(pid);
     }
 
     @Override
     public Nav getById(int id) {
-        return navMapper.selectById(id);
+        return navMapper.getById(id);
     }
+
+    @Override
+    public int max() {
+        return navMapper.max();
+    }
+
+    @Override
+    public Nav up(int sort) {
+        return navMapper.upNav(sort);
+    }
+
+    @Override
+    public Nav down(int sort) {
+        return navMapper.downNav(sort);
+    }
+
+    @Override
+    public void updateSelf(int id, int sort) {
+        navMapper.updateSelfSort(id,sort);
+    }
+
+
 }

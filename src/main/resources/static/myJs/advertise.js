@@ -156,7 +156,7 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
             }
         }else if(event === 'edit'){
             if (checkStatus.data.length === 0){
-                return layer.msg("请输入数据");
+                return layer.msg("请选择需要修改的数据");
             }else if (checkStatus.data.length > 1){
                 return layer.msg("只能修改一行");
             }

@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="commonSide">
+<div th:fragment="commonSide" class="layui-side-scroll">
     <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
     <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item message">
-            <a class="" href="javascript:;">文章管理</a>
+            <a href="javascript:;">文章管理</a>
             <dl class="layui-nav-child">
-                <dd><a th:href="@{/article/index}"> 所有文章</a></dd>
+                <dd><a th:href="@{/article/index}">所有文章</a></dd>
                 <dd><a th:href="@{/article/write}">添加文章</a></dd>
                 <dd><a th:href="@{/article/category}">分类管理</a></dd>
-
             </dl>
         </li>
         <li class="layui-nav-item ">
-            <a href="javascript:">页面设置</a>
+            <a href="javascript:">页面管理</a>
             <dl class="layui-nav-child">
-                <dd><a href="">顶部</a></dd>
-                <dd><a href="">菜单</a></dd>
-                <dd><a href="">底部</a></dd>
-                <dd><a href="">背景</a></dd>
+                <dd><a href="">公司logo管理</a></dd>
+                <dd><a th:href="@{/nav/index}">导航栏管理</a></dd>
+                <dd><a href="">热点新闻管理</a></dd>
+                <dd><a href="">底部信息管理</a></dd>  <!--导航链接管理,版权信息的修改-->
             </dl>
         </li>
         <li class="layui-nav-item">
             <a href="javascript:;">广告管理</a>
             <dl class="layui-nav-child">
                 <dd><a th:href="@{/advertise/index}">首页轮播图</a></dd>
-                <dd><a th:href="@{/companyProfile/index}">企业简介</a></dd>
+                <dd><a th:href="@{/companyProfile/index}">企业简介</a></dd> <!--可以增加一个公司的宣传照片,企业的愿景及企业文化-->
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">用户管理</a>
+            <dl class="layui-nav-child">
+                <dd><a th:href="@{/user}">用户列表</a></dd>
+                <dd><a href="">权限管理</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item"><a th:href="@{/user}">用户管理</a></li>
