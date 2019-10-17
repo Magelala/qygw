@@ -33,7 +33,6 @@ public class MailServiceImpl implements MailService {
     public void sendSimpleMail(String to, String subject, String content) {
         try {
 
-
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);//收信人
         message.setSubject(subject);//主题

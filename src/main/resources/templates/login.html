@@ -30,6 +30,9 @@
 		}
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="../static/js/login.js"></script>
+
+
 </head>
 <body onload="isLogin();showValue()" style="background: url(/img/bg.jpg) no-repeat">
 <div id="app" class="container wrap1" style="height:450px;">
@@ -45,13 +48,22 @@
 </div>
 
 <template id="mail">
-	<form action="" method="">
+
+	<!--<form action="" method="">-->
+	<form action="/email/login" method="post">
+
 		<!--用于提示验证码有误，也可以不添加这段代码-->
 		<!--<p style="color: red" th:text="${msg}" th:if="${not #strings.isError(msg)}" ></p>-->
 		<div class="form-group mg-t20">
 			<i class="icon-user icon_font"></i>
-			<input type="text" name="emailCode" class="login_input" value="" placeholder="请输入邮箱号" />
+
+			<!--<input type="text" name="emailCode" class="login_input" value="" placeholder="请输入邮箱号" />
 			<input type="button" name="submitCode" value="发送验证码" style="position: absolute;right: 0;top:50%;margin-top: -11px;margin-right: 10px;color: #fff;width: auto;background-color: #3872f6;border: none;">
+			-->
+			<input type="text" name="emailCode" id="emailCode" class="login_input" value="" placeholder="请输入邮箱号" />
+			<input type="button" name="submitCode" onclick="sendEmail()" value="发送验证码" style="position: absolute;right: 0;top:50%;margin-top: -11px;margin-right: 10px;color: #fff;width: auto;background-color: #3872f6;border: none;">
+
+
 		</div>
 		<div class="form-group mg-t20">
 			<i class="icon-lock icon_font"></i>
@@ -75,7 +87,9 @@
 		</div>
 		<div class="checkbox mg-b25">
 			<label>
-				<input type="checkbox" id="remember" name="remember" value="true" checked="checked"/>记住用户名
+				<!--<input type="checkbox" id="remember" name="remember" value="true" checked="checked"/>记住用户名-->
+				<input type="checkbox" id="remember" name="remember-me" value="true" checked="checked"/>记住用户名
+
 			</label>
 
 			<label class="forget"><a href="">忘记密码</a></label>
@@ -161,6 +175,17 @@
 		},
 		methods: {}
 	});
+
+	function sendEmail() {
+
+	    alert("发送验证码");
+
+            window.location.href = '/email/code?emailCode=' + document.getElementById("emailCode").value;
+
+
+    }
+
+
 </script>
 </body>
 </html>
