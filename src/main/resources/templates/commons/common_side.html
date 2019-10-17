@@ -4,12 +4,12 @@
     <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
     <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item message">
-            <a class="" href="javascript:;">文章</a>
+            <a class="" href="javascript:;">文章管理</a>
             <dl class="layui-nav-child">
-                <dd><a th:href="@{/article}"> 文章列表</a></dd>
-                <dd><a th:href="@{/article/write}">写文章</a></dd>
-                <dd><a href="">分类目录</a></dd>
-                <dd><a href="">标签</a></dd>
+                <dd><a th:href="@{/article/index}"> 所有文章</a></dd>
+                <dd><a th:href="@{/article/write}">添加文章</a></dd>
+                <dd><a th:href="@{/article/category}">分类管理</a></dd>
+
             </dl>
         </li>
         <li class="layui-nav-item ">
