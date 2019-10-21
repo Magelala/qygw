@@ -80,6 +80,24 @@ public class ArticleController {
     //------------------------文章页面的请求,返回一个页面--------------------------------
 
 
+    @RequestMapping(value = "/finds",method = RequestMethod.GET)
+    @ResponseBody
+    public ResResult<List<Carousel>> findByTitle(@RequestParam(value = "title") String title,
+                                                 @RequestParam("limit")int limit,
+                                                 @RequestParam("page") int page){
+        //int end = title.indexOf(",");
+        List<Carousel> all = articleContentMapper.selectTitle(title.trim());
+        List<Carousel> list = articleService.getCarouselByTitle(title.trim(),(page-1)*limit,limit);
+        ResResult<List<Carousel>> resResult = new ResResult<>();
+        resResult.setCode(0);
+        resResult.setCount(all.size());
+        resResult.setPage(page);
+        resResult.setData(list);
+        resResult.setMsg("成功");
+        resResult.setLimit(limit);
+        return resResult;
+    }
+
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String showArticle(){
         return "article/article";

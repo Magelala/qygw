@@ -1,6 +1,7 @@
 package problog.service;
 
 import problog.entity.Article.ArticleContent;
+import problog.entity.carousel.Carousel;
 
 import java.util.List;
 
@@ -27,5 +28,7 @@ public interface ArticleService {
     ArticleContent getById(Integer id);
 
     int update(ArticleContent articleContent);
+
+    List<Carousel> getCarouselByTitle(String title, int limit, int page);
 
 }
