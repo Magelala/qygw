@@ -1,7 +1,7 @@
 spring:
   datasource:
     username: root
-    password: 123456
+    password: root
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?characterEncoding=utf-8
 
@@ -20,3 +20,9 @@ mybatis-plus:
   type-aliases-package: problog.entity
   mapper-locations: classpath:templates/mapper/*.xml
 
+
+#session 过期时间，单位：秒
+server:
+  servlet:
+    session:
+      timeout: 60
