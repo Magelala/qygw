@@ -47,12 +47,13 @@
         //第一个实例
         table.render({
             elem: '#categoryShow'
-            ,url: '/article/show' //数据接口
+            ,url: '/article/showCategory' //数据接口
             ,method: 'GET'
             ,cellMinWidth: '80'
             ,cols: [[ //表头
                  {field: 'id', title: '序号', align:'center',height:'100'}
-                ,{field: 'classify',title: '文章类别名称',height:'100'}
+                ,{field: 'name',title: '文章类别名称',height:'100'}
+                ,{field: 'description',title: '描述',height:'100'}
                 ,{title:'操作',fixed: 'right', toolbar: '#barDemo',height:'100'} //这里的toolbar值是模板元素的选择器
             ]]
             ,page : false

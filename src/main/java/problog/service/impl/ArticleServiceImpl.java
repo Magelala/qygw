@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import problog.entity.Article.ArticleContent;
 
+import problog.entity.Category.Category;
 import problog.entity.carousel.Carousel;
 import problog.mapper.Article.ArticleContentMapper;
+import problog.mapper.Category.CategoryMapper;
 import problog.service.ArticleService;
 
 import javax.annotation.Resource;
@@ -18,6 +20,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Resource
     ArticleContentMapper articleContentMapper;
+
 
     @Override
     public int addNewArticle(ArticleContent articleContent) {
