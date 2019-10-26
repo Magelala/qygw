@@ -8,7 +8,7 @@
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
         <li class="layui-nav-item"><a th:href="@{/main}">返回主页</a></li>
-        <li class="layui-nav-item"><a href="javascript:;">数据中心</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" th:href="@{/main}">数据中心</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item">
@@ -21,6 +21,6 @@
                 <dd><a th:href="@{/setting}">系统设置</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item"><a th:href="@{/loginOut}">退出</a></li>
+        <li class="layui-nav-item"><a th:href="@{/}">退出</a></li>
     </ul>
 </div>

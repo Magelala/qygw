@@ -5,6 +5,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?characterEncoding=utf-8
 
+
   mail:
     host: smtp.qq.com
     username: 969064814@qq.com
@@ -16,7 +17,12 @@ spring:
     cache: false
     mode: HTML
 
+
 mybatis-plus:
   type-aliases-package: problog.entity
   mapper-locations: classpath:templates/mapper/*.xml
+
+
+server:
+  port: 8080
 

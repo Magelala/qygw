@@ -7,16 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import problog.entity.Article.ArticleContent;
+import problog.entity.Category.Category;
 import problog.entity.carousel.Carousel;
 import problog.entity.response.ResResult;
 import problog.mapper.Article.ArticleContentMapper;
+
+import problog.mapper.Category.CategoryMapper;
 import problog.service.ArticleService;
+import problog.service.CategoryService;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 @RequestMapping("/article")
@@ -31,6 +36,13 @@ public class ArticleController {
 
     @Resource
     private ArticleContentMapper articleContentMapper;
+
+    @Resource
+    CategoryService categoryService;
+
+
+
+
 
     @ApiOperation(value = "添加文章",notes = "添加一篇文章")
     @ApiResponses({
@@ -60,6 +72,7 @@ public class ArticleController {
         return resResult;
     }
 
+    //显示全部文章列表
     @RequestMapping(value = "/show",method = RequestMethod.GET)
     @ResponseBody
     public ResResult<List<ArticleContent>> texts(@RequestParam(value = "limit",required = false) Integer limit,
@@ -77,8 +90,40 @@ public class ArticleController {
         return result;
     }
 
+    //显示全部category列表
+    @RequestMapping(value = "/showCategory",method = RequestMethod.GET)
+    @ResponseBody
+    public ResResult<List<Category>> allCategory(){
+        //查询分类总数
+        List<Category> categoryList = categoryService.showCategory();
+        ResResult<List<Category>> result = new ResResult<>();
+        result.setCode(0);
+//        result.setCount(categoryList.size()); //设置总数
+        result.setData(categoryList);
+        return result;
+    }
+
+
     //------------------------文章页面的请求,返回一个页面--------------------------------
 
+
+    @RequestMapping(value = "/finds",method = RequestMethod.GET)
+    @ResponseBody
+    public ResResult<List<Carousel>> findByTitle(@RequestParam(value = "title") String title,
+                                                 @RequestParam("limit")int limit,
+                                                 @RequestParam("page") int page){
+        //int end = title.indexOf(",");
+        List<Carousel> all = articleContentMapper.selectTitle(title.trim());
+        List<Carousel> list = articleService.getCarouselByTitle(title.trim(),(page-1)*limit,limit);
+        ResResult<List<Carousel>> resResult = new ResResult<>();
+        resResult.setCode(0);
+        resResult.setCount(all.size());
+        resResult.setPage(page);
+        resResult.setData(list);
+        resResult.setMsg("成功");
+        resResult.setLimit(limit);
+        return resResult;
+    }
 
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String showArticle(){
@@ -87,8 +132,11 @@ public class ArticleController {
 
 
     @RequestMapping(value = "/write",method = RequestMethod.GET)
-    public String WriteArticle(){
+    public String WriteArticle(Model model){
+        List<Category> category = categoryService.showCategory();
+        model.addAttribute("category",category);
         return "article/writeArticle";
+
     }
 
     @RequestMapping(value = "/category",method = RequestMethod.GET)

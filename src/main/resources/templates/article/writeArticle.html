@@ -20,13 +20,11 @@
             <div class="layui-form-item classify">
                 <label class="layui-form-label">分类</label>
                 <div class="layui-input-block">
+
                     <select name="classify" lay-verify="required" >
-                        <option value=""></option>
-                        <option value="0">vue</option>
-                        <option value="1">php</option>
-                        <option value="2">java</option>
-                        <option value="3">hadoop</option>
-                        <option value="4">node</option>
+                        <div th:each="list:${category}">
+                        <option th:value="${list.id}" th:text="${list.name}"></option>
+                        </div>
                     </select>
                 </div>
             </div>

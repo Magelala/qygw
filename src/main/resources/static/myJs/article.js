@@ -24,7 +24,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
 
 
 
-
+    //数据表格
     layui.use('table', function(){
         //第一个实例
         table.render({
@@ -123,6 +123,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             }
         }
     });
+
     form.verify({
         //书写自己的验证规则
         author: function (value, item) {
@@ -132,6 +133,8 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             }
         }
     });
+
+    //富文本框验证，数据填充
     form.verify({
         //书写自己的验证规则
         keywords: function (value, item) {
@@ -185,6 +188,33 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             });
         }
     });
+
+
+
+    var active =  {
+
+            searchTitle: function () {
+            var title = $('#title');
+            table.reload('articleShow',{
+                page: {
+                    curr: 1
+                }
+                ,url: '/article/finds'
+                ,where:{
+                    title: title.val()
+                }
+                ,method: 'GET'
+            });
+        }
+    };
+
+    /*绑定搜索的点击事件*/
+    $('.search-article .layui-btn').on('click',function(){
+        var type =  $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+        $('#title').val('');
+    });
+
 
     exports('article',{});
 });

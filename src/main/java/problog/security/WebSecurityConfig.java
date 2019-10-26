@@ -95,8 +95,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
         http.apply(emailCodeAuthenticationSecurityConfig).and()
                 .authorizeRequests()
-              // .antMatchers("/article").hasAnyRole("ROLE_USER")
-            //  .antMatchers("/article").permitAll()
+             /* .antMatchers("/article/**").hasAnyRole("USER")
+               .antMatchers("/advertise/**").hasAnyRole("USER")
+               .antMatchers("/companyProfile/**").hasAnyRole("USER")
+               .antMatchers("/nav/**").hasAnyRole("USER")
+               .antMatchers("/setting/**").hasAnyRole("USER")
+               .antMatchers("/user").hasAnyRole("USER")
+               .antMatchers("/upload/**").hasAnyRole("USER")*/
+               .antMatchers("/**").hasAnyRole("USER")
                 // 允许邮箱验证码发送URL
               .antMatchers("/email/**").permitAll()
                 .anyRequest().authenticated()
@@ -118,10 +124,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .tokenValiditySeconds(60*60*24*7)// 设置7天有效
                // .rememberMeServices(rememberMeServices())
                // .key("INTERNAL_SECRET_KEY")
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService).and()
+                // session管理
+              .sessionManagement()
+                .invalidSessionUrl("/");
 
         // 关闭CSRF跨域
         http.csrf().disable();
+        // Spring Security4默认是将'X-Frame-Options' 设置为 'DENY',所以修改为‘disable’
+        http.headers().frameOptions().disable();
 
     }
 
@@ -130,7 +141,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public void configure(WebSecurity web) throws Exception {
         //设置拦截器忽略文件夹，可以对静态资源放行
 
-        web.ignoring().antMatchers("/bootstrap/**","/img/**","/images/**","/fonts/**","/font/**","/css/**","/js/**","/lay/**","/node_modules/**","/lay/**");
+        web.ignoring().antMatchers("/bootstrap/**","/img/**","/images/**","/fonts/**","/font/**","/css/**","/js/**","/lay/**","/node_modules/**","/upload/**","/lay/**","/layui.all.js","/layui.js");
     }
 
 
