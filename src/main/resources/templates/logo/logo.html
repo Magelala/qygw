@@ -1,0 +1,48 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>logo管理</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+    <div th:replace="commons/common_header :: commonHeader"></div>
+
+    <div class="layui-side layui-bg-black">
+        <div th:replace="commons/common_side::commonSide"></div>
+    </div>
+
+    <div class="layui-body">
+        <div class="myLogo" style="width: 400px;height:400px;margin: 5px auto;">
+            <div class="layui-logo" id="cLogo" style="cursor: pointer;">
+                <img class="layui-photos-demo" th:src="${logo.src}"/>
+            </div>
+            <button type="button" class="layui-btn" style="float: right;" id="updateLogo">更换</button>
+        </div>
+    </div>
+
+    <div th:replace="commons/common_footer :: commonFooter"></div>
+</div>
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+
+    //JavaScript代码区域
+    layui.use(['element','upload'], function(){
+        var element = layui.element,
+            $ = layui.jquery;
+
+        $('#updateLogo').on('click',function (data) {
+            layer.open({
+                type: 2
+                , title: '修改公司Logo'
+                , shade: [0.3]
+                , content: '/logo/edit?id=1'
+                , area: ['400px', '400px']
+                , offset: 'auto'
+
+            })
+        });
+    });
+</script>
+</body>
+</html>

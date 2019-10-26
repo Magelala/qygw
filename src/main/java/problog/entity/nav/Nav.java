@@ -33,5 +33,4 @@ public class Nav {
     private String description;
     private int sort; //排序导航
 
-
 }

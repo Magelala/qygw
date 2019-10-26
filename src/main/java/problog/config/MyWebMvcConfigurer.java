@@ -35,7 +35,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
     }*/
 
 
-   @Override
+/*   @Override
     public void addViewControllers(ViewControllerRegistry registry){
         //视图跳转控制器
         registry.addViewController("/").setViewName("/login");
@@ -52,7 +52,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addViewController("/user").setViewName("/user");
         registry.addViewController("/setting.html").setViewName("/setting");
         registry.addViewController("/setting").setViewName("/setting");
-    }
+    }*/
 
 
 

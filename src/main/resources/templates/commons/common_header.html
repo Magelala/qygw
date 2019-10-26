@@ -1,6 +1,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="commonHeader" class="layui-header">
-    <div class="layui-logo">公司LOGO</div>
+    <div class="layui-logo">
+        <a href="#">
+            <img th:src="${#request.getSession().getAttribute('src')}" alt="公司LOGO" style="width:50px;height: 50px;"/>
+        </a>
+    </div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
         <li class="layui-nav-item"><a th:href="@{/main}">返回主页</a></li>

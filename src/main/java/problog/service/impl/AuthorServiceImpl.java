@@ -1,10 +1,11 @@
 package problog.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import problog.entity.User.Author;
 import problog.mapper.User.AuthorMapper;
 import problog.service.AuthorService;
+
+import javax.annotation.Resource;
 
 /**
  * @ClassName:AuthorServiceImpl
@@ -12,7 +13,8 @@ import problog.service.AuthorService;
  **/
 @Service(value = "authorService")
 public class AuthorServiceImpl implements AuthorService {
-    @Autowired
+
+    @Resource
     private AuthorMapper authorMapper;
 
 
