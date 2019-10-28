@@ -10,12 +10,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import problog.entity.Article.ArticleContent;
+import problog.entity.Category.Category;
 import problog.entity.User.Author;
 import problog.entity.User.usersUser;
 import problog.mapper.Article.ArticleContentMapper;
 import problog.mapper.User.AuthorMapper;
 import problog.mapper.User.UsersMapper;
 import problog.service.ArticleService;
+import problog.service.CategoryService;
 import problog.service.MailService;
 
 import javax.annotation.Resource;
@@ -31,19 +33,31 @@ public class ServiceTest {
     private TemplateEngine templateEngine;
     @Resource
     ArticleService articleService;
-    @Resource
-    private UsersMapper usersMapper;
 
+    @Resource
+    CategoryService categoryService;
     @Resource
     ArticleContentMapper articleContentMapper;
+
+//    @Test
+//    public void testSelect(){
+//        System.out.println(("----- selectAll method test ------"));
+//        List<usersUser> userList = usersMapper.selectList(null);
+//        Assert.assertEquals(5, userList.size());
+//        userList.forEach(System.out::println);
+//    }
+
     @Test
     public void testSelect(){
-        System.out.println(("----- selectAll method test ------"));
-        List<usersUser> userList = usersMapper.selectList(null);
-        Assert.assertEquals(5, userList.size());
-        userList.forEach(System.out::println);
-    }
+        Category category = new Category();
+        category.setName("英语");
+        category.setDescription("考研英语难难难");
+        int i = categoryService.addCategory(category);
+        System.out.println(i);
 
+
+
+    }
     @Test
     public void insertTest() {
         ArticleContent content = new ArticleContent();

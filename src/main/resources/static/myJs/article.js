@@ -95,7 +95,11 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
     //更新
     form.on('submit(update)',function (data) {
         //JSON数据
-        js = {id:$("#id").val(),title:$("#title").val(),author:$("#author"),summary:$("#summary"),content: $("#context")};
+        js = {id:$("#id").val(),
+            title:$("#title").val(),
+            author:$("#author").val(),
+            summary:$("#summary").val(),
+            content: $("#context").val()};
         $.ajax({
             url: '/article/update',
             type: 'PUT',

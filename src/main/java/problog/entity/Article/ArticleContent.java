@@ -12,7 +12,7 @@ public class ArticleContent {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String author; //作者
-    private String classify; //目录
+    private Integer classify; //分类目录
     private String title;  //文章标题
     private String keywords; //关键字
     private String summary; //摘要

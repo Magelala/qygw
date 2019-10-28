@@ -48,7 +48,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Carousel> getCarouselByTitle(String title, int limit, int page) {
+    public List<ArticleContent> getArticleByTitle(String title, int limit, int page) {
         return articleContentMapper.selectTitlePage(title,limit,page);
     }
 

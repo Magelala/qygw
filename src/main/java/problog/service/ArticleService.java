@@ -33,7 +33,7 @@ public interface ArticleService {
     int update(ArticleContent articleContent);
 
     //根据title进行模糊查询
-    List<Carousel> getCarouselByTitle(String title, int limit, int page);
+    List<ArticleContent> getArticleByTitle(String title, int limit, int page);
 
 
 

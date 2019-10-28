@@ -145,7 +145,9 @@ public class CarouselController {
             resResult.setMsg("修改失败");
             resResult.setData(null);
         }
+        System.out.println("我被成功的更新了");
         return resResult;
+
     }
 
     /**
