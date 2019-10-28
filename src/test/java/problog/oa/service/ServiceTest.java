@@ -49,14 +49,8 @@ public class ServiceTest {
 
     @Test
     public void testSelect(){
-        Category category = new Category();
-        category.setName("英语");
-        category.setDescription("考研英语难难难");
-        int i = categoryService.addCategory(category);
+        int i = categoryService.deleteCategory(5);
         System.out.println(i);
-
-
-
     }
     @Test
     public void insertTest() {

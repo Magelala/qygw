@@ -160,7 +160,14 @@ public class ArticleController {
     @ResponseBody
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.POST)
     public void deleteArticle(@PathVariable Integer id) {
-        int i = articleService.deleteArticle(id);
+         articleService.deleteArticle(id);
+    }
+
+    //删除分类
+    @ResponseBody
+    @PostMapping("deleteCategory/{id}")
+    public void deleteCategory(@PathVariable Integer id){
+        categoryService.deleteCategory(id);
     }
 
     //编辑文章

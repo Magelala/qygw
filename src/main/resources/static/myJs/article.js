@@ -89,6 +89,26 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
                     , area: ['400px', '400px']
                     , offset: 'auto'
                 })
+         }else if (layEvent==='delCategory'){
+             { //删除分类
+                 var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
+                     $.ajax({
+                         url: '/article/deleteCategory/'+data.id,
+                         type: "post",
+
+                         success: function () {
+                             {
+                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                 layer.close(delIndex);
+                                 console.log(delIndex);
+                                 layer.msg("删除成功")
+                             }
+                         }
+                     })
+                     layer.close(delIndex); //向服务端发送删除指令
+
+                 });
+             }
          }
     });
 

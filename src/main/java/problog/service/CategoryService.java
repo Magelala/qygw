@@ -12,5 +12,7 @@ public interface CategoryService {
     List<Category> showCategory();
     //添加新的分类
     int addCategory(Category category);
+    //删除分类
+    int deleteCategory(Integer id);
 
 }

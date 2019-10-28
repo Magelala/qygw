@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
 /*    @Autowired
-    private LoginInterceptor loginInterceptor;*/
+    private LoginInterceptor loginInterceptor;
 
 /*    @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
