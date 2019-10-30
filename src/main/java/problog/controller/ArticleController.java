@@ -8,10 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import problog.entity.Article.ArticleContent;
 import problog.entity.Category.Category;
-import problog.entity.carousel.Carousel;
 import problog.entity.response.ResResult;
 import problog.mapper.Article.ArticleContentMapper;
-
 import problog.service.ArticleService;
 import problog.service.CategoryService;
 
@@ -77,14 +75,14 @@ public class ArticleController {
     public ResResult<List<ArticleContent>> texts(@RequestParam(value = "limit",required = false) Integer limit,
                                                  @RequestParam(value = "page",required = false) Integer page){
         //分页查询文章
-        List<ArticleContent> list = articleContentMapper.showPage(limit*(page-1),limit);
+        List<ArticleContent> list = articleContentMapper.selectArticle(limit*(page-1),limit);
         //查询文章总数
-        List<ArticleContent> all = articleService.showArticle();
+        int i = articleService.articleCount();
         ResResult<List<ArticleContent>> result = new ResResult<>();
         result.setCode(0);
         result.setLimit(limit);
         result.setPage(page);
-        result.setCount(all.size()); //设置总数
+        result.setCount(i); //设置总数
         result.setData(list);
         return result;
     }
@@ -97,7 +95,6 @@ public class ArticleController {
         List<Category> categoryList = categoryService.showCategory();
         ResResult<List<Category>> result = new ResResult<>();
         result.setCode(0);
-//        result.setCount(categoryList.size()); //设置总数
         result.setData(categoryList);
         return result;
     }
@@ -173,8 +170,8 @@ public class ArticleController {
     //编辑文章
     @RequestMapping(value = "/edit",method = RequestMethod.GET)
     public String update(@RequestParam("id") Integer id, Model model){
-        ArticleContent byId = articleService.getById(id);
-        model.addAttribute("edit",byId);
+        ArticleContent list = articleService.selectArticleById(id);
+        model.addAttribute("edit",list);
         return "article/update";
     }
 
@@ -185,11 +182,8 @@ public class ArticleController {
         ResResult<ArticleContent> resResult = new ResResult<>();
         ArticleContent articleContent11 = articleService.getById(articleContent.getId());
         if (null != articleContent11){
-//            String paths = (String)request.getSession().getAttribute("path");
-
             resResult.setCode(0);
             resResult.setMsg("修改成功");
-//            articleContent.setPicture(paths);
             int i = articleService.update(articleContent);
             resResult.setCount(i);
             resResult.setData(articleContent);

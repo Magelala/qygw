@@ -49,8 +49,8 @@ public class ServiceTest {
 
     @Test
     public void testSelect(){
-        int i = categoryService.deleteCategory(5);
-        System.out.println(i);
+//        List<ArticleContent> id = articleService.selectById(22);
+//        System.out.println(id);
     }
     @Test
     public void insertTest() {

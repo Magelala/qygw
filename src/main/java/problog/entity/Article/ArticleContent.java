@@ -34,4 +34,6 @@ public class ArticleContent {
 
     private int sort; //排序,对文章的置顶有作用
 
+    private String name;  //存放category表中的name字段数据
+
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="problog.mapper.Article.ArticleContentMapper">
+<select id="selectArticle" resultType="problog.entity.Article.ArticleContent">
+SELECT a.id,a.title,c.name,a.create_by_date
+FROM `article_content` As a left join category as c on a.classify=c.id
+ORDER BY a.create_by_date DESC limit #{limit},#{page};
+</select>
+    <select id="getArticleById" resultType="problog.entity.Article.ArticleContent">
+        SELECT id,author,title,keywords,summary,context
+        FROM article_content WHERE id=#{id};
+    </select>
+</mapper>

@@ -1,14 +1,10 @@
 package problog.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import problog.entity.Article.ArticleContent;
 
-import problog.entity.Category.Category;
-import problog.entity.carousel.Carousel;
 import problog.mapper.Article.ArticleContentMapper;
-import problog.mapper.Category.CategoryMapper;
 import problog.service.ArticleService;
 
 import javax.annotation.Resource;
@@ -27,10 +23,11 @@ public class ArticleServiceImpl implements ArticleService {
         return articleContentMapper.insert(articleContent);
     }
 
-    @Override
-    public List<ArticleContent> showArticle(){
-        return articleContentMapper.selectList(null);
-    }
+//    @Override
+//    public List<ArticleContent> showArticle(){
+//        return articleContentMapper.selectList(null);
+//        return articleContentMapper.selectArticle();
+//    }
 
     @Override
     public List<ArticleContent> all(int limit, int page) {
@@ -53,12 +50,22 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleContent> getArticleByTitle(String title){
-        List<ArticleContent> list = articleContentMapper.selectList(new LambdaQueryWrapper<ArticleContent>().eq(ArticleContent::getTitle, title));
-        System.out.println(list);
-        return list;
-
+    public int articleCount() {
+        return articleContentMapper.selectCount(null);
     }
+
+    @Override
+    public ArticleContent selectArticleById(Integer id) {
+        return  articleContentMapper.getArticleById(id);
+    }
+
+//    @Override
+//    public List<ArticleContent> getArticleByTitle(String title){
+//        List<ArticleContent> list = articleContentMapper.selectList(new LambdaQueryWrapper<ArticleContent>().eq(ArticleContent::getTitle, title));
+//        System.out.println(list);
+//        return list;
+//
+//    }
 
     @Override
     public int deleteArticle(Integer id) {

@@ -35,13 +35,8 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             ,cols: [[ //表头
                 {field: 'id', title: 'ID', align:'center',width:80}
                 ,{field: 'title', title: '文章标题'}
-                ,{field: 'author',title: '作者',width:80}
-                ,{field: 'summary', title: '摘要'}
-                ,{field: 'classify',title: '分类',width:80}
-                ,{field: 'status',title:'状态',width:80}
+                ,{field: 'name',title:'文章类别',width:200}
                 ,{field: 'createByDate', title: '创建时间',align:'center',width:120}
-                ,{field: 'views',title: '访问量',width:100}
-                ,{field: 'sort',title:'排序',width: 80}
                 ,{title:'操作',fixed: 'right', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             ,page:{

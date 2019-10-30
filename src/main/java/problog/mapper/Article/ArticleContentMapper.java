@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import problog.entity.Article.ArticleContent;
-import problog.entity.carousel.Carousel;
 import java.util.List;
 
 public interface ArticleContentMapper extends BaseMapper<ArticleContent> {
@@ -24,4 +23,7 @@ public interface ArticleContentMapper extends BaseMapper<ArticleContent> {
     @Select("SELECT category.`name` FROM `article_content`  JOIN category ON article_content.classify=category.id")
     List<ArticleContent> selectCategory();
 
+    List<ArticleContent> selectArticle(@Param("limit") int limit,@Param("page") int page);
+
+    ArticleContent getArticleById(@Param("id") int id);
 }
