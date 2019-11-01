@@ -29,14 +29,12 @@
 			background: linear-gradient(#4990c1, #52a3d2, #6186a3); /* 标准的语法 */
 		}
 	</style>
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script src="../static/js/login.js"></script>
-
-
 </head>
-<body onload="isLogin();showValue()" style="background: url(/img/bg.jpg) no-repeat">
+<body onload="showValue()" style="background: url(/img/bg.jpg) no-repeat">
 <div id="app" class="container wrap1" style="height:450px;">
-	<h2 class="mg-b20 text-center" style="color:black;">公司LOGO</h2>
+	<h2 class="mg-b20 text-center" style="color:black;">
+		<img th:src="${#request.getSession().getAttribute('src')}" alt="公司LOGO" style="width:50px;height: 50px;"/>
+	</h2>
 	<h2 class="text-center" style="color:black;">后台管理中心</h2>
 	<div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
 		<a class="text-center font16" href="" @click.prevent="flag=true" >账号登录</a>
@@ -92,49 +90,30 @@
 
 			</label>
 
-			<label class="forget"><a href="">忘记密码</a></label>
+			<label class="forget"><a th:href="@{/forget}">忘记密码</a></label>
 		</div>
 		<button style=":submit" class="login_btn">登 录</button>
 
 	</form>
 </template>
 
-<script type="text/javascript">
-	var showImg = document.getElementById("show");
-	var showPassword = document.getElementById("showPassword");
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!--<script src="../static/js/login.js"></script>-->
+<script th:inline="none">
 	//隐藏text block，显示password block
 	function hideShowPsw(){
-		if (showPassword.type=="password"){
-			showPassword.type = "text";
-			showImg.src="/img/invisible.png";
-		}else{
-			showPassword.type = "password";
-			showImg.src="/img/visible.png";
-		}
-	}
-	//用户输入的用户名和密码是否匹配
-	/*function isLogin(){
-		var Request = new Object();
-		Request = GetRequest();
-		var flag = Request['flag'];
-		if (flag == 0){
-			alert("用户名或密码错误!请重新输入");
-		}
-	}
-	function GetRequest() {
-		var url = location.search; //获取url中含"?"符后的字串
-		var theRequest = new Object();
-		var strs;
-		if (url.indexOf("?") != -1) {
-			var str = url.substr(1);
-			strs = str.split("&");
-			for(var i = 0; i < strs.length; i ++) {
-				theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+		var showImg = document.getElementById("show");
+		var showPassword = document.getElementById("showPassword");
+		if (showPassword != null){
+			if ("password" == showPassword.type){
+				showPassword.type = "text";
+				showImg.src="/img/invisible.png";
+			}else{
+				showPassword.type = "password";
+				showImg.src="/img/visible.png";
 			}
 		}
-		return theRequest;
 	}
-	 */
 
 	//读取Cookie
 	function getMyCookie(key){
@@ -166,8 +145,6 @@
 		template: "#mail"
 	})
 
-
-
 	var vm = new Vue({
 		el: '#app',
 		data: {
@@ -177,15 +154,9 @@
 	});
 
 	function sendEmail() {
-
 	    alert("发送验证码");
-
-            window.location.href = '/email/code?emailCode=' + document.getElementById("emailCode").value;
-
-
+		window.location.href = '/email/code?emailCode=' + document.getElementById("emailCode").value;
     }
-
-
 </script>
 </body>
 </html>

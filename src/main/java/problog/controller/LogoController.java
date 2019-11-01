@@ -43,6 +43,7 @@ public class LogoController {
         String path = (String)request.getSession().getAttribute("path");
         logo.setSrc(path);
         request.getSession().setAttribute("path",null);
+        request.getSession().setAttribute("src",path);
         logo.setAuthorId(1);
         logo.setAuthorName("admin");
         logoService.update(logo);
@@ -53,30 +54,10 @@ public class LogoController {
         return resResult;
     }
 
-/*
-    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
-    @ResponseBody
-    public ResResult<Logo> delete(Integer id){
-        ResResult<Logo> resResult = new ResResult<>();
-        Logo logo = logoService.getById(id);
-        if (null != logo){
-            resResult.setData(logo);
-            resResult.setMsg("删除成功");
-            resResult.setCount(1);
-            resResult.setCode(200);
-        }else{
-            resResult.setData(null);
-            resResult.setMsg("删除失败");
-        }
-        return resResult;
-    }
-*/
-
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String index(Model model){
         Logo logo = logoService.getById(1);
         model.addAttribute("logo",logo);
-        request.getSession().setAttribute("src",logo.getSrc());
         return "logo/logo";
     }
 
