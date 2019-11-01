@@ -259,7 +259,12 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
 
     form.on('submit(update)',function (data) {
         //JSON数据
-        js = {id:$("#id").val(),title:$("#title").val(),imgUrl:$("#show")[0].src,imgLink:$("#link").val(),remark:$("#remark").val(),sort:$("#sort").val()};
+        js = {id:$("#id").val(),
+            title:$("#title").val(),
+            imgUrl:$("#show")[0].src,
+            imgLink:$("#link").val(),
+            remark:$("#remark").val(),
+            sort:$("#sort").val()};
         $.ajax({
             url: '/advertise/update',
             type: 'PUT',

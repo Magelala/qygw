@@ -21,6 +21,9 @@ spring:
 mybatis-plus:
   type-aliases-package: problog.entity
   mapper-locations: classpath:templates/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
 
 
 server:

@@ -62,13 +62,7 @@ public class OaApplicationTests {
         System.out.println(FindUser.findUserByName(data,"admin"));
     }
 
-    @Test
-    public void showArticle(){
-        List<ArticleContent> list = articleService.showArticle();
-        for (ArticleContent articleContent:list){
-            System.out.println(articleContent);
-        }
-    }
+
 
     @Test
     public void testNav(){

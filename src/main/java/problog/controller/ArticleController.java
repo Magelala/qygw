@@ -8,11 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import problog.entity.Article.ArticleContent;
 import problog.entity.Category.Category;
-import problog.entity.carousel.Carousel;
 import problog.entity.response.ResResult;
 import problog.mapper.Article.ArticleContentMapper;
-
-import problog.mapper.Category.CategoryMapper;
 import problog.service.ArticleService;
 import problog.service.CategoryService;
 
@@ -78,14 +75,14 @@ public class ArticleController {
     public ResResult<List<ArticleContent>> texts(@RequestParam(value = "limit",required = false) Integer limit,
                                                  @RequestParam(value = "page",required = false) Integer page){
         //分页查询文章
-        List<ArticleContent> list = articleContentMapper.showPage(limit*(page-1),limit);
+        List<ArticleContent> list = articleContentMapper.selectArticle(limit*(page-1),limit);
         //查询文章总数
-        List<ArticleContent> all = articleService.showArticle();
+        int i = articleService.articleCount();
         ResResult<List<ArticleContent>> result = new ResResult<>();
         result.setCode(0);
         result.setLimit(limit);
         result.setPage(page);
-        result.setCount(all.size()); //设置总数
+        result.setCount(i); //设置总数
         result.setData(list);
         return result;
     }
@@ -98,24 +95,35 @@ public class ArticleController {
         List<Category> categoryList = categoryService.showCategory();
         ResResult<List<Category>> result = new ResResult<>();
         result.setCode(0);
-//        result.setCount(categoryList.size()); //设置总数
         result.setData(categoryList);
         return result;
     }
 
+    @PostMapping("/addCategory")
+    @ResponseBody
+    public ResResult<Category> addCategory(@RequestBody Category category){
+        ResResult<Category> CategoryResResult = new ResResult<>();
+        int count = categoryService.addCategory(category);
+        CategoryResResult.setData(category);
+        CategoryResResult.setCode(200);
+        CategoryResResult.setCount(count);
+        CategoryResResult.setMsg("添加成功");
+        return CategoryResResult;
+    }
 
-    //------------------------文章页面的请求,返回一个页面--------------------------------
+
+
 
 
     @RequestMapping(value = "/finds",method = RequestMethod.GET)
     @ResponseBody
-    public ResResult<List<Carousel>> findByTitle(@RequestParam(value = "title") String title,
+    public ResResult<List<ArticleContent>> findByTitle(@RequestParam(value = "title") String title,
                                                  @RequestParam("limit")int limit,
                                                  @RequestParam("page") int page){
         //int end = title.indexOf(",");
-        List<Carousel> all = articleContentMapper.selectTitle(title.trim());
-        List<Carousel> list = articleService.getCarouselByTitle(title.trim(),(page-1)*limit,limit);
-        ResResult<List<Carousel>> resResult = new ResResult<>();
+        List<ArticleContent> all = articleContentMapper.selectTitle(title.trim());
+        List<ArticleContent> list = articleService.getArticleByTitle(title.trim(),(page-1)*limit,limit);
+        ResResult<List<ArticleContent>> resResult = new ResResult<>();
         resResult.setCode(0);
         resResult.setCount(all.size());
         resResult.setPage(page);
@@ -144,29 +152,38 @@ public class ArticleController {
         return "article/category";
     }
 
+
+    //删除文章
     @ResponseBody
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.POST)
     public void deleteArticle(@PathVariable Integer id) {
-        int i = articleService.deleteArticle(id);
+         articleService.deleteArticle(id);
     }
 
+    //删除分类
+    @ResponseBody
+    @PostMapping("deleteCategory/{id}")
+    public void deleteCategory(@PathVariable Integer id){
+        categoryService.deleteCategory(id);
+    }
+
+    //编辑文章
     @RequestMapping(value = "/edit",method = RequestMethod.GET)
     public String update(@RequestParam("id") Integer id, Model model){
-        ArticleContent byId = articleService.getById(id);
-        model.addAttribute("edit",byId);
+        ArticleContent list = articleService.selectArticleById(id);
+        model.addAttribute("edit",list);
         return "article/update";
     }
 
+    //更新编辑文章
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     @ResponseBody
     public ResResult<ArticleContent> update(@RequestBody ArticleContent articleContent){
         ResResult<ArticleContent> resResult = new ResResult<>();
         ArticleContent articleContent11 = articleService.getById(articleContent.getId());
         if (null != articleContent11){
-            String paths = (String)request.getSession().getAttribute("path");
             resResult.setCode(0);
             resResult.setMsg("修改成功");
-            articleContent.setPicture(paths);
             int i = articleService.update(articleContent);
             resResult.setCount(i);
             resResult.setData(articleContent);
@@ -176,6 +193,7 @@ public class ArticleController {
             resResult.setMsg("修改失败");
             resResult.setData(null);
         }
+        System.out.println("我被成功的更新啦");
         return resResult;
     }
 }

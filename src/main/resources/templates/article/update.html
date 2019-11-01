@@ -22,13 +22,9 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">封面</label>
+
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn" id="upload">
-                    <i class="layui-icon">&#xe67c;</i>上传图片
-                </button>
-                <img id="show" th:src="@{${edit.getPicture()}}" style="height: 50px;width: 50px;">
-                <input th:value="${edit.getPicture()}" >
+
                 <p id="demoText"></p>
             </div>
         </div>
@@ -36,7 +32,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">作者</label>
             <div class="layui-input-inline">
-                <input type="text" id="link" th:value="${edit.getAuthor()}" name="imgLink" lay-verify="required"  autocomplete="off" class="layui-input" placeholder="请输入作者">
+                <input type="text" id="link" name="imgLink" lay-verify="required" th:value="${edit.getAuthor()}" autocomplete="off" class="layui-input" placeholder="请输入作者">
             </div>
         </div>
 
@@ -67,7 +63,7 @@
 <script th:inline="none">
     layui.config({
         base: '/myJs/'
-    }).use('advertise');
+    }).use('article');
 </script>
 </body>
 </html>

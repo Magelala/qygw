@@ -13,10 +13,10 @@ public interface ArticleService {
     int addNewArticle(ArticleContent articleContent);
 
     //显示文章列表,返回所有文章列表
-    List<ArticleContent> showArticle();
+//    List<ArticleContent> showArticle();
 
-    //模糊搜索,返回一个文章对象
-    List<ArticleContent> getArticleByTitle(String title);
+//    //模糊搜索,返回一个文章对象
+//    List<ArticleContent> getArticleByTitle(String title);
 
     //根据id删除一篇文章,返回删除了几篇文章
     int deleteArticle(Integer id);
@@ -33,8 +33,11 @@ public interface ArticleService {
     int update(ArticleContent articleContent);
 
     //根据title进行模糊查询
-    List<Carousel> getCarouselByTitle(String title, int limit, int page);
+    List<ArticleContent> getArticleByTitle(String title, int limit, int page);
 
+    //返回总记录条数
+    int articleCount();
 
+    ArticleContent selectArticleById(Integer id);
 
 }

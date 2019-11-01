@@ -35,13 +35,8 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             ,cols: [[ //表头
                 {field: 'id', title: 'ID', align:'center',width:80}
                 ,{field: 'title', title: '文章标题'}
-                ,{field: 'author',title: '作者',width:80}
-                ,{field: 'summary', title: '摘要'}
-                ,{field: 'classify',title: '分类',width:80}
-                ,{field: 'status',title:'状态',width:80}
+                ,{field: 'name',title:'文章类别',width:200}
                 ,{field: 'createByDate', title: '创建时间',align:'center',width:120}
-                ,{field: 'views',title: '访问量',width:100}
-                ,{field: 'sort',title:'排序',width: 80}
                 ,{title:'操作',fixed: 'right', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             ,page:{
@@ -89,13 +84,37 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
                     , area: ['400px', '400px']
                     , offset: 'auto'
                 })
+         }else if (layEvent==='delCategory'){
+             { //删除分类
+                 var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
+                     $.ajax({
+                         url: '/article/deleteCategory/'+data.id,
+                         type: "post",
+
+                         success: function () {
+                             {
+                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                 layer.close(delIndex);
+                                 console.log(delIndex);
+                                 layer.msg("删除成功")
+                             }
+                         }
+                     })
+                     layer.close(delIndex); //向服务端发送删除指令
+
+                 });
+             }
          }
     });
 
     //更新
     form.on('submit(update)',function (data) {
         //JSON数据
-        js = {id:$("#id").val(),title:$("#title").val(),author:$("#author"),summary:$("#summary"),content: $("#context")};
+        js = {id:$("#id").val(),
+            title:$("#title").val(),
+            author:$("#author").val(),
+            summary:$("#summary").val(),
+            content: $("#context").val()};
         $.ajax({
             url: '/article/update',
             type: 'PUT',

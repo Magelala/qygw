@@ -10,4 +10,9 @@ import java.util.List;
 public interface CategoryService {
     //显示分类列表，返回所有分类列表
     List<Category> showCategory();
+    //添加新的分类
+    int addCategory(Category category);
+    //删除分类
+    int deleteCategory(Integer id);
+
 }
