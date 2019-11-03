@@ -19,10 +19,6 @@ public interface ArticleContentMapper extends BaseMapper<ArticleContent> {
     @Select("select * from article_content where title like concat('%',#{title},'%')")
     List<ArticleContent> selectTitle(@Param("title") String title);
 
-    //显示分类 多表连接
-    @Select("SELECT category.`name` FROM `article_content`  JOIN category ON article_content.classify=category.id")
-    List<ArticleContent> selectCategory();
-
     List<ArticleContent> selectArticle(@Param("limit") int limit,@Param("page") int page);
 
     ArticleContent getArticleById(@Param("id") int id);

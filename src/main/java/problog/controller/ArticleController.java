@@ -12,11 +12,9 @@ import problog.entity.response.ResResult;
 import problog.mapper.Article.ArticleContentMapper;
 import problog.service.ArticleService;
 import problog.service.CategoryService;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-
 import java.util.List;
 
 
@@ -111,10 +109,6 @@ public class ArticleController {
         return CategoryResResult;
     }
 
-
-
-
-
     @RequestMapping(value = "/finds",method = RequestMethod.GET)
     @ResponseBody
     public ResResult<List<ArticleContent>> findByTitle(@RequestParam(value = "title") String title,
@@ -175,6 +169,14 @@ public class ArticleController {
         return "article/update";
     }
 
+    //编辑分类
+    @RequestMapping(value = "/editCategory",method = RequestMethod.GET)
+    public String updateCategory(@RequestParam("id") Integer id, Model model){
+        Category list = categoryService.updateCategory(id);
+        model.addAttribute("edit",list);
+        return "article/updates";
+    }
+
     //更新编辑文章
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     @ResponseBody
@@ -185,6 +187,8 @@ public class ArticleController {
             resResult.setCode(0);
             resResult.setMsg("修改成功");
             int i = articleService.update(articleContent);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            articleContent.setModifiedByDate(timestamp);
             resResult.setCount(i);
             resResult.setData(articleContent);
             request.getSession().setAttribute("path",null);
@@ -193,7 +197,30 @@ public class ArticleController {
             resResult.setMsg("修改失败");
             resResult.setData(null);
         }
-        System.out.println("我被成功的更新啦");
+        return resResult;
+    }
+
+
+    //更新分类
+    @PutMapping("/updates")
+    @ResponseBody
+    public ResResult<Category> updates(@RequestBody Category category){
+        ResResult<Category> resResult = new ResResult<>();
+        Category category2 = categoryService.updateCategory(category.getId());
+        if (category2 != null){
+            resResult.setCode(0);
+            resResult.setMsg("修改成功");
+            int i = categoryService.update(category);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            category.setModifiedByDate(timestamp);
+            resResult.setCount(i);
+            resResult.setData(category);
+            request.getSession().setAttribute("path",null);
+        }else{
+            resResult.setCode(-1);
+            resResult.setMsg("修改失败");
+            resResult.setData(null);
+        }
         return resResult;
     }
 }

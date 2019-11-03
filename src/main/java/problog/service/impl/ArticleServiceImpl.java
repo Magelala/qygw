@@ -59,14 +59,6 @@ public class ArticleServiceImpl implements ArticleService {
         return  articleContentMapper.getArticleById(id);
     }
 
-//    @Override
-//    public List<ArticleContent> getArticleByTitle(String title){
-//        List<ArticleContent> list = articleContentMapper.selectList(new LambdaQueryWrapper<ArticleContent>().eq(ArticleContent::getTitle, title));
-//        System.out.println(list);
-//        return list;
-//
-//    }
-
     @Override
     public int deleteArticle(Integer id) {
         return articleContentMapper.deleteById(id);
