@@ -18,10 +18,10 @@ public class Nav {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String name; //菜单名称
-    private String authorName;
     private Integer pid; //上级导航的id,0表示第一级导航
     private String url; //导航链接
     private Integer authorId;
+    private String authorName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy/MM/dd",timezone = "GMT+8")
     private Timestamp createTime;

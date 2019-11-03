@@ -15,7 +15,7 @@
     <div class="layui-body">
         <div class="myLogo" style="width: 400px;height:400px;margin: 5px auto;">
             <div class="layui-logo" id="cLogo" style="cursor: pointer;">
-                <img class="layui-photos-demo" th:src="${logo.src}"/>
+                <img class="layui-photos-demo" th:src="${#request.getSession().getAttribute('src')}"/>
             </div>
             <button type="button" class="layui-btn" style="float: right;" id="updateLogo">更换</button>
         </div>

@@ -16,8 +16,6 @@ public interface NavService {
 
     int addParentNav(Nav nav);
 
-    int addSubNav(Nav nav,int id);
-
     int deleteById(int id);
 
     int deletes(Integer[] ids);
@@ -30,11 +28,21 @@ public interface NavService {
 
     Nav getById(int id);
 
-    int max();
+    Integer max();
+
+    Integer maxSub(int pid);
 
     Nav up(int sort);
 
+    Nav upSub(int sort,int pid);
+
     Nav down(int sort);
 
+    Nav downSub(int sort,int pid);
+
     void updateSelf(int id,int sort);
+
+    void updateSubSelf(int id,int sort,int pid);
+
+    String selectTitle(int pid);
 }

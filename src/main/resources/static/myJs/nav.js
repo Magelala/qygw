@@ -39,6 +39,7 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
 
     //子表格数据
     table.render({
+        id: 'subNav',
         elem: '#subNav'
         ,url: '/nav/allSub?pid='+pid
         ,method: 'get'
@@ -59,7 +60,7 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
             ,{field:'createTime',width: 120,title: '创建时间', sort: true}
             ,{field:'description',width:100, title: '描述'}
             ,{field:'sort',title:'排序',width:80,sort: true}
-            ,{title: '操作',toolbar:"#table-nav-change",fixed:'right'}
+            ,{title: '操作',toolbar:"#table-subNav-change",fixed:'right'}
         ]]
         ,title: '走进安利'
         ,page: false
@@ -167,8 +168,8 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
                 type: 2
                 , title: '子导航管理'
                 , shade: [0.3]
-                , content: '/nav/navSub?id='+data.id
-                , area: ['1000px', '400px']
+                , content: '/nav/navSub?pid='+data.id
+                , area: ['1000px', '500px']
                 , offset: 'auto'
             });
         }
@@ -245,6 +246,127 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
                 return "请输入导航名称";
             }
         }
+    });
+
+
+    //-------------------------子导航-----------------------
+    table.on('tool(subDemo)',function (obj) {
+        var data = obj.data
+            ,event = obj.event;
+        console.log(data);
+        var prev = $(this).parent().parent().parent();
+        if (event === 'up' || event === 'down'){
+            if ($(prev).prev().html() == null && event ==='up'){//判断最顶部,直接返回
+                layer.alert("已经达到最顶部了");
+                return;
+            }else if($(prev).next().html() == null && event=== 'down'){//判断最底部,直接返回
+                layer.alert("已经到达最底部了");
+                return;
+            }else{
+                $.ajax({
+                    url: '/nav/moveSub?currSort='+data.sort+'&id='+data.id+'&pid='+data.pid+'&operate='+event,
+                    type: 'POST',
+                    data: {'id':data.id,'pid':data.pid,currSort:data.sort},
+                    dataType: 'JSON',
+                    success: function (data) {
+                        table.reload('subNav');
+                    },error: function () {
+                        layer.msg("移动失败");
+                    }
+                });
+            }
+        }else if(event === 'edit'){
+            layer.open({
+                type: 2
+                , title: '修改子导航'
+                , shade: [0.3]
+                , content: '/nav/editSub?id='+data.id+'&pid='+data.pid
+                , area: ['400px', '400px']
+                , offset: 'auto'
+            });
+        }else if(event === 'delete'){
+            layer.confirm('确认删除这条数据吗?',{btn:['确认','取消']},function (index) {
+                $.ajax({
+                    url: '/nav/delete?id='+data.id,
+                    type: 'DELETE',
+                    data: {'id':data.id},
+                    dataType: 'JSON',
+                    success:function (data) {
+                        layer.msg('删除成功');
+                        table.reload('subNav');
+                    }
+                    ,error: function () {
+                        layer.msg('删除失败');
+                    }
+                });
+            });
+        }
+    });
+
+
+    //子导航编辑
+    form.on('submit(edit)',function (data) {
+        var res,val = $("input[name='statues']:checked").val();
+        if(val==='1'){
+            res = true;
+        }else if(val === '0'){
+            res = false;
+        }
+        console.log(val);
+        //JSON数据
+        js = {id:$("#id").val(),name:$("#name").val(),url:$("#url").val(),statues:res,description:$("#description").val(),sort:$("#sort").val()};
+        $.ajax({
+            url: '/nav/update',
+            type: 'PUT',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(js),
+            success: function (data) {
+                layer.alert(data.msg);
+                parent.window.location.reload();
+            },error:function () {
+                layer.alert("更新失败");
+                parent.window.location.reload();
+            }
+        });
+        console.log(data);
+        return false;
+    });
+
+    $('#subOperate .layui-btn').on('click',function () {
+        layer.open({
+            type: 2
+            , title: '添加子导航'
+            , shade: [0.3]
+            , content: '/nav/addSub?pid='+$("#subId").val()
+            , area: ['400px', '400px']
+            , offset: 'auto'
+        });
+    });
+
+
+    form.on('submit(saveSub)',function (data) {
+        if (data.field.statues === '1'){
+            data.field.statues = true;
+        }else{
+            data.field.statues = false;
+        }
+        console.log(JSON.stringify(data.field));
+        $.ajax({
+            url: '/nav/addSub?pid='+$('#pid').val(),
+            type: 'post',
+            dataType: 'JSON',
+            contentType: 'application/JSON',
+            data: JSON.stringify(data.field),
+            success: function (data) {
+                layer.msg(data.msg,{icon:1,time:4000},function () {
+                    parent.window.location.reload();
+                });
+            },error: function () {
+                layer.alert("添加失败");
+            }
+        });
+        return false;
     });
 
     exports('nav',{});

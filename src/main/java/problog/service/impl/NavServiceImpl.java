@@ -26,11 +26,6 @@ public class NavServiceImpl implements NavService {
     }
 
     @Override
-    public int addSubNav(Nav nav,int id) {
-        return navMapper.addSubNav(nav,id);
-    }
-
-    @Override
     public int deleteById(int id) {
         return navMapper.deleteById(id);
     }
@@ -61,8 +56,13 @@ public class NavServiceImpl implements NavService {
     }
 
     @Override
-    public int max() {
+    public Integer max() {
         return navMapper.max();
+    }
+
+    @Override
+    public Integer maxSub(int pid) {
+        return navMapper.maxSub(pid);
     }
 
     @Override
@@ -71,8 +71,18 @@ public class NavServiceImpl implements NavService {
     }
 
     @Override
+    public Nav upSub(int sort, int pid) {
+        return navMapper.upSubNav(sort,pid);
+    }
+
+    @Override
     public Nav down(int sort) {
         return navMapper.downNav(sort);
+    }
+
+    @Override
+    public Nav downSub(int sort, int pid) {
+        return navMapper.downSubNav(sort,pid);
     }
 
     @Override
@@ -80,5 +90,13 @@ public class NavServiceImpl implements NavService {
         navMapper.updateSelfSort(id,sort);
     }
 
+    @Override
+    public void updateSubSelf(int id, int sort, int pid) {
+        navMapper.updateSubSelfSort(id,sort,pid);
+    }
 
+    @Override
+    public String selectTitle(int pid) {
+        return navMapper.title(pid);
+    }
 }

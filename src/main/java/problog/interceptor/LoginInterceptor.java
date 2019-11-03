@@ -31,7 +31,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (user == null){
             //如果用户为空，跳转到错误的页面
            request.setAttribute("msg","没有权限请先登录!");
-           request.getRequestDispatcher("/").forward(request,response);
+           request.getRequestDispatcher("/user/login").forward(request,response);
             return false;
         }else{
             return true;

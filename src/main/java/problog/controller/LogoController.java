@@ -56,8 +56,8 @@ public class LogoController {
 
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String index(Model model){
-        Logo logo = logoService.getById(1);
-        model.addAttribute("logo",logo);
+        String src = (String) request.getSession().getAttribute("src");
+        model.addAttribute("src",src);
         return "logo/logo";
     }
 

@@ -8,7 +8,7 @@ import java.util.Collection;
 
 /**
  * @ClassName:EmailCodeAuthenticationToken
- * @Author:Timelin
+ * @Author:linTime
  * 邮箱登录 AuthenticationToken，模仿 UsernamePasswordAuthenticationToken 实现
  **/
 

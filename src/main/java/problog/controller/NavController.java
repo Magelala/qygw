@@ -4,14 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import problog.entity.nav.Nav;
 import problog.entity.response.ResResult;
 import problog.service.NavService;
-import problog.utils.CookieUtils;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -19,7 +15,7 @@ import java.util.List;
 
 /**
  * @Author: shengjun
- * @Date: 2019/10/14 21:46
+ * @Date: 2019/10/19 14:47
  */
 @Controller
 @RequestMapping("/nav")
@@ -95,16 +91,15 @@ public class NavController {
     @ResponseBody
     public ResResult<Nav> addParent(@RequestBody Nav nav){
         ResResult<Nav> resResult = new ResResult<>();
-        Integer aid = (Integer) request.getSession().getAttribute("authorId");
-        Cookie cookie = CookieUtils.findCookie(request.getCookies(),"username");
-        nav.setAuthorId(aid);
-        nav.setAuthorName(cookie.getValue());
-        System.out.println(aid);
+        nav.setAuthorId(1);
         nav.setPid(0);
-        nav.setSort(navService.max()+1);
-        Timestamp curr = new Timestamp(System.currentTimeMillis());
-        nav.setCreateTime(curr);
-        nav.setUpdateTime(curr);
+        Integer max = navService.max();
+        if (max==null){
+            max=0;
+        }
+        nav.setSort(max+1);
+        nav.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        nav.setUpdateTime(new Timestamp(System.currentTimeMillis()));
         int i = navService.addParentNav(nav);
         resResult.setCount(i);
         resResult.setCode(200);
@@ -115,9 +110,19 @@ public class NavController {
 
     @RequestMapping(value = "/addSub",method = RequestMethod.POST)
     @ResponseBody
-    public ResResult<Nav> addSub(@RequestBody Nav nav,@RequestParam("id") Integer id){
+    public ResResult<Nav> addSub(@RequestBody Nav nav,@RequestParam("pid") Integer pid){
         ResResult<Nav> resResult = new ResResult<>();
-        int i = navService.addSubNav(nav,id);
+        Integer max = navService.maxSub(pid);
+        if (max == null){
+            max = 0;
+        }
+        System.out.println(max);
+        nav.setSort(max+1);
+        nav.setAuthorId(1);
+        nav.setPid(pid);
+        nav.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        nav.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+        int i = navService.addParentNav(nav);
         resResult.setCount(i);
         resResult.setCode(200);
         resResult.setMsg("添加子导航成功");
@@ -156,22 +161,65 @@ public class NavController {
         list.add(curr);
         if ("up".equals(operate)){
             Nav prev = navService.up(currSort);
-            navService.updateSelf(id,prev.getSort());
-            navService.updateSelf(prev.getId(),currSort);
-            list.add(prev);
+            if (null == prev){
+                resResult.setMsg("前面已经没有数据了");
+            }else {
+                navService.updateSelf(id,prev.getSort());
+                navService.updateSelf(prev.getId(),currSort);
+                list.add(prev);
+            }
         }else if("down".equals(operate)){
             Nav next = navService.down(currSort);
-            navService.updateSelf(id,next.getSort());
-            navService.updateSelf(next.getId(),currSort);
-            list.add(next);
+            if (null == next){
+                resResult.setMsg("后面已经没有数据了");
+            }else{
+                navService.updateSelf(id,next.getSort());
+                navService.updateSelf(next.getId(),currSort);
+                list.add(next);
+            }
         }
         resResult.setData(list);
         return resResult;
     }
 
+    @RequestMapping(value = "/moveSub",method = RequestMethod.POST)
+    @ResponseBody
+    public ResResult<List<Nav>> moveSub(@RequestParam("currSort") Integer currSort,
+                                        @RequestParam("id") Integer id,
+                                        @RequestParam("pid") Integer pid,
+                                        @RequestParam("operate") String operate){
+        List<Nav> list = new ArrayList<>();
+        ResResult<List<Nav>> resResult = new ResResult<>();
+        Nav curr = navService.getById(id);
+        list.add(curr);
+        if ("up".equals(operate)){
+            Nav prev = navService.upSub(currSort,pid);
+            if (prev != null){
+                navService.updateSubSelf(id,prev.getSort(),pid);
+                navService.updateSubSelf(prev.getId(),currSort,pid);
+                list.add(prev);
+            }else{
+                resResult.setMsg("前面没有数据了");
+            }
+        }else if("down".equals(operate)){
+            Nav next = navService.downSub(currSort,pid);
+            if (next != null){
+                navService.updateSubSelf(id,next.getSort(),pid);
+                navService.updateSubSelf(next.getId(),currSort,pid);
+                list.add(next);
+            }else{
+                resResult.setMsg("后面没有数据了");
+            }
+        }
+        resResult.setData(list);
+        return resResult;
+    }
+
+
     @RequestMapping(value = "/navSub",method = RequestMethod.GET)
-    public String navSub(@RequestParam("id") Integer id,Model model){
-        model.addAttribute("subId",id);
+    public String navSub(@RequestParam("pid") Integer pid, Model model){
+        model.addAttribute("pid",pid);
+        model.addAttribute("title",navService.selectTitle(pid));
         return "nav/subNav";
     }
 
@@ -186,7 +234,8 @@ public class NavController {
     }
 
     @RequestMapping(value = "/addSub",method = RequestMethod.GET)
-    public String addSub(){
+    public String addSub(@RequestParam("pid") Integer pid,Model model){
+        model.addAttribute("pid",pid);
         return "nav/addSub";
     }
 
@@ -195,6 +244,14 @@ public class NavController {
         Nav nav = navService.getById(id);
         model.addAttribute("navs",nav);
         return "nav/editParent";
+    }
+
+    @RequestMapping(value = "/editSub",method = RequestMethod.GET)
+    public String editSub(@RequestParam("id") Integer id,@RequestParam("pid") Integer pid, Model model){
+        Nav nav = navService.getById(id);
+        model.addAttribute("navs",nav);
+        model.addAttribute("pNav",navService.getById(pid));
+        return "nav/editSub";
     }
 
 }
