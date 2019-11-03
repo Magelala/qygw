@@ -116,7 +116,7 @@ public class LoginController {
     //可以不需要新写一个处理退出的请求,直接使用登录时的哪个请求.
     @RequestMapping(value = "/loginOutSuccess")
     public String loginOut(){
-        request.getSession().removeAttribute("");
+        request.getSession().removeAttribute("src");
         return "login";
     }
 

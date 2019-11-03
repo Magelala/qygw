@@ -63,7 +63,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/picture/**").addResourceLocations("file:D:/demo/qygw/src/main/resources/static/upload/picture/");
+        registry.addResourceHandler("/upload/picture/**").addResourceLocations("file:D:/java/code/enterprises/qygw/src/main/resources/static/upload/picture/");
     }
 
 
