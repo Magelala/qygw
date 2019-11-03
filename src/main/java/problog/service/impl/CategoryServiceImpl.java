@@ -29,4 +29,14 @@ public class CategoryServiceImpl implements CategoryService {
     public int deleteCategory(Integer id) {
         return categoryMapper.deleteById(id);
     }
+
+    @Override
+    public Category updateCategory(Integer id) {
+        return categoryMapper.selectById(id);
+    }
+
+    @Override
+    public int update(Category category) {
+        return categoryMapper.updateById(category);
+    }
 }

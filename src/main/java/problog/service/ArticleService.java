@@ -12,11 +12,7 @@ public interface ArticleService {
     //增添新文章,返回的是添加了几篇文章
     int addNewArticle(ArticleContent articleContent);
 
-    //显示文章列表,返回所有文章列表
-//    List<ArticleContent> showArticle();
 
-//    //模糊搜索,返回一个文章对象
-//    List<ArticleContent> getArticleByTitle(String title);
 
     //根据id删除一篇文章,返回删除了几篇文章
     int deleteArticle(Integer id);

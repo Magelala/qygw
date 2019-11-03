@@ -75,7 +75,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
               layer.close(delIndex); //向服务端发送删除指令
 
             });
-        } else if(layEvent==='edit'){//编辑
+        } else if(layEvent==='edit'){//编辑文章
                 layer.open({
                     type:2  //类型2位弹出内置框
                     , title: '修改文章'
@@ -84,7 +84,18 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
                     , area: ['400px', '400px']
                     , offset: 'auto'
                 })
-         }else if (layEvent==='delCategory'){
+         }
+         else if (layEvent==='editCategory'){
+             layer.open({
+                 type:2  //类型2位弹出内置框
+                 , title: '修改类别名称'
+                 , shade: [0.3]
+                 , content: '/article/editCategory?id='+data.id
+                 , area: ['400px', '400px']
+                 , offset: 'auto'
+             })
+         }
+         else if (layEvent==='delCategory'){
              { //删除分类
                  var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
                      $.ajax({
@@ -117,6 +128,31 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             content: $("#context").val()};
         $.ajax({
             url: '/article/update',
+            type: 'PUT',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(js),
+            success: function (data) {
+                layer.alert(data.msg);
+                parent.window.location.reload();
+            },error:function () {
+                layer.alert("更新失败");
+                parent.window.location.reload();
+            }
+        });
+        console.log(data);
+        return false;
+    });
+
+    //更新分类
+    form.on('submit(categoryUpdate)',function (data) {
+        //JSON数据
+        js = {id:$("#id").val(),
+            name:$("#name").val(),
+            description:$("#description").val(),
+            };
+        $.ajax({
+            url: '/article/updates',
             type: 'PUT',
             dataType: 'JSON',
             contentType: 'application/json',
