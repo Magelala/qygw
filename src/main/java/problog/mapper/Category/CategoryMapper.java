@@ -12,4 +12,5 @@ public interface CategoryMapper extends BaseMapper<Category> {
     @Select("select * from category order by sort asc limit #{limit},#{page}")
     List<Category> showPage(@Param("limit") int limit, @Param("page") int page);
 
+    int updateCategory(Category category);
 }

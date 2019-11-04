@@ -206,21 +206,22 @@ public class ArticleController {
     @ResponseBody
     public ResResult<Category> updates(@RequestBody Category category){
         ResResult<Category> resResult = new ResResult<>();
-        Category category2 = categoryService.updateCategory(category.getId());
-        if (category2 != null){
+        Category category1 = categoryService.updateCategory(category.getId());
+        if (null != category1){
             resResult.setCode(0);
             resResult.setMsg("修改成功");
             int i = categoryService.update(category);
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            category.setModifiedByDate(timestamp);
             resResult.setCount(i);
-            resResult.setData(category);
+            resResult.setData(category1);
             request.getSession().setAttribute("path",null);
+            System.out.println("我被成功的更新了");
         }else{
             resResult.setCode(-1);
             resResult.setMsg("修改失败");
             resResult.setData(null);
+            System.out.println("我被失败的更新了");
         }
+
         return resResult;
     }
 }

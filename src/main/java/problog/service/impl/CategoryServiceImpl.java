@@ -37,6 +37,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int update(Category category) {
-        return categoryMapper.updateById(category);
+        return categoryMapper.updateCategory(category);
     }
 }

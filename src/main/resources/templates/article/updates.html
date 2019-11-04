@@ -15,7 +15,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">类别名称</label>
             <div class="layui-input-inline">
-                <input type="text" id="title" name="title" th:value="${edit.getName()}"  lay-verify="required|title"  autocomplete="off" class="layui-input" placeholder="请输名称">
+                <input type="text" id="name" name="name" th:value="${edit.getName()}"  lay-verify="required|title"  autocomplete="off" class="layui-input" placeholder="请输名称">
             </div>
         </div>
 
@@ -24,7 +24,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">描述</label>
             <div class="layui-input-inline">
-                <input type="text" id="link" name="imgLink" lay-verify="required" th:value="${edit.getDescription()}" autocomplete="off" class="layui-input" placeholder="请输入描述">
+                <input type="text" id="description" name="description" lay-verify="required" th:value="${edit.getDescription()}" autocomplete="off" class="layui-input" placeholder="请输入描述">
             </div>
         </div>
 

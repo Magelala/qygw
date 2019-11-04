@@ -39,9 +39,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
    @Override
     public void addViewControllers(ViewControllerRegistry registry){
         //视图跳转控制器
-      /* registry.addViewController("/").setViewName("/user/login");
-       registry.addViewController("/login").setViewName("/user/login");*/
-        /*registry.addViewController("/").setViewName("/login");
+        registry.addViewController("/").setViewName("/login");
         registry.addViewController("/loginOut").setViewName("/login");
         registry.addViewController("/index.html").setViewName("/index");
         registry.addViewController("/main").setViewName("/index");
@@ -54,7 +52,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addViewController("/user.html").setViewName("/user");
         registry.addViewController("/user").setViewName("/user");
         registry.addViewController("/setting.html").setViewName("/setting");
-        registry.addViewController("/setting").setViewName("/setting");*/
+        registry.addViewController("/setting").setViewName("/setting");
     }
 
 
@@ -77,9 +75,11 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
      * @param registry
      * 测试接口，注释拦截器
      */
-/*    @Override
+/*
+    @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns(Constants.STATIC_RESOURCE_PATH);
-    }*/
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/","/user/login","/css/**","/js/**","/img/**","/fonts/**","/bootstrap/**");
+    }
+*/
 
 }
