@@ -7,6 +7,13 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         $ = layui.jquery,
         layer = layui.layer;
 
+    //富文本框事件
+    layedit.set({
+        uploadImage: { //富文本框图片上传
+            url: '/upload/native' //接口url
+            ,type: 'POST' //默认post
+        }
+    });
     layedit.build("demo"); //建立编辑器
     form.verify({
         context: function(value){
@@ -50,6 +57,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             }
         });
     });
+
 
 
 //监听工具条
@@ -199,6 +207,8 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             }
         }
     });
+
+
 
     //写文章中的提交事件
     form.on('submit(formDemo)',function (data) {

@@ -1,10 +1,7 @@
 package problog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import problog.entity.response.UploadBean;
@@ -15,6 +12,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -29,7 +27,11 @@ public class UploadController {
      * @param file
      * @return
      */
+
+
+    /**
     @PostMapping("/native")
+    @ResponseBody
     public UploadBean nativeUpload(@RequestParam("file") MultipartFile file){
         UploadBean uploadBean = new UploadBean();
         try{
@@ -66,7 +68,73 @@ public class UploadController {
         uploadBean.setSrc("");
         return uploadBean;
     }
+**/
+    @PostMapping("/native")
+    @ResponseBody
+    public Object nativeUpload(@RequestParam("file") MultipartFile file){
+//        UploadBean uploadBean = new UploadBean();
+        String filename=file.getOriginalFilename();
+        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map1 = new HashMap<>();
+        try{
+//            用于获取项目根目录
+            File f = new File("");
+            String filePath = f.getCanonicalPath()+"\\src\\main\\resources\\static\\upload\\picture\\";
+            System.out.println(filePath);
+            //获取文件名
+            String fileName = file.getOriginalFilename();
+            //上传的必须是图片
+            if (FileUtils.isImageSuffix(fileName)){
+                //设置文件存储路径
+                String path = filePath + fileName;
+                File dest = new File(path);
+                //检测是否存在目录
+                if (!dest.getParentFile().exists()){
+                    dest.getParentFile().mkdirs(); //新建文件夹
+                }
+                file.transferTo(dest); //文件写入
+                System.out.println("这是文件的路径"+path);
+                String substring = path.substring(path.length()-fileName.length()-16);
+                substring = substring.replace("\\","/");
 
+                request.getSession().setAttribute("path",substring);
+                System.out.println(substring);
+//                uploadBean.setCode(0);
+                map.put("code",0);
+                map.put("msg","上传成功");
+                map1.put("src",substring);
+                map1.put("title",filename);
+                map.put("data",map1);
+//                uploadBean.setSrc(substring);
+//                return uploadBean;
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+/**
+    @RequestMapping(value="/upload")
+    @ResponseBody
+    public Object upload(MultipartFile file) {
+        String filename = file.getOriginalFilename();
+        String uuid = UUID.randomUUID().toString();
+        boolean boole = pService.savefile(file, uuid);
+        if (boole) {
+            Map<String,Object> map = new HashMap<String,Object>();
+            Map<String,Object> map2 = new HashMap<String,Object>();
+            map.put("code", 0);	//0表示上传成功
+            map.put("msg","上传成功"); //提示消息
+            map2.put("src", path+"layUITextarea/download?uuid="+uuid);
+            map2.put("title", filename);
+            map.put("data", map2);
+            return map;
+        } else {
+            return new AjaxResult(true, file.getOriginalFilename());
+        }
+    }
+**/
     /**
      * 多文件上传
      * @param request
