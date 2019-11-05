@@ -182,8 +182,8 @@ public class ArticleController {
     @ResponseBody
     public ResResult<ArticleContent> update(@RequestBody ArticleContent articleContent){
         ResResult<ArticleContent> resResult = new ResResult<>();
-        ArticleContent articleContent11 = articleService.getById(articleContent.getId());
-        if (null != articleContent11){
+        Integer i1 = articleService.articleCount();
+        if (null != i1){
             resResult.setCode(0);
             resResult.setMsg("修改成功");
             int i = articleService.update(articleContent);

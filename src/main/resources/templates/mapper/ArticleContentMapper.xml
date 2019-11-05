@@ -11,4 +11,8 @@ ORDER BY a.create_by_date DESC limit #{limit},#{page};
         SELECT id,author,title,keywords,summary,context
         FROM article_content WHERE id=#{id};
     </select>
+    <update id="updateArticle" parameterType="problog.entity.Article.ArticleContent">
+        UPDATE article_content SET
+     author=#{author}, classify=#{classify},title=#{title},keywords=#{keywords},context=#{context},summary=#{summary},picture=#{picture} WHERE id=#{id}
+    </update>
 </mapper>

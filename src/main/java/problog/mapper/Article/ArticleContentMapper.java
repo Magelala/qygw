@@ -22,4 +22,7 @@ public interface ArticleContentMapper extends BaseMapper<ArticleContent> {
     List<ArticleContent> selectArticle(@Param("limit") int limit,@Param("page") int page);
 
     ArticleContent getArticleById(@Param("id") int id);
+
+    //更新文章
+    int updateArticle(ArticleContent articleContent);
 }
