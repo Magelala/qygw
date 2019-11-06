@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import problog.constants.Constants;
 import problog.entity.carousel.Carousel;
 import problog.entity.response.ResResult;
 import problog.mapper.carousel.CarouselMapper;
@@ -41,11 +42,10 @@ public class CarouselController {
     public ResResult<List<Carousel>> all(@RequestParam(value = "limit", required = false) Integer limit,
                                          @RequestParam(value = "page", required = false) Integer page){
         List<Carousel> carousels = carouselMapper.selectPage((page-1)*limit,limit);
-        List<Carousel> carouselList = carouselService.all();
         ResResult<List<Carousel>> resResult = new ResResult<>(0,"成功",carousels);
         resResult.setLimit(limit);
         resResult.setPage(page);
-        resResult.setCount(carouselList.size());
+        resResult.setCount(carouselMapper.count());
         return resResult;
     }
 
@@ -54,12 +54,14 @@ public class CarouselController {
     @ResponseBody
     public ResResult<Carousel> add(@RequestBody @ApiParam(name = "广告对象",value = "JSON对象") Carousel carousel){
         ResResult<Carousel> carouselResResult = new ResResult<>();
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        carousel.setCreateDate(timestamp);
-        String path = (String)request.getSession().getAttribute("path");
+        carousel.setCreateDate(new Timestamp(System.currentTimeMillis()));
+        String path = (String)request.getSession().getAttribute(Constants.UPLOAD_PICTURE_SESSION_ATTR);
         carousel.setImgUrl(path);
-        request.getSession().setAttribute("path",null);
-        int max = carouselService.max();
+        request.getSession().setAttribute(Constants.UPLOAD_PICTURE_SESSION_ATTR,null);
+        Integer max = carouselService.max();
+        if (max==null){
+            max=0;
+        }
         carousel.setSort(max+1);
         int count = carouselService.save(carousel);
         carouselResResult.setData(carousel);
@@ -75,9 +77,9 @@ public class CarouselController {
         Carousel carousel = carouselService.getById(id);
         ResResult<Carousel> resResult = new ResResult<>();
         if (null != carousel){
-            carouselService.delete(id);
+            int i = carouselService.delete(id);
             resResult.setCode(200);
-            resResult.setCount(1);
+            resResult.setCount(i);
             resResult.setData(carousel);
             resResult.setMsg("删除成功");
         }else{
@@ -113,15 +115,13 @@ public class CarouselController {
     public ResResult<List<Carousel>> findByTitle(@RequestParam(value = "title") String title,
                                                  @RequestParam("limit")int limit,
                                                  @RequestParam("page") int page){
-        //int end = title.indexOf(",");
-        List<Carousel> all = carouselMapper.selectTitle(title.trim());
+        Integer all = carouselService.allTitleCount(title.trim());
         List<Carousel> list = carouselService.getCarouselByTitle(title.trim(),(page-1)*limit,limit);
         ResResult<List<Carousel>> resResult = new ResResult<>();
         resResult.setCode(0);
-        resResult.setCount(all.size());
+        resResult.setCount(all);
         resResult.setPage(page);
         resResult.setData(list);
-        resResult.setMsg("成功");
         resResult.setLimit(limit);
         return resResult;
     }
@@ -132,14 +132,17 @@ public class CarouselController {
         ResResult<Carousel> resResult = new ResResult<>();
         Carousel carousel1 = carouselService.getById(carousel.getId());
         if (null != carousel1){
-            String path = (String)request.getSession().getAttribute("path");
+
+            String path = (String)request.getSession().getAttribute(Constants.UPLOAD_PICTURE_SESSION_ATTR);
+            carousel.setImgUrl(path);
+            request.getSession().setAttribute(Constants.UPLOAD_PICTURE_SESSION_ATTR,null);
+
             resResult.setCode(0);
             resResult.setMsg("修改成功");
-            carousel.setImgUrl(path);
             int i = carouselService.update(carousel);
             resResult.setCount(i);
             resResult.setData(carousel);
-            request.getSession().setAttribute("path",null);
+
         }else{
             resResult.setCode(-1);
             resResult.setMsg("修改失败");
@@ -156,7 +159,7 @@ public class CarouselController {
      * @param operate 上移还是下移
      * @return
      */
-    @RequestMapping(value = "move",method = RequestMethod.POST)
+    @RequestMapping(value = "/move",method = RequestMethod.POST)
     @ResponseBody
     public ResResult<List<Carousel>> move(@RequestParam("currSort") Integer currSort,@RequestParam("id") Integer id,@RequestParam("operate") String operate){
         List<Carousel> carousels = new ArrayList<>();
@@ -165,20 +168,28 @@ public class CarouselController {
         carousels.add(curr);
         if ("up".equals(operate)){
             Carousel prev = carouselService.up(currSort);
-            carouselService.updateSelfSort(id,prev.getSort());
-            carouselService.updateSelfSort(prev.getId(),currSort);
-            carousels.add(prev);
+            if (prev==null){
+                resResult.setMsg("前面没有数据了");
+            }else{
+                carouselService.updateSelfSort(id,prev.getSort());
+                carouselService.updateSelfSort(prev.getId(),currSort);
+                carousels.add(prev);
+            }
         }else if("down".equals(operate)){
             Carousel next = carouselService.down(currSort);
-            carouselService.updateSelfSort(id,next.getSort());
-            carouselService.updateSelfSort(next.getId(),currSort);
-            carousels.add(next);
+            if (next==null){
+                resResult.setMsg("后面没有数据了");
+            }else{
+                carouselService.updateSelfSort(id,next.getSort());
+                carouselService.updateSelfSort(next.getId(),currSort);
+                carousels.add(next);
+            }
         }
         resResult.setData(carousels);
         return resResult;
     }
 
-    @RequestMapping(value = "deletes",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deletes",method = RequestMethod.DELETE)
     @ResponseBody
     public ResResult<List<Carousel>> batchDelete(@RequestParam("ids") Integer[] ids){
         List<Carousel> list = new ArrayList<>();

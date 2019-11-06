@@ -32,8 +32,10 @@ public interface CarouselService {
 
     void updateOtherSort(int newSort,int sort);
 
-    int max();
+    Integer max();
 
     Carousel maxSort();
+
+    Integer allTitleCount(String title);
 
 }

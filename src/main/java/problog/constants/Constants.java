@@ -16,5 +16,8 @@ public class Constants {
     //图片上传根路径
     public static final String UPLOAD_PICTURE_ROOT_PATH="";
 
+    //
+    public static final String UPLOAD_PICTURE_SESSION_ATTR="path";
+
 
 }

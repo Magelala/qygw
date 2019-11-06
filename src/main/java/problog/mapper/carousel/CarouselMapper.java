@@ -14,6 +14,9 @@ public interface CarouselMapper extends BaseMapper<Carousel> {
     @Select("select * from carousel order by sort")
     List<Carousel> all();
 
+    @Select("select count(*) from carousel")
+    Integer count();
+
     //分页查询，按照sort字段升序排序，根据两个请求参数指定，page:当前页,limit:限制一页显示多少条数据
     @Select("select * from carousel order by sort asc limit #{limit},#{page}")
     List<Carousel> selectPage(@Param("limit") int limit, @Param("page") int page);
@@ -21,6 +24,10 @@ public interface CarouselMapper extends BaseMapper<Carousel> {
     //按照标题进行模糊搜索
     @Select("select * from carousel where title like concat('%',#{title},'%')")
     List<Carousel> selectTitle(@Param("title") String title);
+
+    //按照标题模糊搜索,查询总数量
+    @Select("select count(*) from carousel where title like concat('%',#{title},'%')")
+    Integer AllTitleCount(@Param("title") String title);
 
     //按照标题进行模糊搜索并且分页
     @Select("select * from carousel where title like concat('%',#{title},'%') order by sort asc limit #{limit},#{page}")
@@ -46,7 +53,7 @@ public interface CarouselMapper extends BaseMapper<Carousel> {
 
     //查询sort的最大值
     @Select("select max(sort) from carousel")
-    int max();
+    Integer max();
 
     @Select("select * from carousel where sort = (select max(sort) from carousel)")
     Carousel maxEntity();

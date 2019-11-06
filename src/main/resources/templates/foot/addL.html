@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加友情链接</title>
+    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}"  media="all" />
+</head>
+<body>
+
+<form class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">链接名称</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" type="text" id="name" name="linkName" lay-verify="required|name" value="" placeholder="请输入导航名称">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">链接Url</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" type="text" id="url" name="linkUrl" lay-verify="required|url" value="" placeholder="请输入导航链接">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告图片</label>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn" id="upload">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+            <img id="show" style="height: 50px;width: 50px;">
+            <p id="demoText"></p>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" type="text" id="remark" name="remark" value="" placeholder="请输入备注信息">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="saveLink">保存</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('foot');
+</script>
+</body>
+</html>

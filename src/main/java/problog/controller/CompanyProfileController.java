@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import problog.constants.Constants;
 import problog.entity.carousel.CompanyProfile;
 import problog.entity.response.ResResult;
 import problog.mapper.carousel.CompanyProfileMapper;
@@ -40,8 +41,8 @@ public class CompanyProfileController {
                                                @RequestParam(value = "page", required = false) Integer page){
         ResResult<List<CompanyProfile>> resResult = new ResResult<>();
         List<CompanyProfile> result  = companyProfileMapper.page((page-1)*limit,limit);
-        List<CompanyProfile> list = companyProfileService.all();
-        resResult.setCount(list.size());
+        Integer count = companyProfileMapper.count();
+        resResult.setCount(count);
         resResult.setCode(0);
         resResult.setLimit(limit);
         resResult.setPage(page);
@@ -72,18 +73,18 @@ public class CompanyProfileController {
     public ResResult<List<CompanyProfile>> findsByTitle(@RequestParam(value = "title") String title,
                                                         @RequestParam("limit")int limit,
                                                         @RequestParam("page") int page){
-        List<CompanyProfile> all = companyProfileMapper.title(title.trim());
+        Integer all = companyProfileMapper.allTitleCount(title.trim());
         List<CompanyProfile> list = companyProfileMapper.titlePage(title.trim(),(page-1)*limit,limit);
         ResResult<List<CompanyProfile>> resResult = new ResResult<>();
         resResult.setCode(0);
-        resResult.setCount(all.size());
+        resResult.setCount(all);
         resResult.setData(list);
         resResult.setPage(page);
         resResult.setLimit(limit);
         return resResult;
     }
 
-    @RequestMapping(value = "delete",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     @ResponseBody
     public ResResult<CompanyProfile> delete(@RequestParam("id") Integer id){
         CompanyProfile companyProfile = companyProfileService.getById(id);
@@ -126,10 +127,13 @@ public class CompanyProfileController {
     public ResResult<CompanyProfile> add(@RequestBody CompanyProfile companyProfile){
         ResResult<CompanyProfile> resResult = new ResResult<>();
         companyProfile.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        String path = (String)request.getSession().getAttribute("path");
+        String path = (String)request.getSession().getAttribute(Constants.UPLOAD_PICTURE_SESSION_ATTR);
         companyProfile.setImgUrl(path);
-        request.getSession().setAttribute("path",null);
-        int max = companyProfileMapper.max();
+        request.getSession().setAttribute(Constants.UPLOAD_PICTURE_SESSION_ATTR,null);
+        Integer max = companyProfileMapper.max();
+        if (max==null){
+            max = 0;
+        }
         companyProfile.setSort(max+1);
         int i = companyProfileService.add(companyProfile);
         resResult.setCode(200);
@@ -145,9 +149,9 @@ public class CompanyProfileController {
         CompanyProfile companyProfile1 = companyProfileService.getById(companyProfile.getId());
         ResResult<CompanyProfile> resResult = new ResResult<>();
         if (null != companyProfile1){
-            String path = (String)request.getSession().getAttribute("path");
+            String path = (String)request.getSession().getAttribute(Constants.UPLOAD_PICTURE_SESSION_ATTR);
             companyProfile.setImgUrl(path);
-            request.getSession().setAttribute("path",null);
+            request.getSession().setAttribute(Constants.UPLOAD_PICTURE_SESSION_ATTR,null);
             int i = companyProfileService.update(companyProfile);
             resResult.setCount(i);
             resResult.setMsg("修改成功");
@@ -171,25 +175,26 @@ public class CompanyProfileController {
         list.add(curr);
         if ("up".equals(operate)){
             CompanyProfile prev = companyProfileMapper.up(currSort);
-            companyProfileMapper.updateSelfSort(id,prev.getSort());
-            companyProfileMapper.updateSelfSort(prev.getId(),currSort);
-            list.add(prev);
+            if (prev==null){
+                resResult.setMsg("前面没有数据了");
+            }else{
+                companyProfileMapper.updateSelfSort(id,prev.getSort());
+                companyProfileMapper.updateSelfSort(prev.getId(),currSort);
+                list.add(prev);
+            }
         }else if ("down".equals(operate)){
             CompanyProfile next = companyProfileMapper.down(currSort);
-            companyProfileMapper.updateSelfSort(id,next.getSort());
-            companyProfileMapper.updateSelfSort(next.getId(),currSort);
-            list.add(next);
+            if (next == null){
+                resResult.setMsg("后面没有数据了");
+            }else{
+                companyProfileMapper.updateSelfSort(id,next.getSort());
+                companyProfileMapper.updateSelfSort(next.getId(),currSort);
+                list.add(next);
+            }
         }
         resResult.setCode(0);
         resResult.setData(list);
         return resResult;
-    }
-
-
-    @ApiIgnore
-    @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public String index(){
-        return "carousel/companyProfile";
     }
 
     @ApiIgnore

@@ -17,6 +17,9 @@ public interface CompanyProfileMapper extends BaseMapper<CompanyProfile> {
     @Select("select * from company_profile order by sort")
     List<CompanyProfile> all();
 
+    @Select("select count(*) from company_profile")
+    Integer count();
+
     @Select("select * from company_profile order by sort asc limit #{limit},#{page}")
     List<CompanyProfile> page(@Param("limit") int limit,@Param("page") int page);
 
@@ -26,8 +29,11 @@ public interface CompanyProfileMapper extends BaseMapper<CompanyProfile> {
     @Select("select * from company_profile where title like concat('%',#{title},'%') order by sort asc limit #{limit},#{page}")
     List<CompanyProfile> titlePage(@Param("title") String title,@Param("limit") int limit,@Param("page") int page);
 
+    @Select("select count(*) from company_profile where title like concat('%',#{title},'%')")
+    Integer allTitleCount(@Param("title")String title);
+
     @Select("select max(sort) from company_profile")
-    int max();
+    Integer max();
 
     @Select("select * from company_profile where sort < #{sort} order by sort desc limit 0,1")
     CompanyProfile up(@Param("sort") int sort);

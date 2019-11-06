@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/common_head::commonHead(~{::title})">
@@ -7,10 +8,10 @@
 
 <div class="layui-layout layui-layout-admin">
 
-    <!--顶部-->
+    &lt;!&ndash;顶部&ndash;&gt;
     <div th:replace="commons/common_header :: commonHeader"></div>
 
-    <!--侧边栏-->
+    &lt;!&ndash;侧边栏&ndash;&gt;
     <div class="layui-side layui-bg-black">
         <div th:replace="commons/common_side::commonSide"></div>
     </div>
@@ -39,14 +40,14 @@
                 </div>
             </div>
 
-            <!--工具栏模板-->
+            &lt;!&ndash;工具栏模板&ndash;&gt;
             <script type="text/html" id="toolbar">
                 <a class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></a>
                 <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></a>
                 <a class="layui-btn layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
             </script>
             <table class="layui-table" id="carousel" lay-filter="demo"></table>
-            <!--工具条模板-->
+            &lt;!&ndash;工具条模板&ndash;&gt;
             <script type="text/html" id="table-carousel-change">
                 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="up"><i class="layui-icon layui-icon-up"></i></a>
                 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="down"><i class="layui-icon layui-icon-down"></i></a>
@@ -65,4 +66,4 @@
     }).use('companyProfile');
 </script>
 </body>
-</html>
+</html>-->

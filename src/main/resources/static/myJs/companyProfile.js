@@ -7,8 +7,8 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
         upload = layui.upload;
 
     table.render({
-        elem: '#carousel'
-        ,toolbar: '#toolbar'
+        elem: '#profile'
+        ,toolbar: '#ptoolbar'
         ,url:'/companyProfile/all'
         ,method: 'get'
         ,cellMinWidth: '80'
@@ -51,8 +51,8 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
 
     var active = {
         search: function () {
-            var search = $('#search');
-            table.reload('carousel',{   /*重载id为carousel的表格*/
+            var search = $('#psearch');
+            table.reload('profile',{   /*重载id为carousel的表格*/
                 page: {
                     curr: 1  /*从第一页开始找*/
                 },
@@ -64,8 +64,8 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
             });
         }
         ,searchTitle: function () {
-            var title = $('#title');
-            table.reload('carousel',{
+            var title = $('#ptitle');
+            table.reload('profile',{
                 page: {
                     curr: 1
                 }
@@ -78,17 +78,16 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
         }
     };
 
-
     /*绑定搜索的点击事件*/
     $('.search-carousel .layui-btn').on('click',function(){
         var type =  $(this).data('type');
         active[type] ? active[type].call(this) : '';
-        $('#title').val('');
-        $('#search').val('');
+        $('#ptitle').val('');
+        $('#psearch').val('');
     });
 
     /*监听表格上工具栏事件,demo为lay-filter设置的值*/
-    table.on('toolbar(demo)',function (obj) {
+    table.on('toolbar(pdemo)',function (obj) {
         var checkStatus = table.checkStatus(obj.config.id)
             ,data = checkStatus.data[0]
             ,event = obj.event;
@@ -116,7 +115,7 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
                         dataType: 'JSON',
                         success: function (data) {
                             layer.msg("删除成功");
-                            table.reload('carousel');
+                            table.reload('profile');
                         },
                         error: function () {
                             //打印选中的id值
@@ -145,7 +144,7 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
                         dataType: 'JSON',
                         success:function (data) {
                             layer.msg('删除成功');
-                            table.reload('carousel');
+                            table.reload('profile');
                         }
                         ,error: function () {
                             layer.msg('删除失败');
@@ -193,10 +192,10 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
         $.ajax({
             url: '/companyProfile/move?currSort='+data.sort+'&id='+data.id+'&operate='+event,
             type: 'POST',
-            data: {'id':data.id,currSort:data.sort},
+            data: {id:data.id,currSort:data.sort},
             dataType: 'JSON',
             success: function (data) {
-                table.reload('carousel');
+                table.reload('profile');
             },error: function () {
                 layer.msg("移动失败");
             }

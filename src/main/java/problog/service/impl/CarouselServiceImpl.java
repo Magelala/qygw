@@ -84,13 +84,18 @@ public class CarouselServiceImpl implements CarouselService {
     }
 
     @Override
-    public int max() {
+    public Integer max() {
         return carouselMapper.max();
     }
 
     @Override
     public Carousel maxSort() {
         return carouselMapper.maxEntity();
+    }
+
+    @Override
+    public Integer allTitleCount(String title) {
+        return carouselMapper.AllTitleCount(title);
     }
 
 }
