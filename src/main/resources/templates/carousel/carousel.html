@@ -44,14 +44,14 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item" style="margin:5px 0">
-                        <div class="search-carousel" style="float: left;">
+                        <div class="search-profile" style="float: left;">
                             id搜索
                             <div class="layui-inline">
                                 <input class="layui-input" name="id" id="psearch" autocomplete="off">
                             </div>
                             <button class="layui-btn" data-type="search">搜索</button>
                         </div>
-                        <div class="search-carousel" style="float: right;">
+                        <div class="search-profile" style="float: right;">
                             标题搜索
                             <div class="layui-inline">
                                 <input class="layui-input" name="title" id="ptitle" autocomplete="off">
@@ -64,7 +64,7 @@
                     <script type="text/html" id="ptoolbar">
                         <a class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></a>
                         <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></a>
-                        <a class="layui-btn layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
+                        <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
                     </script>
                     <table class="layui-table" id="profile" lay-filter="pdemo"></table>
                     <!--工具条模板-->

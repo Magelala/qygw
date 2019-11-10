@@ -14,6 +14,15 @@
 
     <div class="layui-body">
         <div class="layui-fluid">
+            <div class="layui-form-item" style="margin: 5px 0">
+                <div style="float: left;">
+                    <span class="layui-breadcrumb">
+                        <a th:href="@{/main}">首页</a>
+                        <a><cite>页面管理</cite></a>
+                        <a th:href="@{/nav/index}">导航管理</a>
+                    </span>
+                </div>
+            </div>
             <table class="layui-table" id="navs" lay-filter="demo"></table>
         </div>
     </div>

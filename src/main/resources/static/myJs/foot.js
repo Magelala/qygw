@@ -2,7 +2,7 @@ layui.define(['element','form','jquery','layer','upload','table'],function (expo
     var element = layui.element
         ,form = layui.form
         ,table = layui.table
-        ,$=layui.jquery
+        ,$ = layui.jquery
         ,layer = layui.layer
         ,upload = layui.upload;
 
@@ -120,23 +120,18 @@ layui.define(['element','form','jquery','layer','upload','table'],function (expo
             contentType: 'application/json',
             data: JSON.stringify(js),
             success: function (data) {
-                //先获取子页面索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭子页面索引
-                window.parent.layer.close(index);
-                //刷新父页面的表格
-                parent.layui.table.reload('links');
+                layer.msg(data.msg,{icon:1,time:4000},function () {
+                    //先获取子页面索引
+                    var index = parent.layer.getFrameIndex(window.name);
+                    //关闭子页面索引
+                    window.parent.layer.close(index);
+                    //刷新父页面的表格
+                    parent.layui.table.reload('links');
+                });
             },error:function () {
                 layer.alert("更新失败");
-                //先获取子页面索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭子页面索引
-                window.parent.layer.close(index);
-                //刷新父页面的表格
-                parent.layui.table.reload('links');
             }
         });
-        console.log(data);
         return false;
     });
 
@@ -150,18 +145,18 @@ layui.define(['element','form','jquery','layer','upload','table'],function (expo
             contentType: 'application/json',
             data: JSON.stringify(js),
             success: function (data) {
-                //先获取子页面索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭子页面索引
-                window.parent.layer.close(index);
-                //刷新父页面的表格
-                parent.layui.table.reload('footNav');
+                layer.msg(data.msg,{icon:1,time:4000},function () {
+                    //先获取子页面索引
+                    var index = parent.layer.getFrameIndex(window.name);
+                    //关闭子页面索引
+                    window.parent.layer.close(index);
+                    //刷新父页面的表格
+                    parent.layui.table.reload('footNav');
+                });
             },error:function () {
                 layer.alert("更新失败");
-                parent.window.location.reload();
             }
         });
-        console.log(data);
         return false;
     });
 
@@ -192,7 +187,6 @@ layui.define(['element','form','jquery','layer','upload','table'],function (expo
             data: JSON.stringify(data.field),
             success: function (data) {
                 layer.msg(data.msg,{icon:1,time:4000},function () {
-                    layer.alert("更新失败");
                     //先获取子页面索引
                     var index = parent.layer.getFrameIndex(window.name);
                     //关闭子页面索引

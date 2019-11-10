@@ -79,11 +79,9 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
     };
 
     /*绑定搜索的点击事件*/
-    $('.search-carousel .layui-btn').on('click',function(){
+    $('.search-profile .layui-btn').on('click',function(){
         var type =  $(this).data('type');
         active[type] ? active[type].call(this) : '';
-        $('#ptitle').val('');
-        $('#psearch').val('');
     });
 
     /*监听表格上工具栏事件,demo为lay-filter设置的值*/
@@ -101,7 +99,6 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
                 ,offset:'auto'
             });
         }else if (event === 'del'){
-            console.log(data);
             if (checkStatus.data.length === 0){
                 //没有选择数据
                 return layer.msg("请选择需要删除的数据");
@@ -118,8 +115,6 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
                             table.reload('profile');
                         },
                         error: function () {
-                            //打印选中的id值
-                            console.log(data.id);
                             alert("错误，请联系后台管理员");
                         }
                     });
@@ -135,7 +130,6 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
                     }
                     db += checkStatus.data[i].id +",";
                 }
-                console.log(ids);
                 layer.confirm('确认删除'+checkStatus.data.length+'条数据吗?',{btn:['确认','取消']},function (index) {
                     $.ajax({
                         url: '/companyProfile/deletes'+ids,
@@ -170,10 +164,9 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
     });
 
     /*监听表格中的工具条,demo为lay-filter设置的值*/
-    table.on('tool(demo)',function (obj) {
+    table.on('tool(pdemo)',function (obj) {
         var data = obj.data
             ,event = obj.event;
-        console.log(data);
         var prev = $(this).parent().parent().parent();
         if (event === 'up'){
             //判断最顶部,直接返回
@@ -222,7 +215,14 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
             data: JSON.stringify(data.field),
             success: function (data) {
                 layer.msg(data.msg,{icon:1,time:2000},function () {
-                    parent.window.location.reload();
+                    layer.msg(data.msg,{icon:1,time:4000},function () {
+                        //先获取子页面索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭子页面索引
+                        window.parent.layer.close(index);
+                        //刷新父页面的表格
+                        parent.layui.table.reload('profiles');
+                    });
                 });
             },error: function () {
                 layer.alert("添加失败");
@@ -266,11 +266,17 @@ layui.define(['element','table','form','layer','upload'],function (exports) {
             contentType: 'application/JSON',
             data: JSON.stringify(js),
             success: function (data) {
-                layer.alert(data.msg);
-                parent.window.location.reload();
+                layer.msg(data.msg,{icon:1,time:4000},function () {
+                    layer.alert("添加成功");
+                    //先获取子页面索引
+                    var index = parent.layer.getFrameIndex(window.name);
+                    //关闭子页面索引
+                    window.parent.layer.close(index);
+                    //刷新父页面的表格
+                    parent.layui.table.reload('profiles');
+                });
             },error:function () {
                 layer.alert("更新失败");
-                parent.window.location.reload();
             }
         });
         return false;

@@ -20,23 +20,24 @@
                 <li>版权信息管理</li>
             </ul>
             <div class="layui-tab-content">
+
                 <div class="layui-tab-item">
                     <table class="layui-table" id="footNav" lay-filter="footNavs"></table>
                     <div class="layui-btn-group">
                         <button type="button" id="addF" class="layui-btn">增加</button>
                     </div>
                 </div>
+
                 <div class="layui-tab-item layui-show">
                     <table class="layui-table" id="links" lay-filter="demo"></table>
                     <div class="layui-btn-group">
                         <button type="button" id="addL" class="layui-btn">增加</button>
                     </div>
                 </div>
+
                 <div class="layui-tab-item">
                     <form class="layui-form">
-
                         <input type="text" id="cid" name="id" th:value="${copy.id}" hidden>
-
                         <div class="layui-form-item">
                             <label class="layui-form-label">名称</label>
                             <div class="layui-input-inline">
@@ -59,6 +60,7 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

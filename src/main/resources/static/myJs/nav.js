@@ -35,7 +35,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
 
     //设置一个全局变量,该变量的作用的是获取后台返回id
     var pid = $("#subId").val();
-    console.log(pid);
 
     //子表格数据
     table.render({
@@ -62,14 +61,12 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
             ,{field:'sort',title:'排序',width:80,sort: true}
             ,{title: '操作',toolbar:"#table-subNav-change",fixed:'right'}
         ]]
-        ,title: '走进安利'
         ,page: false
     });
 
     /*为复选框添加点击事件,checkbox(lay-filter)*/
     table.on('checkbox(demo)', function(obj){
         console.log(obj);
-        d = obj;
     });
 
     table.on('toolbar(demo)',function (obj) {
@@ -86,7 +83,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
                 ,offset:'auto'
             });
         }else if(event === 'del'){
-            console.log(data);
             if (checkStatus.data.length === 0){
                 //没有选择数据
                 return layer.msg("请选择需要删除的数据");
@@ -101,7 +97,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
                     }
                     db += checkStatus.data[i].id +",";
                 }
-                console.log(ids);
                 layer.confirm('确认删除'+checkStatus.data.length+'条数据吗?',{btn:['确认','取消']},function (index) {
                     $.ajax({
                         url: '/nav/deletes'+ids,
@@ -122,7 +117,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
             if (checkStatus.data.length === 0){
                 return layer.msg("请选择需要修改的数据");
             }else if (checkStatus.data.length === 1){
-                console.log(data.id);
                 layer.open({
                     type: 2
                     , title: '修改导航'
@@ -141,7 +135,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
     table.on('tool(demo)',function (obj) {
         var data = obj.data
             ,event = obj.event;
-        console.log(data);
         var prev = $(this).parent().parent().parent();
         if (event === 'up' || event === 'down'){
             if ($(prev).prev().html() == null && event ==='up'){//判断最顶部,直接返回
@@ -182,7 +175,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
         }else{
             data.field.statues = false;
         }
-        console.log(JSON.stringify(data.field));
         $.ajax({
             url: '/nav/add',
             type: 'post',
@@ -191,7 +183,12 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
             data: JSON.stringify(data.field),
             success: function (data) {
                 layer.msg(data.msg,{icon:1,time:4000},function () {
-                    parent.window.location.reload();
+                    //先获取子页面索引
+                    var index = parent.layer.getFrameIndex(window.name);
+                    //关闭子页面索引
+                    window.parent.layer.close(index);
+                    //刷新父页面的表格
+                    parent.layui.table.reload('navs');
                 });
             },error: function () {
                 layer.alert("添加失败");
@@ -209,7 +206,7 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
         $("#show"+data.elem.value).prop("checked",'checked');
     });
 
-    //------------------编辑-----------------------
+    //------------------父导航编辑-----------------------
     form.on('submit(update)',function (data) {
         var res,val = $("input[name='statues']:checked").val();
         if(val==='1'){
@@ -217,7 +214,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
         }else if(val === '0'){
             res = false;
         }
-        console.log(val);
         //JSON数据
         js = {id:$("#id").val(),name:$("#name").val(),url:$("#url").val(),statues:res,description:$("#description").val(),sort:$("#sort").val()};
         $.ajax({
@@ -227,14 +223,18 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
             contentType: 'application/json',
             data: JSON.stringify(js),
             success: function (data) {
-                layer.alert(data.msg);
-                parent.window.location.reload();
+                layer.msg(data.msg,{icon:1,time:4000},function () {
+                    //先获取子页面索引
+                    var index = parent.layer.getFrameIndex(window.name);
+                    //关闭子页面索引
+                    window.parent.layer.close(index);
+                    //刷新父页面的表格
+                    parent.layui.table.reload('navs');
+                });
             },error:function () {
                 layer.alert("更新失败");
-                parent.window.location.reload();
             }
         });
-        console.log(data);
         return false;
     });
 
@@ -253,7 +253,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
     table.on('tool(subDemo)',function (obj) {
         var data = obj.data
             ,event = obj.event;
-        console.log(data);
         var prev = $(this).parent().parent().parent();
         if (event === 'up' || event === 'down'){
             if ($(prev).prev().html() == null && event ==='up'){//判断最顶部,直接返回
@@ -312,7 +311,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
         }else if(val === '0'){
             res = false;
         }
-        console.log(val);
         //JSON数据
         js = {id:$("#id").val(),name:$("#name").val(),url:$("#url").val(),statues:res,description:$("#description").val(),sort:$("#sort").val()};
         $.ajax({
@@ -322,14 +320,17 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
             contentType: 'application/json',
             data: JSON.stringify(js),
             success: function (data) {
-                layer.alert(data.msg);
-                parent.window.location.reload();
+                layer.msg(data.msg,{icon:1,time:4000},function () {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    //关闭子页面索引
+                    window.parent.layer.close(index);
+                    //刷新父页面的表格
+                    parent.layui.table.reload('subNav');
+                });
             },error:function () {
                 layer.alert("更新失败");
-                parent.window.location.reload();
             }
         });
-        console.log(data);
         return false;
     });
 
@@ -351,7 +352,6 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
         }else{
             data.field.statues = false;
         }
-        console.log(JSON.stringify(data.field));
         $.ajax({
             url: '/nav/addSub?pid='+$('#pid').val(),
             type: 'post',
@@ -360,7 +360,11 @@ layui.define(['element','upload','jquery','layer','form','table'],function (expo
             data: JSON.stringify(data.field),
             success: function (data) {
                 layer.msg(data.msg,{icon:1,time:4000},function () {
-                    parent.window.location.reload();
+                    var index = parent.layer.getFrameIndex(window.name);
+                    //关闭子页面索引
+                    window.parent.layer.close(index);
+                    //刷新父页面的表格
+                    parent.layui.table.reload('subNav');
                 });
             },error: function () {
                 layer.alert("添加失败");
