@@ -1,0 +1,80 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>底部信息管理</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+
+    <div class="content">
+        <div class="layui-tab layui-tab-brief">
+            <ul class="layui-tab-title">
+                <li>底部导航管理</li>
+                <li class="layui-this">友情链接管理</li>
+                <li>版权信息管理</li>
+            </ul>
+            <div class="layui-tab-content">
+
+                <div class="layui-tab-item">
+                    <table class="layui-table" id="footNav" lay-filter="footNavs"></table>
+                    <div class="layui-btn-group">
+                        <button type="button" id="addF" class="layui-btn">增加</button>
+                    </div>
+                </div>
+
+                <div class="layui-tab-item layui-show">
+                    <table class="layui-table" id="links" lay-filter="demo"></table>
+                    <div class="layui-btn-group">
+                        <button type="button" id="addL" class="layui-btn">增加</button>
+                    </div>
+                </div>
+
+                <div class="layui-tab-item">
+                    <form class="layui-form">
+                        <input type="text" id="cid" name="id" th:value="${copy.id}" hidden>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="name" name="name" th:value="${copy.name}"  lay-verify="required|name"  autocomplete="off" class="layui-input" placeholder="请输入公司名称">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">备案号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="icp" name="icp" th:value="${copy.icp}"  lay-verify="required|icp"  autocomplete="off" class="layui-input" placeholder="请输入公司备案号">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit id="updateC" lay-filter="updateC">保存修改</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('foot');
+</script>
+<script type="text/html" id="table-link-change">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit">编辑</i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete">删除</i></a>
+</script>
+<script type="text/html" id="table-foot-change">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit">编辑</i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete">删除</i></a>
+</script>
+</body>
+</html>

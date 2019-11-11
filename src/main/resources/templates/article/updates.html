@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>修改分类</title>
+    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}"  media="all" />
+</head>
+
+<body>
+
+<form class="layui-form" id="addForm">
+    <div class="layui-form" style="padding: 20px 0 0 0">
+
+        <input type="text" name="id" th:value="${edit.getId()}" id="id" hidden>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">类别名称</label>
+            <div class="layui-input-inline">
+                <input type="text" id="name" name="name" th:value="${edit.getName()}"  lay-verify="required|title"  autocomplete="off" class="layui-input" placeholder="请输名称">
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-inline">
+                <input type="text" id="description" name="description" lay-verify="required" th:value="${edit.getDescription()}" autocomplete="off" class="layui-input" placeholder="请输入描述">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit id="update" lay-filter="categoryUpdate">保存修改</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('article');
+</script>
+</body>
+</html>

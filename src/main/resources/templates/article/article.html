@@ -1,0 +1,47 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>文章列表</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="content">
+        <div class="layui-fluid" style="margin-top: 20px;">
+            <div class="layui-form-item" style="margin: 5px 0">
+                <div style="float: left;">
+                    <span class="layui-breadcrumb">
+                        <a th:href="@{/main}">首页</a>
+                        <a><cite>文章</cite></a>
+                        <a th:href="@{/article/index}">文章列表</a>
+                    </span>
+                </div>
+                <div class="search-article" style="float: right;">
+                    标题搜索
+                    <div class="layui-inline" style="display: flex">
+                        <input class="layui-input" name="title" id="title" autocomplete="off">
+                        <button class="layui-btn" id="searchTitle" data-type="searchTitle">搜索</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 内容主体区域 -->
+            <table id="articleShow" lay-filter="test" class="layui-table"></table>
+        </div>
+    </div>
+
+</div>
+
+<script th:src="@{/layui.js}"></script>
+<script th:inline="none" >
+    layui.config({
+        base: '/myJs/'
+    }).use('article');
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</body>
+</html>
+</body>
+</html>

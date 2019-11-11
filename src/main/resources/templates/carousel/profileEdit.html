@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>添加公司简介</title>
+    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}"  media="all" />
+</head>
+
+<body>
+
+<form class="layui-form" id="addForm">
+    <div class="layui-form" style="padding: 20px 0 0 0">
+
+        <input type="text" name="id" th:value="${companyProfile.getId()}" id="id" hidden>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">公司名称</label>
+            <div class="layui-input-inline">
+                <input type="text" id="name" name="name" th:value="${companyProfile.getName()}" lay-verify="required"  autocomplete="off" class="layui-input" placeholder="请输入公司名称">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+                <input type="text" id="title" name="title" th:value="${companyProfile.getTitle()}"  lay-verify="required|title"  autocomplete="off" class="layui-input" placeholder="请输入简介标题">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">广告图片</label>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn" id="upload">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+                <img id="show" th:src="@{${companyProfile.getImgUrl()}}" style="height: 50px;width: 50px;">
+                <input th:value="${companyProfile.getImgUrl()}" name="imgUrl">
+                <p id="demoText"></p>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">正文</label>
+            <div class="layui-input-inline">
+                <input type="text" id="message" name="message" th:value="${companyProfile.getMessage()}" autocomplete="off" class="layui-input" placeholder="请输入广告备注">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" id="sort" th:value="${companyProfile.getSort()}" name="sort" autocomplete="off" class="layui-input" placeholder="请输入广告排序">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn addSubmit" lay-submit id="update" lay-filter="update">保存</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('companyProfile');
+</script>
+</body>
+</html>

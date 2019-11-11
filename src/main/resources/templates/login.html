@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+	<title>后台登录</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" th:href="@{/bootstrap/css/bootstrap.css}">
+	<link href="/static/css/style.css" th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
+	<style>
+		body{color:#fff; font-family:"微软雅黑"; font-size:14px;}
+		.wrap1{position:absolute; top:0; right:0; bottom:0; left:0; margin:auto }/*把整个屏幕真正撑开--而且能自己实现居中*/
+		.main_content{background:url(/img/main_bg.png) repeat; margin-left:auto; margin-right:auto; text-align:left; float:none; border-radius:8px;}
+		.form-group{position:relative;}
+		.login_btn{display:block; background:#3872f6; color:#fff; font-size:15px; width:100%; line-height:50px; border-radius:3px; border:none; }
+		.login_input{width:100%; border:1px solid #3872f6; border-radius:3px; line-height:40px; padding:2px 5px 2px 30px; background:none;}
+		.icon_font{position:absolute; bottom:15px; left:10px; font-size:18px; color:#3872f6;}
+		.font16{font-size:16px;}
+		.mg-t20{margin-top:20px;}
+		.forget{float:right;}
+		.forget a{color:#fff;text-decoration: none;}
+		.forget a:hover{color:#fff;text-decoration: none;opacity: 0.5;}
+		.show{width:35px;height:20px;position: absolute;right:0;top:50%;margin-top:-10px;padding-right:10px;}
+		@media (min-width:200px){.pd-xs-20{padding:20px;}}
+		@media (min-width:768px){.pd-sm-50{padding:50px;}}
+		#grad {
+			background: -webkit-linear-gradient(#4990c1, #52a3d2, #6186a3); /* Safari 5.1 - 6.0 */
+			background: -o-linear-gradient(#4990c1, #52a3d2, #6186a3); /* Opera 11.1 - 12.0 */
+			background: -moz-linear-gradient(#4990c1, #52a3d2, #6186a3); /* Firefox 3.6 - 15 */
+			background: linear-gradient(#4990c1, #52a3d2, #6186a3); /* 标准的语法 */
+		}
+	</style>
+</head>
+<body onload="showValue()" style="background: url(/img/bg.jpg) no-repeat">
+<div id="app" class="container wrap1" style="height:450px;">
+	<h2 class="mg-b20 text-center" style="color:black;">
+		<img th:src="${#request.getSession().getAttribute('src')}" alt="公司LOGO" style="width:50px;height: 50px;"/>
+	</h2>
+	<h2 class="text-center" style="color:black;">后台管理中心</h2>
+	<div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
+		<a class="text-center font16" href="" @click.prevent="flag=true" >账号登录</a>
+		<a class="text-center font16" href="" @click.prevent="flag=false">邮箱登陆</a>
+		<login v-if="flag"></login>
+		<mail v-else="flag"></mail>
+	</div>
+
+</div>
+
+<template id="mail">
+
+	<!--<form action="" method="">-->
+	<form action="/email/login" method="post">
+
+		<!--用于提示验证码有误，也可以不添加这段代码-->
+		<!--<p style="color: red" th:text="${msg}" th:if="${not #strings.isError(msg)}" ></p>-->
+		<div class="form-group mg-t20">
+			<i class="icon-user icon_font"></i>
+
+			<!--<input type="text" name="emailCode" class="login_input" value="" placeholder="请输入邮箱号" />
+			<input type="button" name="submitCode" value="发送验证码" style="position: absolute;right: 0;top:50%;margin-top: -11px;margin-right: 10px;color: #fff;width: auto;background-color: #3872f6;border: none;">
+			-->
+			<input type="text" name="emailCode" id="emailCode" class="login_input" value="" placeholder="请输入邮箱号" />
+			<input type="button" name="submitCode" onclick="sendEmail()" value="发送验证码" style="position: absolute;right: 0;top:50%;margin-top: -11px;margin-right: 10px;color: #fff;width: auto;background-color: #3872f6;border: none;">
+
+
+		</div>
+		<div class="form-group mg-t20">
+			<i class="icon-lock icon_font"></i>
+			<input type="text" name="code" class="login_input" placeholder="输入验证码"/>
+		</div>
+		<button style=":submit" class="login_btn">登陆</button>
+	</form>
+
+</template>
+<template id="login">
+	<form action="/user/login" th:href="@{/user/login}" method="post">
+		<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" ></p>
+		<div class="form-group mg-t20">
+			<i class="icon-user icon_font"></i>
+			<input type="text" name="username" id="showName" class="login_input" value="" placeholder="请输入用户名" />
+		</div>
+		<div class="form-group mg-t20">
+			<i class="icon-lock icon_font"></i>
+			<input type="password" name="password" class="login_input" id="showPassword" placeholder="6-12位数字、字母或字符" />
+			<img class="show" id="show" alt="显示密码"  onclick="hideShowPsw()" src="/static/img/visible.png" th:src="@{/img/visible.png}">
+		</div>
+		<div class="checkbox mg-b25">
+			<label>
+				<!--<input type="checkbox" id="remember" name="remember" value="true" checked="checked"/>记住用户名-->
+				<input type="checkbox" id="remember" name="remember-me" value="true" checked="checked"/>记住用户名
+
+			</label>
+
+			<label class="forget"><a th:href="@{/forget}">忘记密码</a></label>
+		</div>
+		<button style=":submit" class="login_btn">登 录</button>
+
+	</form>
+</template>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!--<script src="../static/js/login.js"></script>-->
+<script th:inline="none">
+	//隐藏text block，显示password block
+	function hideShowPsw(){
+		var showImg = document.getElementById("show");
+		var showPassword = document.getElementById("showPassword");
+		if (showPassword != null){
+			if ("password" == showPassword.type){
+				showPassword.type = "text";
+				showImg.src="/img/invisible.png";
+			}else{
+				showPassword.type = "password";
+				showImg.src="/img/visible.png";
+			}
+		}
+	}
+
+	//读取Cookie
+	function getMyCookie(key){
+		var val = "";
+		// 对cookie操作
+		var cookies = document.cookie;
+		cookies = cookies.replace(/\s/,"");
+		var cookie_array = cookies.split(";");
+		for(i=0;i<cookie_array.length;i++){
+			var cookie = cookie_array[i];
+			var array = cookie.split("=");
+			if(array[0]==key){
+				val = array[1];
+			}
+		}
+		return val;
+	}
+	//显示username
+	function showValue() {
+		var username = document.getElementById("showName");
+		username.value = getMyCookie("username");
+	}
+
+	Vue.component('login',{
+	    template: '#login'
+    })
+	//Vue组件
+	Vue.component('mail', {
+		template: "#mail"
+	})
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			flag: true
+		},
+		methods: {}
+	});
+
+	function sendEmail() {
+	    alert("发送验证码");
+		window.location.href = '/email/code?emailCode=' + document.getElementById("emailCode").value;
+    }
+</script>
+</body>
+</html>

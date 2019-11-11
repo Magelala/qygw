@@ -1,0 +1,123 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>首页轮播图</title>
+</head>
+<body class="layui-layout-body">
+
+<div class="layui-layout layui-layout-admin">
+
+
+    <div class="content">
+        <div class="layui-tab layui-tab-brief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">轮播图管理</li>
+                <li>企业介绍轮播图管理</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item  layui-show">
+                    <div class="layui-form-item" style="margin: 5px 0">
+                        <div class="search-carousel" style="float: left;">
+                            id搜索
+                            <div class="layui-inline">
+                                <input class="layui-input" name="id" id="search" autocomplete="off">
+                            </div>
+                            <button class="layui-btn" data-type="search">搜索</button>
+                        </div>
+                        <div class="search-carousel" style="float: right;">
+                            标题搜索
+                            <div class="layui-inline">
+                                <input class="layui-input" name="title" id="title" autocomplete="off">
+                            </div>
+                            <button class="layui-btn" id="searchTitle" data-type="searchTitle">搜索</button>
+                        </div>
+                    </div>
+
+                    <table class="layui-table" id="carousel" lay-filter="demo"></table>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item" style="margin:5px 0">
+                        <div class="search-profile" style="float: left;">
+                            id搜索
+                            <div class="layui-inline">
+                                <input class="layui-input" name="id" id="psearch" autocomplete="off">
+                            </div>
+                            <button class="layui-btn" data-type="search">搜索</button>
+                        </div>
+                        <div class="search-profile" style="float: right;">
+                            标题搜索
+                            <div class="layui-inline">
+                                <input class="layui-input" name="title" id="ptitle" autocomplete="off">
+                            </div>
+                            <button class="layui-btn" id="psearchTitle" data-type="searchTitle">搜索</button>
+                        </div>
+                    </div>
+
+                    <!--工具栏模板-->
+                    <script type="text/html" id="ptoolbar">
+                        <a class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></a>
+                        <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></a>
+                        <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
+                    </script>
+                    <table class="layui-table" id="profile" lay-filter="pdemo"></table>
+                    <!--工具条模板-->
+                    <script type="text/html" id="table-profile-change">
+                        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="up"><i class="layui-icon layui-icon-up"></i></a>
+                        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="down"><i class="layui-icon layui-icon-down"></i></a>
+                    </script>
+                </div>
+            </div>
+        </div>
+        <!--<div style="margin-top: 20px;" class="layui-fluid">
+            <span class="layui-breadcrumb">
+                <a th:href="@{/main}">首页</a>
+                <a><cite>广告管理</cite></a>
+                <a th:href="@{/advertise/index}">首页轮播图</a>
+            </span>
+            <div class="layui-form-item" style="margin: 5px 0">
+                <div class="search-carousel" style="float: left;">
+                    id搜索
+                    <div class="layui-inline">
+                        <input class="layui-input" name="id" id="search" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" data-type="search">搜索</button>
+                </div>
+                <div class="search-carousel" style="float: right;">
+                    标题搜索
+                    <div class="layui-inline">
+                        <input class="layui-input" name="title" id="title" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" id="searchTitle" data-type="searchTitle">搜索</button>
+                </div>
+            </div>
+
+            <table class="layui-table" id="carousel" lay-filter="demo"></table>
+        </div>-->
+    </div>
+
+</div>
+
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('advertise');
+
+    layui.config({
+        base: '/myJs/'
+    }).use('companyProfile');
+</script>
+<!--工具栏模板-->
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
+</script>
+<!--工具条模板-->
+<script type="text/html" id="table-carousel-change">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="up"><i class="layui-icon layui-icon-up"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="down"><i class="layui-icon layui-icon-down"></i></a>
+</script>
+</body>
+</html>

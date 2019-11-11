@@ -1,0 +1,99 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>分类管理</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+
+
+
+
+    <div class="content">
+        <div class="layui-fluid" style="margin-top: 20px;">
+            <div class="layui-form-item" style="margin: 5px 0">
+                <div style="float: left;">
+                    <span class="layui-breadcrumb">
+                        <a th:href="@{/main}">首页</a>
+                        <a><cite>文章</cite></a>
+                        <a th:href="@{/article/category}">文章列表</a>
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- 内容主体区域 -->
+            <table id="categoryShow" lay-filter="test" class="layui-table"></table>
+            <div id="addClass" style="display: none; margin-top: 50px; margin-right: 40px;">
+                <form class="layui-form" action="" style="margin-top: 40px;" lay-filter="frm">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">文章类别</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" required lay-verify="required" placeholder="请输入文章类别" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">描述</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="description" required lay-verify="required" placeholder="请输入描述内容" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">添加</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="addBtn" style="text-align: center; padding: 20px;">
+                <button type="button" class="addClass layui-btn layui-btn-lg layui-btn-normal">添加分类</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/layui.js}"></script>
+<script th:inline="none" >
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#categoryShow'
+            ,url: '/article/showCategory' //数据接口
+            ,method: 'GET'
+            ,cellMinWidth: '80'
+            ,cols: [[ //表头
+                {field: 'id', title: '序号', align:'center',height:'100'}
+                ,{field: 'name',title: '文章类别名称',height:'100'}
+                ,{field: 'description',title: '描述',height:'100'}
+                ,{title:'操作',fixed: 'right', toolbar: '#barDemo',height:'100'} //这里的toolbar值是模板元素的选择器
+            ]]
+            ,page : false
+        });
+
+    });
+
+
+
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="editCategory">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delCategory">删除</a>
+</script>
+<script th:inline="none" >
+    layui.config({
+        base: '/myJs/'
+    }).use('article');
+</script>
+</body>
+</html>

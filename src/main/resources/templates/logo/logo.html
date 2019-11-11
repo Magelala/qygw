@@ -1,0 +1,42 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>logo管理</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+
+    <div class="content">
+        <div class="myLogo" style="width: 400px;height:400px;margin: 5px auto;">
+            <div class="layui-logo" id="cLogo" style="cursor: pointer;">
+                <img class="layui-photos-demo" th:src="${#request.getSession().getAttribute('src')}"/>
+            </div>
+            <button type="button" class="layui-btn" style="float: right;" id="updateLogo">更换</button>
+        </div>
+    </div>
+
+</div>
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+
+    //JavaScript代码区域
+    layui.use(['element','upload'], function(){
+        var element = layui.element,
+            $ = layui.jquery;
+
+        $('#updateLogo').on('click',function (data) {
+            layer.open({
+                type: 2
+                , title: '修改公司Logo'
+                , shade: [0.3]
+                , content: '/logo/edit?id=1'
+                , area: ['400px', '400px']
+                , offset: 'auto'
+
+            })
+        });
+    });
+</script>
+</body>
+</html>

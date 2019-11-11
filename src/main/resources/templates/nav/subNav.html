@@ -1,0 +1,34 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>子导航栏管理</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+    <!--子导航的pid,即对应的父导航id-->
+    <input hidden="hidden" id="subId" name="pid" th:value="${pid}" type="text">
+
+    <div class="layui-field-title" style="margin: 5px auto;width: 100px;height: 40px;"><span th:text="${title}" class="layui-btn layui-btn-primary"></span></div>
+
+    <table class="layui-table" id="subNav" lay-filter="subDemo"></table>
+
+    <div class="layui-btn-group" id="subOperate" style="margin-left: 10%;">
+        <button type="button" class="layui-btn" id="addSub">增加</button>
+    </div>
+
+</div>
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('nav');
+</script>
+<script type="text/html" id="table-subNav-change">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="up"><i class="layui-icon layui-icon-up"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="down"><i class="layui-icon layui-icon-down"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete"><i class="layui-icon layui-icon-delete"></i></a>
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+#cLogo{
+    width: 400px;
+    height: 400px;
+    position: relative;
+    border: 1px solid #009E94;
+}
+#cLogo img{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -200px;
+}

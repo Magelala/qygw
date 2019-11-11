@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>编辑父导航</title>
+    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}"  media="all" />
+</head>
+<body>
+
+<form class="layui-form" id="addForm">
+    <div class="layui-form" style="padding: 20px 0 0 0">
+
+        <input type="text" name="id" th:value="${navs.id}" id="id" hidden>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">导航名称</label>
+            <div class="layui-input-inline">
+                <input type="text" id="name" name="name" th:value="${navs.name}"  lay-verify="required|name"  autocomplete="off" class="layui-input" placeholder="请输入导航名称">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否显示</label>
+            <div class="layui-input-inline">
+                <input type="radio" id="show1" name="statues" th:value="1" title="显示" th:checked="${navs.statues}==true ? 'true':'false'" lay-filter="showbtn" autocomplete="off">
+                <input type="radio" id="show0" name="statues" th:value="0" title="隐藏" th:checked="${navs.statues}==false ? 'true':'false'" lay-filter="showbtn" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">导航链接</label>
+            <div class="layui-input-inline">
+                <input type="text" id="url" name="url" th:value="${navs.getUrl()}"  autocomplete="off" class="layui-input" placeholder="请输入菜单导航链接地址">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-inline">
+                <input type="text" id="description" name="description" th:value="${navs.description}" autocomplete="off" class="layui-input" placeholder="请输入相关描述">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" id="sort" th:value="${navs.getSort()}" name="sort" autocomplete="off" class="layui-input" placeholder="请输入广告排序">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="update">保存修改</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('nav');
+</script>
+</body>
+</html>

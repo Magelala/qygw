@@ -1,0 +1,69 @@
+<!--
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>企业简介</title>
+</head>
+<body class="layui-layout-body">
+
+<div class="layui-layout layui-layout-admin">
+
+    &lt;!&ndash;顶部&ndash;&gt;
+    <div th:replace="commons/common_header :: commonHeader"></div>
+
+    &lt;!&ndash;侧边栏&ndash;&gt;
+    <div class="layui-side layui-bg-black">
+        <div th:replace="commons/common_side::commonSide"></div>
+    </div>
+
+    <div class="layui-body">
+        <div style="margin-top: 20px;" class="layui-fluid">
+            <span class="layui-breadcrumb">
+                <a th:href="@{/main}">首页</a>
+                <a><cite>广告管理</cite></a>
+                <a th:href="@{/companyProfile/index}">企业简介</a>
+            </span>
+            <div class="layui-form-item" style="margin:5px 0">
+                <div class="search-carousel" style="float: left;">
+                    id搜索
+                    <div class="layui-inline">
+                        <input class="layui-input" name="id" id="search" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" data-type="search">搜索</button>
+                </div>
+                <div class="search-carousel" style="float: right;">
+                    标题搜索
+                    <div class="layui-inline">
+                        <input class="layui-input" name="title" id="title" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" id="searchTitle" data-type="searchTitle">搜索</button>
+                </div>
+            </div>
+
+            &lt;!&ndash;工具栏模板&ndash;&gt;
+            <script type="text/html" id="toolbar">
+                <a class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></a>
+                <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></a>
+                <a class="layui-btn layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
+            </script>
+            <table class="layui-table" id="carousel" lay-filter="demo"></table>
+            &lt;!&ndash;工具条模板&ndash;&gt;
+            <script type="text/html" id="table-carousel-change">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="up"><i class="layui-icon layui-icon-up"></i></a>
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="down"><i class="layui-icon layui-icon-down"></i></a>
+            </script>
+        </div>
+    </div>
+
+    <div th:replace="commons/common_footer::commonFooter"></div>
+</div>
+
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('companyProfile');
+</script>
+</body>
+</html>-->

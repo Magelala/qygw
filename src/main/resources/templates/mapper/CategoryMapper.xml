@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="problog.mapper.Category.CategoryMapper">
+<update id="updateCategory" parameterType="problog.entity.Category.Category">
+    UPDATE category SET
+     name=#{name},description=#{description} WHERE id=#{id}
+</update>
+
+</mapper>

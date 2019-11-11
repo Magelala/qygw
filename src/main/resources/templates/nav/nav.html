@@ -1,0 +1,47 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common_head::commonHead(~{::title})">
+    <title>父导航栏管理</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+
+    <div class="content">
+        <div class="layui-fluid">
+            <div class="layui-form-item" style="margin: 5px 0">
+                <div style="float: left;">
+                    <span class="layui-breadcrumb">
+                        <a th:href="@{/main}">首页</a>
+                        <a><cite>页面管理</cite></a>
+                        <a th:href="@{/nav/index}">导航管理</a>
+                    </span>
+                </div>
+            </div>
+            <table class="layui-table" id="navs" lay-filter="demo"></table>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="/static/layui.js" th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('nav');
+</script>
+<!--工具栏模板-->
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-1">添加栏目</i></a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit">编辑栏目</i></a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete">删除栏目</i></a>
+</script>
+<!--工具条模板-->
+<script type="text/html" id="table-nav-change">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="up"><i class="layui-icon layui-icon-up"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="down"><i class="layui-icon layui-icon-down"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="subNavs"><i class="layui-icon layui-icon-add-1">添加子栏目</i></a>
+</script>
+</body>
+</html>
