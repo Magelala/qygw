@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}" media="all" />
+</head>
+
+<body>
+<div style="height: calc(100vh - 60px); display: flex;">
+
+    <div class="right" style="flex: 1; padding: 15px;">
+      <span class="layui-breadcrumb">
+        <a href="">当前位置</a>
+        <a href="">用户管理</a>
+        <a href="">用户列表</a>
+      </span>
+        <div style="margin: 10px 0;">
+            <button class="layui-btn add"><i class="layui-icon">&#xe608;</i> 添加用户</button>
+            <div class="layui-inline">
+                <label class="layui-form-label">用户名称</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <input type="text" id="userName" name="userName" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <button class="search layui-btn"><i class="layui-icon layui-icon-search"></i>查询</button>
+            <div class="layui-inline">
+                <label class="layui-form-label">用户角色</label>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <input type="text" name="role" id="role" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <button class="search layui-btn"><i class="layui-icon layui-icon-search"></i>查询</button>
+
+        </div>
+        <!-- 第一步：编写模版。你可以使用一个script标签存放模板，如： -->
+        <script id="trTemplate" type="text/html">
+
+            <ul>
+                {{#  layui.each(d, function(index, item){ }}
+
+                <tr >
+                    <td>{{item.id}}</td>
+                    <td>{{item.userName}}</td>
+                    <td>{{item.password}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.tel}}</td>
+                    <td>{{item.email}}</td>
+
+                    {{# if (item.role == 1) { }}
+                    <td>管理员</td>
+                    {{# } else if(item.role == 2) { }}
+                    <td>编辑员</td>
+                    {{# } else  { }}
+                    <td>用户</td>
+                    {{# } }}
+
+
+                    <td>{{item.articleNum || ''}}</td>
+                    <td>
+                        <button class="update layui-btn  layui-btn-sm layui-btn-normal" data-id="{{item.id}}">
+                            <i class="layui-icon layui-icon-edit"></i>
+                            修改
+                        </button>
+                        <button class="delete layui-btn layui-btn-sm layui-btn-danger" data-id="{{item.id}}">
+                            <i class="layui-icon layui-icon-delete"></i>
+                            删除</button>
+                    </td>
+
+                </tr>
+
+                {{#  }); }}
+
+            </ul>
+
+        </script>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>用户名称</th>
+                <th>密码</th>
+                <th>姓名</th>
+                <th>联系方式</th>
+                <th>邮箱</th>
+                <th>角色</th>
+                <th>文章号</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <!-- 第二步：建立视图。用于呈现渲染结果。 -->
+            <tbody id="dataContainer">
+
+            </tbody>
+        </table>
+
+        <div style="display: flex; justify-content: center;">
+            <div id="pager"></div>
+        </div>
+
+    </div>
+</div>
+<!-- 添加用户弹出框 -->
+<div class="addUser" style="display: none; margin-top: 50px; margin-right: 40px;">
+    <form class="layui-form" action="" style="margin-top: 40px;" lay-filter="frm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="userName" required lay-verify="required" placeholder="请输入用户名" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码框</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="tel" required lay-verify="required" placeholder="请输入联系电话" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色</label>
+
+            <div class="layui-input-block">
+
+                <select name="role" lay-verify="required" >
+                    <div th:each="list:${roleList}">
+                        <option th:value="${list.id}" th:text="${list.name}"></option>
+                    </div>
+                </select>
+            </div>
+            <!--<div class="layui-input-block">
+                <select name="identity" lay-verify="required">
+                    <option value=""></option>
+                    <option value="管理员">管理员</option>
+                    <option value="主编">主编</option>
+                </select>
+            </div>-->
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">添加</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- 修改用户弹出框 -->
+<div class="updateUser" style="display: none;margin-top: 50px; margin-right: 40px;">
+</div>
+<!-- 修改用户模板 -->
+<script id="infoTemplate" type="text/html">
+    <form class="layui-form" action="" style="margin-top: 40px;" lay-filter="frm">
+        <div class="layui-form-item" style="display: none;">
+            <label  class="layui-form-label">序号</label>
+            <div  class="layui-input-block">
+                <input type="text" name="id" required lay-verify="required" value="{{d.id}}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="userName" required lay-verify="required" value="{{d.userName}}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" value="{{d.name}}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码框</label>
+            <div class="layui-input-block">
+                <input type="text" name="password" required lay-verify="required" value="{{d.password}}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="tel" required lay-verify="required" value="{{d.tel}}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+
+            <div class="layui-input-block">
+                <input type="text" name="email" required lay-verify="required" value="{{d.email}}" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <!-- <div class="layui-input-block">
+              <select name="identity" lay-verify="required">
+                <option value=""></option>
+                <option value="管理员">管理员</option>
+                <option value="主编">主编</option>
+              </select>
+            </div> -->
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色</label>
+            <div class="layui-input-block">
+
+                <!--<select name="role" lay-verify="required" >
+                    <div th:each="list:${roleList}"><option th:value="${list.id}" th:text="${list.name}"></option>
+
+                    </div>
+                </select>-->
+
+                <input type="text" name="role" required lay-verify="required" value="{{d.rrole.name}}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文章号</label>
+            <div class="layui-input-block">
+                <input type="text" name="articleNum" required lay-verify="required" value="{{d.articleNum}}" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="  layui-btn keep"  lay-submit lay-filter="formDemo1">保存</button>
+                <button type="reset" class="layui-btn layui-btn-primary cancel">取消</button>
+            </div>
+        </div>
+    </form>
+</script>
+<script th:src="@{/layui.js}"></script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs'
+    }).use('user');
+</script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use(['element', 'laypage', 'laytpl', 'layer', 'form'], function () {
+        var element = layui.element;
+        var laypage = layui.laypage;
+        var laytpl = layui.laytpl;
+        var layer = layui.layer;
+        var form = layui.form;
+
+        function getData() {
+            $.get('http://localhost:8083/user/show', data => {
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'pager' //注意，这里的 test1 是 ID，不用加 # 号
+                    , count: data.count, //数据总数，从服务端得到
+                    limit: 10,
+                    jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        console.log(obj.limit); //得到每页显示的条数
+                        console.log(data.count);
+
+
+                        //第三步：渲染模版
+
+                        $.get('http://localhost:8083/user/show', {
+                            pageIndex: obj.curr,
+                            pageSize: obj.limit
+                        }, data => {
+                            console.log(data.data);
+
+                            console.log(data.data[1].rrole.name);
+                            /* for(var i = 0; i<data.data.length;i++){
+
+                             }*/
+                            laytpl($('#trTemplate').html()).render(data.data, function (html) {
+                                $('#dataContainer').html(html)
+                            });
+
+                        })
+                    }
+                });
+            })
+        }
+        getData();
+        // 模糊搜索
+        $('.search').on('click',function () {
+            var js ={
+                userName:$('#userName').val(),
+                role:$('#role').val()
+            }
+
+
+            $.ajax({
+                url: 'http://localhost:8083/user/search',
+                data: JSON.stringify(js),
+                type: 'post',
+                contentType: 'application/json',
+                success: data => {
+                    if (data.count>0) {
+
+                        laytpl($('#trTemplate').html()).render(data.data, function (html) {
+                            $('#dataContainer').html(html)
+                        });
+
+
+                    } else {
+                        layer.msg('搜索失败', { icon: 6 });
+
+                        layer.close(index);
+                    }
+
+                },
+
+
+            })
+
+
+
+        });
+
+        //事件委托
+        //删除用户
+        $('#dataContainer').on('click', '.delete', function () {
+            var that = this;
+            layer.confirm('确定要删除吗?', { icon: 3, title: '系统提示' }, function (index) {
+                //do something
+                console.log($(that).attr('data-id'))
+                var ids=  $(that).attr('data-id');
+                $.ajax({
+                    url: 'http://localhost:8083/user/deletes?ids='+ids,
+                    type: 'post',
+                    contentType: 'application/json',
+                    success: data => {
+                        if (data.count>0) {
+                            layer.msg('删除成功', { icon: 6 });
+                            getData();
+                        } else {
+                            layer.msg('删除失败', { icon: 6 });
+                        }
+                        layer.close(index);
+                    }
+                })
+            });
+        })
+        //添加用户
+        $('.add').click(function () {
+            // console.log(1);
+            var index = layer.open({
+                type: 1,
+                title: '添加用户',
+                area: ['500px', '500px'],
+                content: $('.addUser'),
+                success: function (layero, index) {
+                    // 关闭弹框后清空输入框
+
+                    /*  form.val("frm", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                          "nickname": '' // "name": "value"
+                          , "name": ''
+                          , "fangxiang": ''
+                          , "desc": ''
+                          , 'city': ''
+                      });*/
+                    form.on('submit(formDemo)', function (data) {
+
+
+                        console.log(data.field);
+
+                        $.ajax({
+                            url: 'http://localhost:8083/user/add',
+                            data: JSON.stringify(data.field),
+                            type: 'post',
+                            contentType: 'application/json',
+                            success: data => {
+                                if (data.success) {
+                                    layer.msg('添加成功', { icon: 6 });
+                                    layer.close(index);
+                                    getData();
+                                } else {
+                                    layer.msg('添加失败', { icon: 6 });
+
+                                    layer.close(index);
+                                }
+
+                            },
+
+
+                        })
+                        return false;
+                    });
+                }
+            });
+        })
+        //修改用户信息
+        $('#dataContainer').on('click', '.update', function () {
+            $.get('http://localhost:8083/user/findOne', { id: $(this).attr('data-id') }, data => {
+                console.log(data);
+
+                laytpl($('#infoTemplate').html()).render(data.data, function (html) {
+                    $('.updateUser').html(html)
+                });
+                $('.keep').click(function () {
+                    console.log('aaa');
+                    form.on('submit(formDemo1)', function (data) {
+                        console.log(data.field);
+                        $.ajax({
+                            url: 'http://localhost:8083/user/update',
+                            data: JSON.stringify(data.field),
+                            type: 'PUT',
+                            contentType: 'application/json',
+                            success: data => {
+                                if (data.success) {
+                                    layer.msg('更新成功', { icon: 6 });
+                                    layer.close(index);
+                                    getData();
+                                } else {
+                                    layer.msg('更新失败', { icon: 6 });
+                                    layer.close(index);
+                                }
+
+                            },
+
+
+                        })
+                        return false;
+                    })
+
+                })
+                // $('.cancel').click(function(){
+                //   layer.close(layer.index);
+                // })
+            })
+            var index = layer.open({
+                type: 1,
+                title: '用户信息',
+                area: ['500px', '500px'],
+                content: $('.updateUser'),
+            });
+            $('.save').click(function () {
+                console.log(1);
+                // var index = layer.open({
+                //
+                //     success: function (layero, index) {
+                //         // 关闭弹框后清空输入框
+                //
+                //         form.val("frm", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                //             "id": '',
+                //             "userName": '',
+                //             "password": '',
+                //             "name": '',
+                //             "tel": '',
+                //             "email": '',
+                //             "role": '',
+                //             "articleNum": ''
+                //         });
+                //     }
+                // });
+
+
+            })
+
+        })
+
+    });
+</script>
+</body>
+
+</html>

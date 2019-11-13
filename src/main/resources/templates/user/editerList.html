@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/layui.css" th:href="@{/css/layui.css}"  media="all" />
+</head>
+
+<body>
+<div class="contianer">
+    <h2 style="margin: 20px; font-weight: 700;">拥有权限：</h2>
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="display: flex; flex-direction: column; width: 120px; font-size: 0;">
+                    <input type="checkbox" name="like[data]" title="数据中心" checked>
+                    <input type="checkbox" name="like[article]" title="文章管理" checked>
+                    <input type="checkbox" name="like[advert]" title="广告管理" checked>
+                    <input type="checkbox" name="like[user]" title="用户管理">
+                </div>
+            </div>
+        </div>
+    </form>
+    <button type="button" class="layui-btn layui-btn-normal" style="margin-left: 125px;">保存</button>
+</div>
+<script th:src="@{/layui.js}"></script>
+<script>
+    //Demo
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+</body>
+
+</html>
