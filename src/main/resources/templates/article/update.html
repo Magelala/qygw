@@ -9,56 +9,116 @@
 
 <body>
 
-<form class="layui-form" id="addForm">
-    <div class="layui-form" style="padding: 20px 0 0 0">
+<!--<form class="layui-form" id="addForm">-->
+<!--    <div class="layui-form" style="padding: 20px 0 0 0">-->
 
+<!--        <input type="text" name="id" th:value="${edit.getId()}" id="id" hidden>-->
+
+<!--        <div class="layui-form-item">-->
+<!--            <label class="layui-form-label">标题</label>-->
+<!--            <div class="layui-input-inline">-->
+<!--                <input type="text" id="title" name="title" th:value="${edit.getTitle()}"  lay-verify="required|title"  autocomplete="off" class="layui-input" placeholder="请输入广告标题">-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="layui-form-item">-->
+
+<!--            <div class="layui-input-inline">-->
+
+<!--                <p id="demoText"></p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="layui-form-item">-->
+<!--            <label class="layui-form-label">作者</label>-->
+<!--            <div class="layui-input-inline">-->
+<!--                <input type="text" id="link" name="imgLink" lay-verify="required" th:value="${edit.getAuthor()}" autocomplete="off" class="layui-input" placeholder="请输入作者">-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="layui-form-item">-->
+<!--            <label class="layui-form-label">摘要</label>-->
+<!--            <div class="layui-input-inline">-->
+<!--                <input type="text" id="summary" th:value="${edit.getSummary()}" name="summary" autocomplete="off" class="layui-input" placeholder="请输入摘要">-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="layui-form-item">-->
+<!--            <label class="layui-form-label">正文</label>-->
+<!--            <div class="layui-input-inline">-->
+<!--                <input type="text" id="getcontext" th:value="${edit.getContext()}" name="getcontext" autocomplete="off" class="layui-input" placeholder="请输入广告排序">-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="layui-form-item">-->
+<!--            <div class="layui-input-block">-->
+<!--                <button class="layui-btn" lay-submit id="update" lay-filter="update">保存修改</button>-->
+<!--                <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</form>-->
+<form class="layui-form" action="" style="margin-right: 60px; margin-top: 20px;">
+    <div class="layui-form-item classify">
+        <label class="layui-form-label">分类</label>
         <input type="text" name="id" th:value="${edit.getId()}" id="id" hidden>
+        <div class="layui-input-block">
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">标题</label>
-            <div class="layui-input-inline">
-                <input type="text" id="title" name="title" th:value="${edit.getTitle()}"  lay-verify="required|title"  autocomplete="off" class="layui-input" placeholder="请输入广告标题">
-            </div>
+            <select name="classify" lay-verify="required" >
+                <div th:each="list:${category}">
+                    <option th:value="${list.id}" th:text="${list.name}" id="type"></option>
+                </div>
+            </select>
         </div>
-
-        <div class="layui-form-item">
-
-            <div class="layui-input-inline">
-
-                <p id="demoText"></p>
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" >标题</label>
+        <div class="layui-input-block">
+            <input type="text" id="title" name="title" lay-verify="required|title" placeholder="请输入标题" th:value="${edit.getTitle()}" autocomplete="off" class="layui-input">
         </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">作者</label>
-            <div class="layui-input-inline">
-                <input type="text" id="link" name="imgLink" lay-verify="required" th:value="${edit.getAuthor()}" autocomplete="off" class="layui-input" placeholder="请输入作者">
-            </div>
+    </div>
+    <div class="layui-form-item textarea-content">
+        <label class="layui-form-label"  id="context" >正文</label>
+        <div class="layui-input-block" >
+            <input id="demo1" style="display: none;"  placeholder="" name="context" th:value="${edit.getContext()}" lay-verify="context">
         </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">摘要</label>
-            <div class="layui-input-inline">
-                <input type="text" id="summary" th:value="${edit.getSummary()}" name="summary" autocomplete="off" class="layui-input" placeholder="请输入摘要">
-            </div>
+        <label class="layui-form-label" >摘要</label>
+        <div class="layui-input-block">
+            <input name="summary" id="summary" required lay-verify="required" placeholder="请输入" th:value="${edit.getSummary()}" class="layui-textarea"></input>
         </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">正文</label>
-            <div class="layui-input-inline">
-                <input type="text" id="getcontext" th:value="${edit.getContext()}" name="getcontext" autocomplete="off" class="layui-input" placeholder="请输入广告排序">
-            </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">封面</label>
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn"  id="test1" >
+                <i class="layui-icon" id="image">&#xe67c;</i>上传图片
+            </button>
+            <img id="show"  name= 'picture' style="height: 50px;width: 50px;">
+            <p id="demoText"></p>
         </div>
-
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit id="update" lay-filter="update">保存修改</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">关键词</label>
+        <div class="layui-input-block">
+            <input type="text" name="keywords" id="keywords" lay-verify="required|keywords" placeholder="请输入关键词" th:value="${edit.getKeywords()}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">作者</label>
+        <div class="layui-input-block">
+            <input type="text" name="author" id="author" lay-verify="required|author" placeholder="请输入作者" th:value="${edit.getAuthor()}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" name="send" lay-submit lay-filter="update">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
-
 <script src="/static/layui.js" th:src="@{/layui.js}"></script>
 <script th:inline="none">
     layui.config({

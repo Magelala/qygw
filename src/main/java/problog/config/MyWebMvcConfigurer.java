@@ -53,6 +53,13 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addViewController("/user").setViewName("/user");
         registry.addViewController("/setting.html").setViewName("/setting");
         registry.addViewController("/setting").setViewName("/setting");
+
+       registry.addViewController("/user/userManage").setViewName("/user/userManage");
+       registry.addViewController("/user/limit").setViewName("/user/limits");
+       registry.addViewController("/adminList.html").setViewName("/user/adminList");
+       registry.addViewController("/editerList.html").setViewName("/user/editerList");
+       registry.addViewController("/news.html").setViewName("/news");
+       registry.addViewController("/foot.html").setViewName("/foot/index");
     }
 
 

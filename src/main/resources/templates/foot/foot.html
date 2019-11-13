@@ -6,13 +6,8 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
 
-    <div th:replace="commons/common_header :: commonHeader"></div>
 
-    <div class="layui-side layui-bg-black">
-        <div th:replace="commons/common_side::commonSide"></div>
-    </div>
-
-    <div class="layui-body">
+    <div class="content">
         <div class="layui-tab layui-tab-brief">
             <ul class="layui-tab-title">
                 <li>底部导航管理</li>
@@ -66,7 +61,6 @@
     </div>
 
 
-    <div th:replace="commons/common_footer :: commonFooter"></div>
 </div>
 <script src="/static/layui.js" th:src="@{/layui.js}"></script>
 <script th:inline="none">

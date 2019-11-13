@@ -15,16 +15,19 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         }
     });
     layedit.build("demo"); //建立编辑器
+    layedit.build("demo1",{
+        height:100
+    }); //建立编辑器
     form.verify({
         context: function(value){
             layedit.sync(index);
         }
     });
 
-     var index = layedit.build("demo"); //建立编辑器
+    var index = layedit.build("demo"); //建立编辑器
 
     form.verify({
-       context: function(value){
+        context: function(value){
             layedit.sync(index);
         }
     });
@@ -65,65 +68,65 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         var data = obj.data; //获得当前行数据
         json=JSON.stringify(data);
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-         if(layEvent === 'del'){ //删除
-          var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
-              $.ajax({
-                  url: '/article/delete/'+data.id,
-                  type: "post",
+        if(layEvent === 'del'){ //删除
+            var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
+                $.ajax({
+                    url: '/article/delete/'+data.id,
+                    type: "post",
 
-                  success: function () {
-                      {
-                          obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                          layer.close(delIndex);
-                          console.log(delIndex);
-                          layer.msg("删除成功")
-                      }
-                  }
-              })
-              layer.close(delIndex); //向服务端发送删除指令
+                    success: function () {
+                        {
+                            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                            layer.close(delIndex);
+                            console.log(delIndex);
+                            layer.msg("删除成功")
+                        }
+                    }
+                })
+                layer.close(delIndex); //向服务端发送删除指令
 
             });
         } else if(layEvent==='edit'){//编辑文章
-                layer.open({
-                    type:2  //类型2位弹出内置框
-                    , title: '修改文章'
-                    , shade: [0.3]
-                    , content: '/article/edit?id='+data.id
-                    , area: ['400px', '400px']
-                    , offset: 'auto'
-                })
-         }
-         else if (layEvent==='editCategory'){
-             layer.open({
-                 type:2  //类型2位弹出内置框
-                 , title: '修改类别名称'
-                 , shade: [0.3]
-                 , content: '/article/editCategory?id='+data.id
-                 , area: ['400px', '400px']
-                 , offset: 'auto'
-             })
-         }
-         else if (layEvent==='delCategory'){
-             { //删除分类
-                 var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
-                     $.ajax({
-                         url: '/article/deleteCategory/'+data.id,
-                         type: "post",
+            layer.open({
+                type:2  //类型2位弹出内置框
+                , title: '修改文章'
+                , shade: [0.3]
+                , content: '/article/edit?id='+data.id
+                , area: ['500px', '750px']
+                , offset: 'auto'
+            })
+        }
+        else if (layEvent==='editCategory'){
+            layer.open({
+                type:2  //类型2位弹出内置框
+                , title: '修改类别名称'
+                , shade: [0.3]
+                , content: '/article/editCategory?id='+data.id
+                , area: ['400px', '400px']
+                , offset: 'auto'
+            })
+        }
+        else if (layEvent==='delCategory'){
+            { //删除分类
+                var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
+                    $.ajax({
+                        url: '/article/deleteCategory/'+data.id,
+                        type: "post",
 
-                         success: function () {
-                             {
-                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                                 layer.close(delIndex);
-                                 console.log(delIndex);
-                                 layer.msg("删除成功")
-                             }
-                         }
-                     })
-                     layer.close(delIndex); //向服务端发送删除指令
+                        success: function () {
+                            {
+                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                layer.close(delIndex);
+                                console.log(delIndex);
+                                layer.msg("删除成功")
+                            }
+                        }
+                    })
+                    layer.close(delIndex); //向服务端发送删除指令
 
-                 });
-             }
-         }
+                });
+            }
+        }
     });
 
     //更新
@@ -151,14 +154,83 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         console.log(data);
         return false;
     });
+    //更新
+    form.on('submit(update)',function (data) {
 
+        // // JSON数据
+        // js = {id:$("#id").val(),
+        //     title:$("#title").val(),
+        //     type:$("#type").val(),
+        //     author:$("#author").val(),
+        //     summary:$("#summary").val(),
+        //     context: $("#context").val(),
+        //     keywords: $("#keywords").val(),
+        //     picture:$("#show").src,
+        // }
+        // console.log($("#show").attr('src'))
+        $.ajax({
+            url: '/article/update',
+            type: 'PUT',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(data.field),
+            success: function (data) {
+                layer.alert(data.msg);
+                parent.window.location.reload();
+            },error:function () {
+                layer.alert("更新失败");
+                parent.window.location.reload();
+            }
+        });
+        console.log(data);
+        return false;
+    });
+    //添加按钮绑定事件
+    $('.addClass').click(function () {
+        // console.log(1);
+        var index = layer.open({
+            type: 1,
+            shade:0,
+            title: '添加分类',
+            area: ['500px', '300px'],
+            content: $('#addClass'),
+            success: function (layero, index) {
+                // 关闭弹框后清空输入框
+
+                form.val("frm", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                    "name": '',
+                    'description':'',
+                });
+                form.on('submit(formDemo)', function (data) {
+                    $.ajax({
+                        url: ' /article/addCategory ',
+                        data: JSON.stringify(data.field),
+                        type: 'post',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            layer.msg('添加成功', { icon: 6 },function () {
+                                window.location.reload();
+                            });
+                            layer.close(index);
+                        },error: function () {
+                            layer.msg('添加失败', { icon: 6 });
+                            layer.close(index);
+                        }
+
+
+                    })
+                    return false;
+                });
+            }
+        });
+    })
     //更新分类
     form.on('submit(categoryUpdate)',function (data) {
         //JSON数据
         js = {id:$("#id").val(),
             name:$("#name").val(),
             description:$("#description").val(),
-            };
+        };
         $.ajax({
             url: '/article/updates',
             type: 'PUT',
@@ -258,7 +330,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
 
     var active =  {
 
-            searchTitle: function () {
+        searchTitle: function () {
             var title = $('#title');
             table.reload('articleShow',{
                 page: {

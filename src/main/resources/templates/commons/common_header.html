@@ -7,7 +7,7 @@
     </div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item"><a th:href="@{/}">数据中心</a></li>
+        <li class="layui-nav-item"><a th:href="@{/news.html}" target="main">数据中心</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item">
@@ -15,9 +15,9 @@
                 <img src="/static/img/user.jpg" th:src="@{/img/user.jpg}" class="layui-nav-img" alt="用户名">用户名
             </a>
             <dl class="layui-nav-child layui-anim layui-anim-upbit">
-                <dd><a th:href="@{/setting/myProfile}">基本资料</a></dd>
-                <dd><a th:href="@{/setting/updatePwd}">修改密码</a></dd>
-                <dd><a th:href="@{/setting}">系统设置</a></dd>
+                <dd><a th:href="@{/setting/myProfile}" target="main">基本资料</a></dd>
+                <dd><a th:href="@{/setting/updatePwd}" target="main">修改密码</a></dd>
+                <dd><a th:href="@{/setting}" target="main">系统设置</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item"><a th:href="@{/loginOutSuccess}">退出</a></li>

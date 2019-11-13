@@ -5,14 +5,7 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-
-    <div th:replace="commons/common_header :: commonHeader"></div>
-
-    <div class="layui-side layui-bg-black">
-        <div th:replace="commons/common_side::commonSide"></div>
-    </div>
-
-    <div class="layui-body">
+    <div class="content">
         <div class="layui-fluid">
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
@@ -87,8 +80,6 @@
             </div>
         </div>
     </div>
-
-    <div th:replace="commons/common_footer :: commonFooter"></div>
 </div>
 
 <script src="/static/layui.js" th:src="@{/layui.js}"></script>

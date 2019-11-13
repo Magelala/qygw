@@ -166,6 +166,8 @@ public class ArticleController {
     public String update(@RequestParam("id") Integer id, Model model){
         ArticleContent list = articleService.selectArticleById(id);
         model.addAttribute("edit",list);
+        List<Category> category = categoryService.showCategory();
+        model.addAttribute("category",category);
         return "article/update";
     }
 
