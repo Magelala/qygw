@@ -87,7 +87,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
 
             });
         } else if(layEvent==='edit'){//编辑文章
-            layer.open({
+           window.top. layer.open({
                 type:2  //类型2位弹出内置框
                 , title: '修改文章'
                 , shade: [0.3]
@@ -97,7 +97,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             })
         }
         else if (layEvent==='editCategory'){
-            layer.open({
+            window.top.layer.open({
                 type:2  //类型2位弹出内置框
                 , title: '修改类别名称'
                 , shade: [0.3]
