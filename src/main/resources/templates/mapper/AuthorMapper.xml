@@ -2,6 +2,80 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="problog.mapper.User.AuthorMapper">
 
+    <resultMap   id="AuthorMap" type="problog.entity.User.Author">
+
+        <id column="id" property="id"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="tel" column="tel" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="articleNum" column="article_num" />
+        <result property="picture" column="picture" jdbcType="VARCHAR"/>
+        <result property="context" column="context" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+
+    <resultMap id="BaseResultMap" type="problog.entity.User.Author">
+    <id column="id" property="id"/>
+    <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+    <result property="password" column="password" jdbcType="VARCHAR"/>
+    <result property="name" column="name" jdbcType="VARCHAR"/>
+    <result property="tel" column="tel" jdbcType="VARCHAR"/>
+    <result property="email" column="email" jdbcType="VARCHAR"/>
+    <result property="role" column="role" jdbcType="VARCHAR"/>
+    <result property="articleNum" column="article_num"/>
+    <result property="picture" column="picture" jdbcType="VARCHAR"/>
+    <result property="context" column="context" jdbcType="VARCHAR"/>
+
+    <association property="rrole" javaType="problog.entity.authorization.Role">
+        <id column="rid" property="id"/>
+        <result column="role_name" property="roleName" />
+        <result column="rname" property="name"/>
+    </association>
+    </resultMap>
+
+
+    <!--  多表查询 author ,user_role,role -->
+    <select id="getAllUser" resultMap="BaseResultMap">
+        SELECT u.*, r.`id` As rid,r.`name` AS rname FROM author u LEFT JOIN user_role ur ON u.`id`=ur.`urid` LEFT JOIN role r ON ur.`rid`=r.`id`  ORDER BY u.`id` ASC
+
+    </select>
+
+    <!--  多表分页查询 author ,user_role,role-->
+    <select id="selectPage" resultMap="BaseResultMap">
+        SELECT u.* ,r.`id` As rid,r.`name` AS rname FROM author u LEFT JOIN user_role ur ON u.`id`=ur.`urid` LEFT JOIN role r ON ur.`rid`=r.`id`  ORDER BY u.`id` ASC limit #{limit},#{page}
+
+    </select>
+
+
+    <!--  多表根据用户id 查询 author ,user_role,role-->
+    <select id="getAllById" parameterType="Integer"  resultMap="BaseResultMap">
+        SELECT u.*,r.`id` As rid,r.`name` AS rname FROM author u LEFT JOIN user_role ur ON u.`id`=ur.`urid` LEFT JOIN role r ON ur.`rid`=r.`id`  WHERE u.id=#{id}
+
+    </select>
+
+
+    <!-- 多表模糊查询 根据用户名称:userName 和 角色名称：name-->
+    <select id="search" parameterType="String" resultMap="BaseResultMap">
+        SELECT u.*,r.`id` As rid ,r.`name` AS rname FROM author u LEFT JOIN user_role ur ON u.`id`=ur.`urid` LEFT JOIN role r ON ur.`rid`=r.`id`
+
+        <where>
+            <if test="userName != null and userName != ''">
+                or u.user_name like concat('%',#{userName},'%')
+            </if>
+            <if test="name != null and name != ''">
+                or r.name like concat('%',#{name},'%')
+            </if>
+        </where>
+
+        ORDER BY u.`id`
+    </select>
+
+
+
     <!--根据用户名查询-->
     <select id="selectByName" parameterType="String" resultType="problog.entity.User.Author">
         select * from author where user_name = #{username}

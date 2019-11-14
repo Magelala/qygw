@@ -5,6 +5,7 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
+
     <div class="content">
         <div class="layui-fluid">
             <div class="layui-row layui-col-space15">
@@ -17,25 +18,23 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">我的角色</label>
                                     <div class="layui-input-inline">
-                                        <select name="role" lay-verify="">
-                                            <option value="1" selected>超级管理员</option>
-                                            <option value="2" disabled>普通管理员</option>
-                                            <option value="3" disabled>审核员</option>
-                                            <option value="4" disabled>编辑人员</option>
-                                        </select>
+                                        <input type="text" disabled="disabled" th:value="${user.getRrole().getName()}" class="layui-input">
                                     </div>
                                     <div class="layui-form-mid layui-word-aux">当前角色不可更改为其它角色</div>
                                 </div>
                                 <div class="layui-form-item">
+                                    <input type="text" name="" th:value="${user.getId()}" id="id" hidden>
+                                    <input type="text" name="" th:value="${user.getPassword()}" id="password" hidden>
+                                    <input type="text" name="" th:value="${user.getRole()}" id="role" hidden>
                                     <label class="layui-form-label">用户名</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="username" class="layui-input">
+                                        <input type="text" id="userName" name="userName" th:value="${user.getUserName()}" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">昵称</label>
+                                    <label class="layui-form-label">姓名</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="nickname" lay-verify="nickname" autocomplete="off" placeholder="请输入昵称" class="layui-input">
+                                        <input type="text" id="name" name="name" th:value="${user.getName()}"  lay-verify="name" autocomplete="off" placeholder="请输入昵称" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
@@ -47,29 +46,32 @@
                                         <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
                                             <i class="layui-icon">&#xe67c;</i>上传图片
                                         </button>
+                                        <img id="show" th:src="@{${user.getPicture()}}" style="height: 50px;width: 50px;">
+                                        <input id="picture" th:value="${user.getPicture()}" name="picture">
+                                        <p id="demoText"></p>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">手机</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="cellphone" value="" lay-verify="phone" autocomplete="off" class="layui-input">
+                                        <input type="text" name="tel" id="tel"  th:value="${user.getTel()}" lay-verify="phone" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">邮箱</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="email" value="" lay-verify="email" autocomplete="off" class="layui-input">
+                                        <input type="text" id="email" name="email" th:value="${user.getEmail()}" lay-verify="email" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item layui-form-text">
                                     <label class="layui-form-label">备注</label>
                                     <div class="layui-input-block">
-                                        <textarea name="remarks" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                        <input type="text" name="context" id="context" th:value="${user.getContext()}" placeholder="请输入内容" class="layui-input"></input>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn" lay-submit lay-filter="setmyinfo">确认修改</button>
+                                        <button class="layui-btn update" lay-submit lay-filter="setmyinfo">确认修改</button>
                                         <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
                                     </div>
                                 </div>
@@ -80,13 +82,17 @@
             </div>
         </div>
     </div>
+
+    <div th:replace="commons/common_footer :: commonFooter"></div>
 </div>
 
 <script src="/static/layui.js" th:src="@{/layui.js}"></script>
 <script th:inline="none">
     layui.config({
         base: '/myJs/'
-    }).use('common');
+    }).use('setting');
 </script>
+
+
 </body>
 </html>

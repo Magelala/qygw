@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="problog.mapper.authorization.RoleMapper">
+
+    <resultMap type="problog.entity.authorization.Role" id="RoleMap">
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!--查询所有-->
+    <select id="queryAll" resultType="problog.entity.authorization.Role">
+      SELECT * FROM role ORDER BY id DESC
+    </select>
+
+
+    <!--根据角色名查询-->
+    <select id="selectByName" parameterType="String" resultType="problog.entity.authorization.Role">
+        select * from role where role_name = #{roleName}
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="search" resultMap="RoleMap">
+        select
+        *
+        from role
+        <where>
+            <if test="roleName != null and roleName != ''">
+                or role_name like concat('%',#{roleName},'%')
+            </if>
+            <if test="name != null and name != ''">
+                or name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

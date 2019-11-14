@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="problog.mapper.authorization.MenuMapper">
+
+    <resultMap type="problog.entity.authorization.Menu" id="MenuMap">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="component" property="component" javaType="java.lang.Object"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="iconCls" property="iconCls" jdbcType="VARCHAR"/>
+        <result column="keepAlive" property="keepAlive" jdbcType="BIT"/>
+        <result column="parentId" property="parentId" jdbcType="INTEGER"/>
+        <association property="meta" javaType="problog.entity.authorization.MenuMeta">
+            <result column="keepAlive" property="keepAlive"/>
+            <result column="requireAuth" property="requireAuth"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="BaseResultMap" type="problog.entity.authorization.Menu">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="component" property="component" javaType="java.lang.Object"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="iconCls" property="iconCls" jdbcType="VARCHAR"/>
+        <result column="keepAlive" property="keepAlive" jdbcType="BIT"/>
+        <result column="parentId" property="parentId" jdbcType="INTEGER"/>
+        <association property="meta" javaType="problog.entity.authorization.MenuMeta">
+            <result column="keepAlive" property="keepAlive"/>
+            <result column="requireAuth" property="requireAuth"/>
+        </association>
+        <collection property="roles" ofType="problog.entity.authorization.Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="roleName" property="roleName"/>
+        </collection>
+        <collection property="children" ofType="problog.entity.authorization.Menu">
+            <id column="id2" property="id"/>
+            <result column="path2" property="path" jdbcType="VARCHAR"/>
+            <result column="component2" property="component" jdbcType="VARCHAR"/>
+            <result column="name2" property="name" jdbcType="VARCHAR"/>
+            <result column="iconCls2" property="iconCls" jdbcType="VARCHAR"/>
+            <association property="meta" javaType="problog.entity.authorization.MenuMeta">
+                <result column="keepAlive2" property="keepAlive"/>
+                <result column="requireAuth2" property="requireAuth"/>
+            </association>
+            <collection property="children" ofType="problog.entity.authorization.Menu">
+                <id column="id3" property="id"/>
+                <result column="name3" property="name" jdbcType="VARCHAR"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+
+    <!--  多表查询 menu ,menu_role,role-->
+    <select id="getAllMenu" resultMap="BaseResultMap">
+       SELECT m.*,r.`id` AS rid,r.`name` AS rname,r.`role_name` AS roleName FROM menu m LEFT JOIN menu_role mr ON m.`id`=mr.`mid` LEFT JOIN role r ON mr.`rid`=r.`id` WHERE m.`enabled`=TRUE ORDER BY m.`id` ASC
+
+    </select>
+
+    <!--  根据角色id 多表查询 menu ,menu_role,role-->
+    <select id="listByRoleId" resultMap="BaseResultMap">
+        SELECT m.*,r.`id` AS rid,r.`name` AS rname,r.`role_name` AS roleName FROM menu m LEFT JOIN menu_role mr ON m.`id`=mr.`mid` LEFT JOIN role r ON mr.`rid`=r.`id` WHERE mr.`rid`=#{roleId}
+
+    </select>
+
+
+    <!--查询所有-->
+    <select id="queryAll" resultType="problog.entity.authorization.Menu">
+        SELECT * FROM menu
+    </select>
+
+
+    <!-- 根据menu 的id查询-->
+    <select id="findOneById" resultType="problog.entity.authorization.Menu">
+        SELECT * FROM menu WHERE  id =#{id}
+    </select>
+
+
+</mapper>

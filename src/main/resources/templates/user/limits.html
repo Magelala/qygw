@@ -18,32 +18,34 @@
         <a href="">权限管理</a>
       </span>
         <div class="changePlay-bth" style="margin-top: 30px; font-size: 0;">
-            <a th:href="@{/adminList.html}" class="layui-btn layui-btn-primary admin" target="limit"
+            <a th:href="@{/user/adminList}" class="layui-btn layui-btn-primary admin"   th:value="${roleList[0].getId()}"  target="limit"
                style="background-color:#1E9FFF; width: 200px;margin: 0;">管理员</a>
-            <a th:href="@{/editerList.html}" class="editer layui-btn layui-btn-primary" target="limit"
+            <a th:href="@{/user/editerList}" class="editer layui-btn layui-btn-primary" value="1"  target="limit"
                style="width: 200px; margin: 0;">编辑</a>
         </div>
-        <iframe th:src="@{/adminList.html}" name="limit" frameborder="0" style="width: 1000px;height: 500px;"></iframe>
+        <iframe th:src="@{/user/adminList}" name="limit" frameborder="0" style="width: 1000px;height: 500px;"></iframe>
 
     </div>
 </div>
 <script th:src="@{/layui.js}"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
-    //注意：导航 依赖 element 模块，否则无法进行功能性操作
-    layui.use('element', function () {
-        var element = layui.element;
 
-        //…
-    });
     $('.editer').click(function () {
         $(this).css('background', '#1E9FFF');
         $('.admin').css('background', 'white');
+
+
     })
     $('.admin').click(function () {
         $(this).css('background', '#1E9FFF');
         $('.editer').css('background', 'white');
     })
+</script>
+<script th:inline="none">
+    layui.config({
+        base: '/myJs/'
+    }).use('menu');
 </script>
 </body>
 
