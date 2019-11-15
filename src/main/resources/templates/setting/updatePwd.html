@@ -6,8 +6,6 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
 
-
-
     <div class="content">
         <div class="layui-fluid">
             <div class="layui-row layui-col-space15">
@@ -20,25 +18,25 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">当前密码</label>
                                     <div class="layui-input-inline">
-                                        <input type="password" name="oldPassword" lay-verify="required" lay-verType="tips" class="layui-input">
+                                        <input type="password" name="oldPassword" id="oldPassword" lay-verify="required" lay-verType="tips" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">新密码</label>
                                     <div class="layui-input-inline">
-                                        <input type="password" name="password" lay-verify="pass" lay-verType="tips" autocomplete="off" id="LAY_password" class="layui-input">
+                                        <input type="password" name="password"  lay-verify="pass" lay-verType="tips" autocomplete="off" id="LAY_password" class="layui-input">
                                     </div>
                                     <div class="layui-form-mid layui-word-aux">6到16个字符</div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">确认新密码</label>
                                     <div class="layui-input-inline">
-                                        <input type="password" name="repassword" lay-verify="repass" lay-verType="tips" autocomplete="off" class="layui-input">
+                                        <input type="password" name="repassword" id="repassword" lay-verify="repass" lay-verType="tips" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn" lay-submit lay-filter="spassword">确认修改</button>
+                                        <button class="layui-btn" id="updatePwd" lay-submit lay-filter="spassword">确认修改</button>
                                     </div>
                                 </div>
                             </div>
@@ -50,14 +48,14 @@
         </div>
     </div>
 
-
+    <div th:replace="commons/common_footer :: commonFooter"></div>
 </div>
 
 <script src="/static/layui.js" th:src="@{/layui.js}"></script>
 <script th:inline="none">
     layui.config({
         base: '/myJs/'
-    }).use('common');
+    }).use('setting');
 </script>
 </body>
 </html>

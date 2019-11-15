@@ -3,6 +3,7 @@ package problog.service;
 
 import org.springframework.stereotype.Service;
 import problog.entity.User.Author;
+import problog.entity.response.ResResult;
 
 @Service
 public interface AuthorService {
@@ -14,4 +15,8 @@ public interface AuthorService {
 
     // 根据邮箱查询
     Author selectByEmail(String email_code);
+
+
+    // 修改
+    ResResult updateAuthor(Author author);
 }

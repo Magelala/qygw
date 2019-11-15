@@ -22,7 +22,7 @@ public class PageController {
         return "user/user";
     }
 
-    @GetMapping("/setting")
+   /* @GetMapping("/setting")
     public String setting(Model model){
         return "setting/setting";
     }
@@ -35,6 +35,6 @@ public class PageController {
     @GetMapping("/setting/updatePwd")
     public String password(){
         return "setting/updatePwd";
-    }
+    }*/
 
 }

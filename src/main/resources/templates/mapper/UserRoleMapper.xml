@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="problog.mapper.authorization.UserRoleMapper">
+
+
+
+    <!--查询所有-->
+    <select id="ListByUserId" resultType="problog.entity.authorization.UserRole">
+        SELECT * FROM user_role WHERE urid=#{urid}
+    </select>
+
+    <!-- 根据用户id和角色id删除-->
+    <delete id="deleteByUridAndrid" >
+        DELETE FROM user_role WHERE urid=#{urid} AND rid=#{rid}
+    </delete>
+
+    <!-- 根据用户 id 删除-->
+    <delete id="deleteByUrid" >
+        DELETE FROM user_role WHERE urid=#{urid}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="problog.mapper.authorization.MenuRoleMapper">
+
+
+    <!--查询所有-->
+    <select id="ListByRoleId" resultType="problog.entity.authorization.MenuRole">
+        SELECT * FROM menu_role WHERE rid=#{rid}
+    </select>
+
+    <!-- 根据角色 id 删除-->
+    <delete id="deleteByRId">
+        DELETE FROM menu_role where rid=#{rid}
+    </delete>
+
+    <!-- 添加新的rid 和 mid-->
+    <insert id="addByRidMid">
+        INSERT INTO  menu_role VALUES (null,#{mid},#{rid});
+    </insert>
+
+
+</mapper>

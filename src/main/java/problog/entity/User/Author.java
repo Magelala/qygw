@@ -3,6 +3,7 @@ package problog.entity.User;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import problog.entity.authorization.Role;
 
 @Data
 public class Author {
@@ -15,6 +16,33 @@ public class Author {
     private String email;
     private String role;
     private String articleNum;
+    private String  picture;
+    private String context;
+    private Role rrole;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public Role getRrole() {
+        return rrole;
+    }
+
+    public void setRrole(Role rrole) {
+        this.rrole = rrole;
+    }
 
     public Integer getId() {
         return id;
