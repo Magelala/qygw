@@ -14,4 +14,28 @@ public class CopyRight {
     private String name;
 
     private String icp;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIcp() {
+        return icp;
+    }
+
+    public void setIcp(String icp) {
+        this.icp = icp;
+    }
 }
