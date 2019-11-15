@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,48 +50,11 @@ public class LoginController {
      * @throws IOException
      */
 
-   /* @PostMapping(value = "/user/login")
-    public String login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Map<String,Object> map){
-
-        String username = httpServletRequest.getParameter("username");
-        String password = httpServletRequest.getParameter("password");
-        //从数据库中查找该用户名
-        User user = FindUser.findUserByName(LoginController.data,username);
-        if (null != user && user.getUsername().equals(username) && user.getPassword().equals(password)){
-            httpServletRequest.getSession().setAttribute("user",user);
-            httpServletRequest.getSession().setAttribute("authorId",1);
-            String remember = httpServletRequest.getParameter("remember");
-            //记住用户名的功能实现，保存在Cookie中
-            if (remember.equals("true")){
-                Cookie cookie = new Cookie("username",username);
-                cookie.setPath("/");
-                cookie.setMaxAge(7*60*60*24);
-                httpServletResponse.addCookie(cookie);
-            }
-            return "redirect:/index.html";
-        }else{
-            httpServletRequest.getSession().setAttribute("user",null);
-            map.put("msg","用户名密码错误");
-           return "login";
-        }
-    }*/
-    /*@RequestMapping(value = "/loginOut")
-    public String loginOut(HttpServletRequest httpServletRequest){
-        HttpSession session = httpServletRequest.getSession();
-        String username = httpServletRequest.getParameter("username");
-        if (null != session){
-            session.removeAttribute("user");
-        }
-        return "login";
-    }*/
-
-
-
-
     @RequestMapping(value = "/user/login")
-    public String loginPage( Map<String,Object> map){
+    public String loginPage(Model model){
         Logo logo = logoService.getById(1);
         request.getSession().setAttribute("src",logo.getSrc());
+//        model.addAttribute("src",logo.getSrc());
         return "login";
     }
 
@@ -141,19 +105,9 @@ public class LoginController {
         mailService.sendSimpleMail(emailCode,subject,content);
         logger.info("{}: 为{} 设置邮箱验证码：{}",session.getId(),emailCode,code);
 
-       // response.sendRedirect("/login");
-    }
-
-    // 权限管理
-/*
-    @RequestMapping(value = "/main")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public String mianPage( ){
-
-        return "index";
 
     }
-*/
+
 
     @GetMapping("/forget")
     public String forgetPassword(){

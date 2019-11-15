@@ -113,16 +113,22 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
                         url: '/article/deleteCategory/'+data.id,
                         type: "post",
 
-                        success: function () {
-                            {
-                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                                layer.close(delIndex);
-                                console.log(delIndex);
-                                layer.msg("删除成功")
-                            }
-                        }
-                    })
-                    layer.close(delIndex); //向服务端发送删除指令
+
+                         success: function () {
+                             {
+                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                 layer.close(delIndex);
+                                 console.log(delIndex);
+                                 layer.msg("删除成功")
+                             }
+                         },
+                         error: function () {
+                             layer.close(delIndex);
+                             console.log(delIndex);
+                             layer.msg("删除失败")
+                         }
+                     })
+                     layer.close(delIndex); //向服务端发送删除指令
 
                 });
             }
@@ -130,7 +136,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
     });
 
     //更新
-    form.on('submit(update)',function (data) {
+  /*  form.on('submit(update)',function (data) {
         //JSON数据
         js = {id:$("#id").val(),
             title:$("#title").val(),
@@ -153,7 +159,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         });
         console.log(data);
         return false;
-    });
+    }); */
     //更新
     form.on('submit(update)',function (data) {
 
@@ -177,6 +183,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             success: function (data) {
                 layer.alert(data.msg);
                 parent.window.location.reload();
+                console.log(data)
             },error:function () {
                 layer.alert("更新失败");
                 parent.window.location.reload();
@@ -201,7 +208,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
                     "name": '',
                     'description':'',
                 });
-                form.on('submit(formDemo)', function (data) {
+                form.on('submit(formDemo2)', function (data) {
                     $.ajax({
                         url: ' /article/addCategory ',
                         data: JSON.stringify(data.field),
@@ -230,7 +237,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         js = {id:$("#id").val(),
             name:$("#name").val(),
             description:$("#description").val(),
-        };
+            };
         $.ajax({
             url: '/article/updates',
             type: 'PUT',
@@ -330,7 +337,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
 
     var active =  {
 
-        searchTitle: function () {
+            searchTitle: function () {
             var title = $('#title');
             table.reload('articleShow',{
                 page: {

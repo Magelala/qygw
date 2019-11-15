@@ -43,8 +43,6 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addViewController("/loginOut").setViewName("/login");
         registry.addViewController("/index.html").setViewName("/index");
         registry.addViewController("/main").setViewName("/index");
-        registry.addViewController("/article").setViewName("/article");
-        registry.addViewController("/article.html").setViewName("/article");
         registry.addViewController("/advertisement.html").setViewName("/advertise");
         registry.addViewController("/advertise").setViewName("/advertise");
         registry.addViewController("/forgetPassword.html").setViewName("/forget");
@@ -53,7 +51,6 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addViewController("/user").setViewName("/user");
         registry.addViewController("/setting.html").setViewName("/setting");
         registry.addViewController("/setting").setViewName("/setting");
-
        registry.addViewController("/user/userManage").setViewName("/user/userManage");
        registry.addViewController("/user/limit").setViewName("/user/limits");
        registry.addViewController("/adminList.html").setViewName("/user/adminList");

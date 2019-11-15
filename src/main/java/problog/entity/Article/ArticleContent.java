@@ -17,7 +17,6 @@ public class ArticleContent {
     private String keywords; //关键字
     private String summary; //摘要
     private String context; //文章内容
-
     private String isTop; //是否置顶,0不置顶,1置顶
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy/MM/dd",timezone = "GMT+8")
@@ -35,5 +34,9 @@ public class ArticleContent {
     private int sort; //排序,对文章的置顶有作用
 
     private String name;  //存放category表中的name字段数据
+
+    //时间索引的最大值与最小值
+    private String maxTimeStr;
+    private String minTimeStr;
 
 }

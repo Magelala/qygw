@@ -109,12 +109,12 @@ public class ArticleController {
         return CategoryResResult;
     }
 
+
     @RequestMapping(value = "/finds",method = RequestMethod.GET)
     @ResponseBody
     public ResResult<List<ArticleContent>> findByTitle(@RequestParam(value = "title") String title,
                                                  @RequestParam("limit")int limit,
                                                  @RequestParam("page") int page){
-        //int end = title.indexOf(",");
         List<ArticleContent> all = articleContentMapper.selectTitle(title.trim());
         List<ArticleContent> list = articleService.getArticleByTitle(title.trim(),(page-1)*limit,limit);
         ResResult<List<ArticleContent>> resResult = new ResResult<>();
@@ -138,14 +138,12 @@ public class ArticleController {
         List<Category> category = categoryService.showCategory();
         model.addAttribute("category",category);
         return "article/writeArticle";
-
     }
 
     @RequestMapping(value = "/category",method = RequestMethod.GET)
     public String showCategory(){
         return "article/category";
     }
-
 
     //删除文章
     @ResponseBody
@@ -158,7 +156,9 @@ public class ArticleController {
     @ResponseBody
     @PostMapping("deleteCategory/{id}")
     public void deleteCategory(@PathVariable Integer id){
-        categoryService.deleteCategory(id);
+
+            categoryService.deleteCategory(id);
+
     }
 
     //编辑文章
@@ -188,9 +188,11 @@ public class ArticleController {
         if (null != i1){
             resResult.setCode(0);
             resResult.setMsg("修改成功");
-            int i = articleService.update(articleContent);
+            String path = (String) request.getSession().getAttribute("path");
+            articleContent.setPicture(path);
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             articleContent.setModifiedByDate(timestamp);
+            int i = articleService.update(articleContent);
             resResult.setCount(i);
             resResult.setData(articleContent);
             request.getSession().setAttribute("path",null);

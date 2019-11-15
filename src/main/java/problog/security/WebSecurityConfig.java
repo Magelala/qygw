@@ -43,11 +43,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private EmailCodeAuthenticationSecurityConfig emailCodeAuthenticationSecurityConfig;
 
-
-
-
     @Autowired
     private DataSource dataSource;
+
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
@@ -56,10 +54,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return tokenRepository;
     }
 
+
+
     /*
      * 返回RememberMeServices实例
      * */
-   /* @Bean
+   @Bean
     public RememberMeServices rememberMeServices(){
         JdbcTokenRepositoryImpl rememberMeTokenRepository = new JdbcTokenRepositoryImpl();
         // 此时需要设置数据源，否则无法从数据库查询验证信息
@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         //该参数不是必须的，默认值为“remember-me" ,但如果设置必须和页面复选框的name一致
         rememberMeServices.setParameter("remember-me");
         return rememberMeServices;
-    }*/
+    }
 
 
     @Override
@@ -94,13 +94,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
         http.apply(emailCodeAuthenticationSecurityConfig).and()
                 .authorizeRequests()
-                /* .antMatchers("/article/**").hasAnyRole("USER")
+                 .antMatchers("/article/**").hasAnyRole("USER")
                   .antMatchers("/advertise/**").hasAnyRole("USER")
                   .antMatchers("/companyProfile/**").hasAnyRole("USER")
                   .antMatchers("/nav/**").hasAnyRole("USER")
                   .antMatchers("/setting/**").hasAnyRole("USER")
                   .antMatchers("/user").hasAnyRole("USER")
-                  .antMatchers("/upload/**").hasAnyRole("USER")*/
+                  .antMatchers("/upload/**").hasAnyRole("USER")
                 .antMatchers("/**").hasAnyRole("USER")
                 // 允许邮箱验证码发送URL
                 .antMatchers("/email/**").permitAll()
@@ -137,9 +137,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web)  {
         //设置拦截器忽略文件夹，可以对静态资源放行
-        web.ignoring().antMatchers(Constants.STATIC_RESOURCE_PATH);
+//        web.ignoring().antMatchers(Constants.STATIC_RESOURCE_PATH);
+        web.ignoring().antMatchers("/bootstrap/**","/img/**","/images/**","/fonts/**","/font/**","/css/**","/js/**","/lay/**","/node_modules/**","/upload/**","/lay/**","/layui.all.js","/layui.js");
+
     }
 
 
