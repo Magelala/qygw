@@ -15,10 +15,12 @@ import java.util.List;
 @Transactional
 public interface RoleService {
 
-
+    // 查询所有角色
     ResResult<List<Role>> findAll();
 
-
-
+    // 根据角色名称查询
     Role selectByRoleName(String roleName);
+
+    // 根据角色id查询
+    Role selectById(Integer rid);
 }

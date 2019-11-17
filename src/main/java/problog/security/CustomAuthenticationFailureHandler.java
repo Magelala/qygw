@@ -42,7 +42,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 
         }
 
-        request.getRequestDispatcher("/user/login").forward(request,response);
+        request.getRequestDispatcher("/login").forward(request,response);
         // 报异常，返回到前台
       //  response.getWriter().write(objectMapper.writeValueAsString(e.getMessage()));
     }

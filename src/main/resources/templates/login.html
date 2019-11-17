@@ -72,7 +72,7 @@
 
 </template>
 <template id="login">
-	<form action="/user/login" th:href="@{/user/login}" method="post">
+	<form action="/login" th:href="@{/user/login}" method="post">
 		<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" ></p>
 		<div class="form-group mg-t20">
 			<i class="icon-user icon_font"></i>

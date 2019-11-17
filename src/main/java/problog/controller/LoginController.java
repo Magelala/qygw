@@ -50,7 +50,7 @@ public class LoginController {
      * @throws IOException
      */
 
-    @RequestMapping(value = "/user/login")
+    @RequestMapping(value = "/login")
     public String loginPage(Model model){
         Logo logo = logoService.getById(1);
         request.getSession().setAttribute("src",logo.getSrc());
@@ -60,7 +60,7 @@ public class LoginController {
 
 
    // 登录成功跳转
-    @RequestMapping(value = "/user/success")
+    @RequestMapping(value = "/index")
     public String loginSuccess(HttpServletRequest request,
                                HttpServletResponse response,
                                Map<String,Object> map){

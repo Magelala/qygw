@@ -21,12 +21,12 @@ CREATE TABLE `author` (
 
 insert  into `author`(`id`,`user_name`,`password`,`name`,`tel`,`email`,`role`,`article_num`,`picture`,`context`) values
 (1,'gege','$2a$10$zyb.cqAJeDGTGKXCFMvs2ulSHGgnl1xVS0ZkSTUqCKe.nMwgBMy/G','gege','12','1521902412@qq.com','2',1,'',''),
-(2,'李四','123456','李四真','12343234544','1521902412@qq.com','编辑员',11,'',''),
+(2,'mage','123456','李四真','12343234544','1521902412@qq.com','3',11,'',''),
 (4,'士大夫','234234','小明','12233343455','1521902412','1',23,'',''),
 (5,'wuli','123456','丽丽','12345678902','3108136635@qq.com','1',22,'','KKKKKKKKKKKKKKKKKKKKKK看看'),
 (6,'shili','423423','四号','13189898887','nidf@gmail.com','作者',23,'',''),
-
-
+(65,'hh','$2a$10$Rqlooym4Vz8v6VzUMRDlZeHTIlVPl2QVJNXPKhDiAEeRI7AEEcDr2','hh','88888888888','jj@qq.com','1',0,NULL,NULL),
+(66,'KK','$2a$10$t4mMgZmdtSE87SAbZk3X1..zcLnL1mFUKRpcMyLeRz65OzjXxiJby','来了','12345678901','dd@qq.com','1',34,NULL,NULL);
 
 
 /*Table structure for table `menu` */
@@ -65,6 +65,39 @@ insert  into `menu`(`id`,`url`,`path`,`component`,`name`,`icon_cls`,`keep_alive`
 (11,'/foot/**','/foot/','Home','页面管理-底部信息管理','fa fa-windows',NULL,1,1,1),
 (12,'/logo/**','/logo/','Home','页面管理-公司logo管理','fa fa-windows',NULL,1,1,1);
 
+/*Table structure for table `menu_role` */
+
+DROP TABLE IF EXISTS `menu_role`;
+
+CREATE TABLE `menu_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mid` int(11) DEFAULT NULL,
+  `rid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mid` (`mid`),
+  KEY `rid` (`rid`),
+  CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
+  CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=449 DEFAULT CHARSET=utf8;
+
+/*Data for the table `menu_role` */
+
+insert  into `menu_role`(`id`,`mid`,`rid`) values
+(418,4,3),
+(419,5,3),
+(438,3,1),
+(439,4,1),
+(440,5,1),
+(441,7,1),
+(442,8,1),
+(443,9,1),
+(444,6,1),
+(445,11,1),
+(446,12,1),
+(447,4,2),
+(448,5,2);
+
+
 
 DROP TABLE IF EXISTS `role`;
 
@@ -76,10 +109,10 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `role` */
-
 insert  into `role`(`id`,`role_name`,`name`) values
 (1,'ROLE_superAdmin','超级管理员'),
-(2,'ROLE_author','编辑员');
+(2,'ROLE_author','编辑员'),
+(3,'ROLE_ANONYMOUS','普通用户');
 
 
 
@@ -115,8 +148,6 @@ insert  into `menu_role`(`id`,`mid`,`rid`) values
 (367,12,1);
 
 
-
-
 /*Table structure for table `user_role` */
 
 DROP TABLE IF EXISTS `user_role`;
@@ -135,14 +166,11 @@ CREATE TABLE `user_role` (
 /*Data for the table `user_role` */
 
 insert  into `user_role`(`id`,`urid`,`rid`) values
-(6,2,2),
 (8,4,2),
-(67,2,1),
-(68,4,1),
-(71,5,1),
-(74,1,1),
 (75,1,2),
 (84,65,2),
 (85,65,1),
 (86,66,2),
-(87,66,1);
+(87,66,1),
+(90,5,1),
+(101,2,3);

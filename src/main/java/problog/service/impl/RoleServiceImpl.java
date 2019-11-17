@@ -25,6 +25,7 @@ public class RoleServiceImpl implements RoleService {
 
 
 
+    // 查询所有角色
     @Override
     public ResResult<List<Role>> findAll() {
 
@@ -38,12 +39,24 @@ public class RoleServiceImpl implements RoleService {
     }
 
 
-
-
+    // 根据角色名称查询
     @Override
     public Role selectByRoleName(String roleName) {
         return roleMapper.selectByName(roleName);
     }
+
+    // 根据角色id查询
+    @Override
+    public Role selectById(Integer rid) {
+        try {
+
+            return roleMapper.selectById(rid);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
 }

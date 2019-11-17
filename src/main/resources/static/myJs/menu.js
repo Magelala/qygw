@@ -14,9 +14,6 @@ layui.define(['element','layer','form','jquery','table','laytpl'],function (expo
 
         date = data.data;
 
-        console.log("get:"+date[1].id);
-        console.log(date);
-
         //监听提交
         form.on('submit(adformDemo)', function (data) {
 
@@ -50,8 +47,8 @@ layui.define(['element','layer','form','jquery','table','laytpl'],function (expo
 
 
             console.log("================================");
-           var adId= date[1].id;
-           var uId= date[0].id;
+           var adId= date[2].id;
+           var uId= date[1].id;
 
             if(menuIds ==''){
                 layer.msg('权限不能为空', { icon: 6 });
@@ -113,8 +110,7 @@ layui.define(['element','layer','form','jquery','table','laytpl'],function (expo
             console.log(menuIds);
 
             console.log("================================");
-            var uId= date[0].id;
-            console.log("编辑员："+uId);
+            var uId= date[1].id;
 
             if(menuIds ==''){
                 layer.msg('权限不能为空', { icon: 6 });
