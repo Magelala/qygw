@@ -153,7 +153,8 @@ public class UserServiceImpl implements UserService {
 
             // 修改角色 先删除原来的后添加新的角色
             Integer rId = Integer.valueOf(author.getRole());
-            int i = userRoleMapper.deleteByUridAndrid(authorId,rId);
+           // int i = userRoleMapper.deleteByUridAndrid(authorId,rId);
+            int i = userRoleMapper.deleteByUrid(authorId);
             UserRole userRole = new UserRole();
             userRole.setUrid(authorId);
             userRole.setRid(rId);

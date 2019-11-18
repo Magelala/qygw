@@ -78,9 +78,6 @@ public class CustomMetadataSource implements FilterInvocationSecurityMetadataSou
         if(antPathMatcher.match("/upload/**", requestUrl)){
             return null;
         }
-        if(antPathMatcher.match("/loginOutSuccess/**", requestUrl)){
-            return null;
-        }
 
 
         //没有匹配上的资源，都是登录访问或权限不足

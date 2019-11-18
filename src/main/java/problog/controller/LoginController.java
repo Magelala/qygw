@@ -71,18 +71,14 @@ public class LoginController {
             return "login";
         }else{
             // 登陆成功
+            String name = authentication.getName();
+            map.put("userName",name);
             return "index";
         }
 
     }
 
 
-    //可以不需要新写一个处理退出的请求,直接使用登录时的哪个请求.
-    @RequestMapping(value = "/loginOutSuccess")
-    public String loginOut(){
-        request.getSession().removeAttribute("src");
-        return "login";
-    }
 
     @RequestMapping("/email/code")
     public void  email(String emailCode, HttpSession session,HttpServletResponse response) throws IOException {

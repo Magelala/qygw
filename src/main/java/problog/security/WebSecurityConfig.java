@@ -140,7 +140,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .logout()
                 .logoutUrl("/loginOut")// 注销接口
-                .logoutSuccessUrl("/loginOutSuccess").permitAll()  // 注销成功跳转接口
                 .invalidateHttpSession(true)// 指定是否在注销时让HttpSession无效
 
                 .and()

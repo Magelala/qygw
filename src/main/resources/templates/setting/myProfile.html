@@ -37,17 +37,14 @@
                                         <input type="text" id="name" name="name" th:value="${user.getName()}"  lay-verify="name" autocomplete="off" placeholder="请输入昵称" class="layui-input">
                                     </div>
                                 </div>
-                                <div class="layui-form-item">
+                                <div class="layui-form-item layui-form-text">
                                     <label class="layui-form-label">头像</label>
-                                    <div class="layui-input-inline">
-                                        <input name="avatar" lay-verify="required" id="LAY_avatarSrc" placeholder="图片地址" value="http://cdn.layui.com/avatar/168.jpg" class="layui-input">
-                                    </div>
-                                    <div class="layui-input-inline layui-btn-container" style="width: auto;">
-                                        <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
-                                            <i class="layui-icon">&#xe67c;</i>上传图片
+                                    <div class="layui-input-block">
+                                        <input name="avatar" disabled="disabled" lay-verify="required" id="picture" placeholder="图片地址" th:value="${user.getPicture()}"  class="layui-input">
+                                        <button type="button" class="layui-btn" id="uploadPic" >
+                                            <i class="layui-icon" id="image">&#xe67c;</i>上传图片
                                         </button>
-                                        <img id="show" th:src="@{${user.getPicture()}}" style="height: 50px;width: 50px;">
-                                        <input id="picture" th:value="${user.getPicture()}" name="picture">
+                                        <img id="show" class="picture" name="picture" th:src="${user.getPicture()}"style="height: 50px;width: 50px;">
                                         <p id="demoText"></p>
                                     </div>
                                 </div>
@@ -72,7 +69,7 @@
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button class="layui-btn update" lay-submit lay-filter="setmyinfo">确认修改</button>
-                                        <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
+                                        <button type="reset" class="resetPage layui-btn layui-btn-primary">重新填写</button>
                                     </div>
                                 </div>
                             </form>
