@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
@@ -23,6 +24,7 @@ import problog.security.authority.CustomMetadataSource;
 import problog.security.authority.UrlAccessDecisionManager;
 import problog.security.email.EmailCodeAuthenticationSecurityConfig;
 import problog.security.handler.CustomAccessDeniedHandler;
+import problog.security.provide.CustomAuthenticationProvide;
 import problog.security.service.CustomUserDetailsService;
 import problog.security.service.EmailUserDetailsService;
 
@@ -66,13 +68,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     private CustomAccessDeniedHandler customAccessDeniedHandler;
 
 
-
-
-
     @Autowired
     private DataSource dataSource;
 
 
+    // 记住我-自动登录
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
@@ -97,24 +97,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return rememberMeServices;
     }
 
+      @Bean
+    public PasswordEncoder passwordEncoder() {
+        // 密码加密方法;
+        return new BCryptPasswordEncoder();
+    }
 
+    // 认证管理配置方法
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.userDetailsService(userDetailsService).passwordEncoder(new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return s.equals(charSequence.toString());
-            }
-        });
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
 
+    // 拦截配置方法
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -154,7 +150,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .invalidSessionUrl("/");
 
 
-        // 异常处理
+        // 权限不足异常处理
         http.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler).authenticationEntryPoint(authenticationEntryPoint());
 
 
@@ -182,6 +178,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 
 
+    // 资源配置方法
     @Override
     public void configure(WebSecurity web)  {
         //设置拦截器忽略文件夹，可以对静态资源放行

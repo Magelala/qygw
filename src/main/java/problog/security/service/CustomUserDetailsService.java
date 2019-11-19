@@ -50,6 +50,11 @@ public class CustomUserDetailsService implements UserDetailsService{
 
         // 从数据库总取出用户信息
         Author author = authorService.selectByName(username);
+        // 判断用户是否存在
+        if(author==null){
+            throw new UsernameNotFoundException("用户名错误或不存在、密码错误！");
+
+        }
 
         // 分配角色,全部登录成功的用户都分配固定的角色
         //根据用户id 获取该用户的所有角色
