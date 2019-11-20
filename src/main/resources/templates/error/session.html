@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>踢出旧登录用户</title>
+</head>
+<body>
+<p style="color: red" th:text="${sessionMsg}" th:if="${not #strings.isEmpty(sessionMsg)}"></p>
+<div id="times" ></div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+
+    // 五秒实现页面跳转
+       var div = document.getElementById("times");
+       var time =3;
+       console.log("倒计时")
+       window.setInterval(()=>{
+           if(time==0){
+               window.parent.location.href="/loginOut";
+           }else{
+               div.innerHTML="将在 "+time+" 秒后注销";
+               time--;
+           }
+           console.log("倒计时")
+       },1000)
+
+
+
+
+
+
+</script>
+</body>
+</html>

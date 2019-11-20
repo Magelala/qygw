@@ -24,9 +24,10 @@ import problog.security.authority.CustomMetadataSource;
 import problog.security.authority.UrlAccessDecisionManager;
 import problog.security.email.EmailCodeAuthenticationSecurityConfig;
 import problog.security.handler.CustomAccessDeniedHandler;
-import problog.security.provide.CustomAuthenticationProvide;
+
 import problog.security.service.CustomUserDetailsService;
 import problog.security.service.EmailUserDetailsService;
+import problog.security.session.CustomExpiredSessionStrategy;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -147,7 +148,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .userDetailsService(userDetailsService).and()
                 // session管理
                 .sessionManagement()
-                .invalidSessionUrl("/");
+                .invalidSessionUrl("/")
+                // 设置限制最大登录数
+                .maximumSessions(1)
+                // 当达到最大值时，是否保留已经登录的用户
+                .maxSessionsPreventsLogin(false)
+                // 当达到最大值时，旧用户被踢出后操作
+                .expiredSessionStrategy(new CustomExpiredSessionStrategy());
 
 
         // 权限不足异常处理
