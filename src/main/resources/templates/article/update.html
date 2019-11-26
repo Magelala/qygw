@@ -16,7 +16,7 @@
         <input type="text" name="id" th:value="${edit.getId()}" id="id" hidden>
         <div class="layui-input-block">
 
-            <select name="classify" lay-verify="required" >
+            <select name="classify" lay-verify="required" id="select" th:value="${edit.getClassify()}" >
                 <div th:each="list:${category}">
                     <option th:value="${list.id}" th:text="${list.name}" id="type"></option>
                 </div>
@@ -48,7 +48,7 @@
             <button type="button" class="layui-btn"  id="test1" >
                 <i class="layui-icon" id="image">&#xe67c;</i>上传图片
             </button>
-            <img id="show"  name= 'picture' style="height: 50px;width: 50px;">
+            <img id="show"  name= 'picture' style="height: 50px;width: 50px;" th:src="@{${edit.getPicture()}}">
             <p id="demoText"></p>
         </div>
     </div>
