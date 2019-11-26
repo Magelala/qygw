@@ -1,7 +1,8 @@
 //引入element,文件上传upload组件
-layui.define(['element','form','jquery'],function (exports) {
+layui.define(['element','form','jquery','upload'],function (exports) {
     var element = layui.element,
         $ = layui.jquery,
+        upload = layui.upload,
         form = layui.form;
 
     form.render();
@@ -84,6 +85,47 @@ layui.define(['element','form','jquery'],function (exports) {
         }
 
     });
+
+    // 上传头像
+    var uploadInst = upload.render({
+        elem: '#uploadPic' //绑定元素,上传按钮的id
+        , url: '/upload/native' //上传接口
+        , method: 'POST'
+        , accept: 'images'
+        , size: 150
+        , before: function (obj) {
+            console.log(obj);
+
+            obj.preview(function (index, file, result) {
+
+                $('#show').attr('src', result); //图片链接
+            });
+        }
+        , done: function (res) {//上传完毕回调
+            layer.close(layer.msg('上传成功！'));
+
+            console.log("图片路径:"+res);
+            $('#picture').attr('value', res.data.src);
+            $('#show').attr('src', res.src);
+        }
+        , error: function () {//请求异常回调
+            //演示失败状态，并实现重传
+            var demoText = $('#demoText');
+            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+            demoText.find('.demo-reload').on('click', function () {
+                uploadInst.upload();
+            });
+        }
+    });
+
+    // 刷新页面
+    $('.resetPage').on('click',function () {
+        window.location.reload();
+
+    });
+
+
+
 
     exports('setting',{});
 

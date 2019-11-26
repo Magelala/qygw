@@ -33,6 +33,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
      /*
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(objectMapper.writeValueAsString(authentication));*/
-       response.sendRedirect("/user/success");
+       response.sendRedirect("/index");
     }
 }

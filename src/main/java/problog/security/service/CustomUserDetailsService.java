@@ -12,9 +12,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import problog.entity.User.Author;
+import problog.entity.authorization.Role;
+import problog.entity.authorization.UserRole;
+import problog.mapper.authorization.UserRoleMapper;
 import problog.service.AuthorService;
+import problog.service.RoleService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 自定义封装用户名和密码、权限
@@ -30,6 +35,12 @@ public class CustomUserDetailsService implements UserDetailsService{
     AuthorService authorService;
 
 
+    @Autowired
+    UserRoleMapper userRoleMapper;
+
+    @Autowired
+    RoleService roleService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -39,15 +50,30 @@ public class CustomUserDetailsService implements UserDetailsService{
 
         // 从数据库总取出用户信息
         Author author = authorService.selectByName(username);
-
-
         // 判断用户是否存在
         if(author==null){
             throw new UsernameNotFoundException("用户名错误或不存在、密码错误！");
 
         }
+
         // 分配角色,全部登录成功的用户都分配固定的角色
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        //根据用户id 获取该用户的所有角色
+        List<UserRole> userRoleList =userRoleMapper.ListByUserId(author.getId());
+        for (UserRole userRole : userRoleList){
+            Role role = roleService.selectById(userRole.getRid());
+
+            if(role==null){
+
+                continue;
+            }
+
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+
+
+        }
+
+
+        authorities.add(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
 
         // 返回UserDetails实现类
         return new User(author.getUserName(),author.getPassword(),authorities);

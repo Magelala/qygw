@@ -40,7 +40,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry){
         //视图跳转控制器
         registry.addViewController("/").setViewName("/login");
-        registry.addViewController("/loginOut").setViewName("/login");
+       /* registry.addViewController("/loginOut").setViewName("/login");*/
         registry.addViewController("/index.html").setViewName("/index");
         registry.addViewController("/main").setViewName("/index");
         registry.addViewController("/advertisement.html").setViewName("/advertise");
@@ -57,6 +57,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
        registry.addViewController("/editerList.html").setViewName("/user/editerList");
        registry.addViewController("/news.html").setViewName("/news");
        registry.addViewController("/foot.html").setViewName("/foot/index");
+       registry.addViewController("/error/session").setViewName("/error/session");
     }
 
 

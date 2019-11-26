@@ -31,6 +31,7 @@
 	</style>
 </head>
 <body onload="showValue()" style="background: url(/img/bg.jpg) no-repeat">
+<p style="color: red" th:text="${#request.getSession().getAttribute('sessionMsg')}" th:if="${#request.getSession().getAttribute('sessionMsg') ne  null}" ></p>
 <div id="app" class="container wrap1" style="height:450px;">
 	<h2 class="mg-b20 text-center" style="color:black;">
 		<img th:src="${#request.getSession().getAttribute('src')}" alt="公司LOGO" style="width:50px;height: 50px;"/>
@@ -72,7 +73,7 @@
 
 </template>
 <template id="login">
-	<form action="/user/login" th:href="@{/user/login}" method="post">
+	<form action="/login" th:href="@{/user/login}" method="post">
 		<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" ></p>
 		<div class="form-group mg-t20">
 			<i class="icon-user icon_font"></i>

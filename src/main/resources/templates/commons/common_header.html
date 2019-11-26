@@ -12,7 +12,7 @@
     <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item">
             <a href="javascript:;">
-                <img src="/static/img/user.jpg" th:src="@{/img/user.jpg}" class="layui-nav-img" alt="用户名">用户名
+                <img src="/static/img/user.jpg" th:src="@{/img/user.jpg}" th:text="${userName}"  class="layui-nav-img" alt="用户名">
             </a>
             <dl class="layui-nav-child layui-anim layui-anim-upbit">
                 <dd><a th:href="@{/setting/myProfile}" target="main">基本资料</a></dd>
@@ -20,6 +20,6 @@
                 <dd><a th:href="@{/setting}" target="main">系统设置</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item"><a th:href="@{/loginOutSuccess}">退出</a></li>
+        <li class="layui-nav-item"><a th:href="@{/loginOut}">退出</a></li>
     </ul>
 </div>
