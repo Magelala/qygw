@@ -69,7 +69,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         json=JSON.stringify(data);
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         if(layEvent === 'del'){ //删除
-            var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
+            var delIndex = top.layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
                 $.ajax({
                     url: '/article/delete/'+data.id,
                     type: "post",
@@ -77,7 +77,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
                     success: function () {
                         {
                             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                            layer.close(delIndex);
+                            top.layer.close(delIndex);
                             console.log(delIndex);
                             layer.msg("删除成功")
                         }
@@ -87,20 +87,22 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
 
             });
         } else if(layEvent==='edit'){//编辑文章
-           window.top. layer.open({
+
+           layer.open({
                 type:2  //类型2位弹出内置框
                 , title: '修改文章'
-                , shade: [0.3]
+                , shade: 0
                 , content: '/article/edit?id='+data.id
                 , area: ['500px', '750px']
                 , offset: 'auto'
             })
+
         }
         else if (layEvent==='editCategory'){
-            window.top.layer.open({
+            layer.open({
                 type:2  //类型2位弹出内置框
                 , title: '修改类别名称'
-                , shade: [0.3]
+                , shade:  0
                 , content: '/article/editCategory?id='+data.id
                 , area: ['400px', '400px']
                 , offset: 'auto'
@@ -108,7 +110,7 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         }
         else if (layEvent==='delCategory'){
             { //删除分类
-                var delIndex = layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
+                var delIndex = top.layer.confirm('真的删除行么'+ data.id + "的信息吗?", function(delIndex){
                     $.ajax({
                         url: '/article/deleteCategory/'+data.id,
                         type: "post",
@@ -117,13 +119,13 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
                          success: function () {
                              {
                                  obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                                 layer.close(delIndex);
+                                 top.layer.close(delIndex);
                                  console.log(delIndex);
                                  layer.msg("删除成功")
                              }
                          },
                          error: function () {
-                             layer.close(delIndex);
+                             top.layer.close(delIndex);
                              console.log(delIndex);
                              layer.msg("删除失败")
                          }
@@ -133,8 +135,10 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
                 });
             }
         }
-    });
 
+
+    });
+    console.log($('#select').val());
     //更新
   /*  form.on('submit(update)',function (data) {
         //JSON数据
@@ -181,17 +185,20 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
             contentType: 'application/json',
             data: JSON.stringify(data.field),
             success: function (data) {
-                layer.alert(data.msg);
-                parent.window.location.reload();
-                console.log(data)
+                layer.msg('更新成功',{icon:6},function () {
+                    parent.window.location.reload();
+                });
             },error:function () {
-                layer.alert("更新失败");
-                parent.window.location.reload();
+                layer.msg('更新失败',function () {
+                    var index1 = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index1)
+                });
             }
         });
         console.log(data);
         return false;
     });
+
     //添加按钮绑定事件
     $('.addClass').click(function () {
         // console.log(1);
@@ -241,21 +248,28 @@ layui.define(['element','table','form','upload','layedit','jquery','layer'],func
         $.ajax({
             url: '/article/updates',
             type: 'PUT',
+            async:false,
             dataType: 'JSON',
             contentType: 'application/json',
             data: JSON.stringify(js),
             success: function (data) {
-                layer.alert(data.msg);
-                parent.window.location.reload();
+                layer.msg('更新成功',{icon:6},function () {
+                    var index1 = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index1)
+                    parent.window.location.reload();
+
+                });
+
             },error:function () {
-                layer.alert("更新失败");
-                parent.window.location.reload();
+                layer.msg('更新失败',function () {
+                    var index1 = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index1)
+                });
             }
         });
         console.log(data);
         return false;
     });
-
     //为写文章中添加验证规则
     form.verify({
         title: function (value, item) {

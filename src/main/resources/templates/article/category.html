@@ -15,7 +15,7 @@
             <div class="layui-form-item" style="margin: 5px 0">
                 <div style="float: left;">
                     <span class="layui-breadcrumb">
-                        <a th:href="@{/main}">首页</a>
+                        <a th:href="@{/news.html}">首页</a>
                         <a><cite>文章</cite></a>
                         <a th:href="@{/article/category}">文章列表</a>
                     </span>
@@ -67,19 +67,21 @@
         var table = layui.table;
 
         //第一个实例
-        table.render({
-            elem: '#categoryShow'
-            ,url: '/article/showCategory' //数据接口
-            ,method: 'GET'
-            ,cellMinWidth: '80'
-            ,cols: [[ //表头
-                {field: 'id', title: '序号', align:'center',height:'100'}
-                ,{field: 'name',title: '文章类别名称',height:'100'}
-                ,{field: 'description',title: '描述',height:'100'}
-                ,{title:'操作',fixed: 'right', toolbar: '#barDemo',height:'100'} //这里的toolbar值是模板元素的选择器
-            ]]
-            ,page : false
-        });
+
+            table.render({
+                elem: '#categoryShow'
+                ,url: '/article/showCategory' //数据接口
+                ,method: 'GET'
+                ,cellMinWidth: '80'
+                ,cols: [[ //表头
+                    {field: 'id', title: '序号', align:'center',height:'100'}
+                    ,{field: 'name',title: '文章类别名称',height:'100'}
+                    ,{field: 'description',title: '描述',height:'100'}
+                    ,{title:'操作',fixed: 'right', toolbar: '#barDemo',height:'100'} //这里的toolbar值是模板元素的选择器
+                ]]
+                ,page : false
+            });
+
 
     });
 
