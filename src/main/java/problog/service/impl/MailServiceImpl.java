@@ -30,7 +30,7 @@ public class MailServiceImpl implements MailService {
     private JavaMailSender mailSender;
 
     @Override
-    public void sendSimpleMail(String to, String subject, String content) {
+    public boolean sendSimpleMail(String to, String subject, String content) {
         try {
 
         SimpleMailMessage message = new SimpleMailMessage();
@@ -40,11 +40,13 @@ public class MailServiceImpl implements MailService {
         message.setFrom(from);//发信人
         mailSender.send(message);
         logger.info("发送邮件成功");
+        return true;
         }
         catch (MailException e){
             logger.error("发送邮件失败");
         }
 
+        return false;
     }
 
     @Override

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import problog.entity.logo.Logo;
+import problog.entity.response.ResResult;
 import problog.service.LogoService;
 import problog.service.MailService;
 import springfox.documentation.annotations.ApiIgnore;
@@ -81,7 +82,8 @@ public class LoginController {
 
 
     @RequestMapping("/email/code")
-    public void  email(String emailCode, HttpSession session,HttpServletResponse response) throws IOException {
+    @ResponseBody
+    public ResResult  email(String emailCode, HttpSession session,HttpServletResponse response) throws IOException {
         int code = (int) Math.ceil(Math.random()* 9000+1000);
         Map<String,Object> map = new HashMap<>(16);
         map.put("email",emailCode);
@@ -98,9 +100,18 @@ public class LoginController {
         String subject = "小鱼发送文本邮件测试";
         // 邮件内容
         String content ="您好！欢迎登录magelala，你的登录验证码是："+code;
-        mailService.sendSimpleMail(emailCode,subject,content);
+        boolean b = mailService.sendSimpleMail(emailCode, subject, content);
+        if(!b){
+            // 发送失败
+            ResResult resResult = new ResResult(0, "发送失败", null);
+            return resResult;
+        }
+
+        ResResult resResult = new ResResult(0, "发送成功", null);
+        resResult.setCount(1);
         logger.info("{}: 为{} 设置邮箱验证码：{}",session.getId(),emailCode,code);
 
+        return resResult;
 
     }
 

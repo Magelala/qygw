@@ -77,6 +77,6 @@ public class EmailUserDetailsService implements UserDetailsService{
         authorities.add(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
 
         // 返回UserDetails实现类
-        return new User(author.getEmail(),author.getPassword(),authorities);
+        return new User(author.getUserName(),author.getPassword(),authorities);
     }
 }

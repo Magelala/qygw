@@ -98,7 +98,9 @@
 	</form>
 </template>
 
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 <!--<script src="../static/js/login.js"></script>-->
 <script th:inline="none">
 	//隐藏text block，显示password block
@@ -154,10 +156,32 @@
 		methods: {}
 	});
 
-	function sendEmail() {
-	    alert("发送验证码");
-		window.location.href = '/email/code?emailCode=' + document.getElementById("emailCode").value;
+
+    function sendEmail() {
+        alert("发送验证码");
+        $.ajax({
+            url:  '/email/code?emailCode=' + document.getElementById("emailCode").value,
+            type: 'post',
+            contentType: 'application/json',
+            success: data=>{
+                if (data.count>0) {
+
+                    alert('发送成功');
+
+
+                } else {
+                    alert('发送失败');
+
+                    alert(index);
+                }
+
+            },
+
+
+        });
+        //window.location.href = '/email/code?emailCode=' + document.getElementById("emailCode").value;
     }
+
 </script>
 </body>
 </html>
